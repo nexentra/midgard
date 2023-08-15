@@ -5,45 +5,38 @@ import (
 	"net/http"
 
 	"github.com/KnockOutEZ/rest-api-portfolio/api/auth"
-	"github.com/KnockOutEZ/rest-api-portfolio/api/responses"
+	"github.com/labstack/echo/v4"
 )
 
-
-func enableCors(w *http.ResponseWriter) {
-	(*w).Header().Set("Access-Control-Allow-Origin", "*")
-	}
-
-func SetMiddlewareJSON(next http.HandlerFunc) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		enableCors(&w)
-		w.Header().Set("Content-Type", "application/json")
+func SetMiddlewareJSON(next echo.HandlerFunc) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		c.Response().Header().Set("Content-Type", "application/json")
 		//start cors
-		w.Header().Set("Access-Control-Allow-Headers", "Content-Type,Authorization")
-		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS,PUT,DELETE")
-		if r.Method == "OPTIONS" {
-                    return
-                }
+		c.Response().Header().Set("Access-Control-Allow-Origin", "*")
+		c.Response().Header().Set("Access-Control-Allow-Headers", "Content-Type,Authorization")
+		c.Response().Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS,PUT,DELETE")
+		if c.Request().Method == "OPTIONS" {
+			return nil
+		}
 		//till here
-		next.ServeHTTP(w, r)
+		return next(c)
 	}
 }
 
-func SetMiddlewareAuthentication(next http.HandlerFunc) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		enableCors(&w)
-		err := auth.TokenValid(r)
+func SetMiddlewareAuthentication(next echo.HandlerFunc) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		err := auth.TokenValid(c.Request())
 		if err != nil {
-			responses.ERROR(w, http.StatusUnauthorized, errors.New("Unauthorized"))
-			return
+			return echo.NewHTTPError(http.StatusUnauthorized, errors.New("Unauthorized"))
 		}
-		w.Header().Set("Content-Type", "application/json")
+		c.Response().Header().Set("Content-Type", "application/json")
 		//start cors
-		w.Header().Set("Access-Control-Allow-Headers", "Content-Type,Authorization")
-		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS,PUT,DELETE")
-		if r.Method == "OPTIONS" {
-                    return
-                }
+		c.Response().Header().Set("Access-Control-Allow-Headers", "Content-Type,Authorization")
+		c.Response().Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS,PUT,DELETE")
+		if c.Request().Method == "OPTIONS" {
+			return nil
+		}
 		//till here
-		next.ServeHTTP(w, r)
+		return next(c)
 	}
 }

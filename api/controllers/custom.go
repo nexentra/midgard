@@ -1,241 +1,177 @@
 package controllers
 
 import (
-	"encoding/json"
 	"errors"
 	"fmt"
-	"io/ioutil"
 	"net/http"
 	"strconv"
 
 	"github.com/KnockOutEZ/rest-api-portfolio/api/auth"
 	"github.com/KnockOutEZ/rest-api-portfolio/api/models"
-	"github.com/KnockOutEZ/rest-api-portfolio/api/responses"
 	"github.com/KnockOutEZ/rest-api-portfolio/api/utils/formaterror"
-	"github.com/gorilla/mux"
+	"github.com/labstack/echo/v4"
 )
 
-func (server *Server) CreateCustomSchema(w http.ResponseWriter, r *http.Request) {
-
-	body, err := ioutil.ReadAll(r.Body)
-	if err != nil {
-		responses.ERROR(w, http.StatusUnprocessableEntity, err)
-		return
-	}
+func (server *Server) CreateCustomSchema(c echo.Context) error {
 	customSchema := models.CustomSchema{}
-	err = json.Unmarshal(body, &customSchema)
-	if err != nil {
-		responses.ERROR(w, http.StatusUnprocessableEntity, err)
-		return
+	if err := c.Bind(&customSchema); err != nil {
+		return echo.NewHTTPError(http.StatusUnprocessableEntity, err)
 	}
+
 	customSchema.Prepare()
-	err = customSchema.Validate()
+	err := customSchema.Validate()
 	if err != nil {
-		responses.ERROR(w, http.StatusUnprocessableEntity, err)
-		return
+		return echo.NewHTTPError(http.StatusUnprocessableEntity, err)
 	}
-	uid, err := auth.ExtractTokenID(r)
+	uid, err := auth.ExtractTokenID(c.Request())
 	if err != nil {
-		responses.ERROR(w, http.StatusUnauthorized, errors.New("Unauthorized"))
-		return
+		return echo.NewHTTPError(http.StatusUnauthorized, errors.New("Unauthorized"))
 	}
 	if uid != customSchema.UserID {
-		responses.ERROR(w, http.StatusUnauthorized, errors.New(http.StatusText(http.StatusUnauthorized)))
-		return
+		return echo.NewHTTPError(http.StatusUnauthorized, errors.New(http.StatusText(http.StatusUnauthorized)))
 	}
 	fmt.Println(customSchema, "customSchema")
 	customSchemaCreated, err := customSchema.SaveCustomSchema(server.DB)
 	if err != nil {
 		formattedError := formaterror.FormatError(err.Error())
-		responses.ERROR(w, http.StatusInternalServerError, formattedError)
-		return
+		return echo.NewHTTPError(http.StatusInternalServerError, formattedError)
 	}
-	w.Header().Set("Location", fmt.Sprintf("%s%s/%d", r.Host, r.URL.Path, customSchemaCreated.ID))
-	responses.JSON(w, http.StatusCreated, customSchemaCreated)
+	c.Response().Header().Set("Location", fmt.Sprintf("%s%s/%d", c.Request().Host, c.Request().RequestURI, customSchemaCreated.ID))
+	return c.JSON(http.StatusCreated, customSchemaCreated)
 }
 
-func (server *Server) GoGetAllCustomSchemas(w http.ResponseWriter, r *http.Request) {
-	key := mux.Vars(r)
-	uid, err := strconv.ParseUint(key["key"], 10, 64)
+func (server *Server) GoGetAllCustomSchemas(c echo.Context) error {
+	uid, err := strconv.ParseUint(c.Param("key"), 10, 64)
 	customSchema := models.CustomSchema{}
 	customSchemas, err := customSchema.GoFindAllMyCustomSchemas(server.DB, uid)
 	if err != nil {
-		responses.ERROR(w, http.StatusInternalServerError, err)
-		return
+		return echo.NewHTTPError(http.StatusInternalServerError, err)
 	}
-	responses.JSON(w, http.StatusOK, customSchemas)
+	return c.JSON(http.StatusOK, customSchemas)
 }
 
-func (server *Server) GoGetOneCustomSchemas(w http.ResponseWriter, r *http.Request) {
-
-	key := mux.Vars(r)
-	uid, err := strconv.ParseUint(key["key"], 10, 64)
-	pid, err := strconv.ParseUint(key["id"], 10, 64)
+func (server *Server) GoGetOneCustomSchemas(c echo.Context) error {
+	uid, err := strconv.ParseUint(c.Param("key"), 10, 64)
+	pid, err := strconv.ParseUint(c.Param("id"), 10, 64)
 	if err != nil {
-		responses.ERROR(w, http.StatusBadRequest, err)
-		return
+		return echo.NewHTTPError(http.StatusBadRequest, err)
 	}
 	customSchema := models.CustomSchema{}
 
-	customSchemaReceived, err := customSchema.GoFindCustomSchemaByID(server.DB, pid,uid)
+	customSchemaReceived, err := customSchema.GoFindCustomSchemaByID(server.DB, pid, uid)
 	if err != nil {
-		responses.ERROR(w, http.StatusInternalServerError, err)
-		return
+		return echo.NewHTTPError(http.StatusInternalServerError, err)
 	}
-	responses.JSON(w, http.StatusOK, customSchemaReceived)
+	return c.JSON(http.StatusOK, customSchemaReceived)
 }
 
-func (server *Server) GetCustomSchemas(w http.ResponseWriter, r *http.Request) {
-
+func (server *Server) GetCustomSchemas(c echo.Context) error {
 	customSchema := models.CustomSchema{}
 
 	customSchemas, err := customSchema.FindAllCustomSchemas(server.DB)
 	if err != nil {
-		responses.ERROR(w, http.StatusInternalServerError, err)
-		return
+		return echo.NewHTTPError(http.StatusInternalServerError, err)
 	}
-	responses.JSON(w, http.StatusOK, customSchemas)
+	return c.JSON(http.StatusOK, customSchemas)
 }
 
-func (server *Server) GetMyCustomSchemas(w http.ResponseWriter, r *http.Request) {
+func (server *Server) GetMyCustomSchemas(c echo.Context) error {
 	customSchema := models.CustomSchema{}
-	uid, err := auth.ExtractTokenID(r)
+	uid, err := auth.ExtractTokenID(c.Request())
 	customSchemas, err := customSchema.FindAllMyCustomSchemas(server.DB, uid)
 	if err != nil {
-		responses.ERROR(w, http.StatusInternalServerError, err)
-		return
+		return echo.NewHTTPError(http.StatusInternalServerError, err)
 	}
-	responses.JSON(w, http.StatusOK, customSchemas)
+	return c.JSON(http.StatusOK, customSchemas)
 }
 
 
 
-func (server *Server) GetCustomSchema(w http.ResponseWriter, r *http.Request) {
-
-	vars := mux.Vars(r)
-	pid, ok := vars["id"]
-	if !ok {
-		responses.ERROR(w, http.StatusBadRequest, errors.New("Invalid ID"))
-		return
+func (server *Server) GetCustomSchema(c echo.Context) error {
+	pid := c.Param("id")
+	if pid == "" {
+		return echo.NewHTTPError(http.StatusBadRequest, errors.New("Invalid ID"))
 	}
 	customSchema := models.CustomSchema{}
 
 	customSchemaReceived, err := customSchema.FindCustomSchemaByID(server.DB, pid)
 	if err != nil {
-		responses.ERROR(w, http.StatusInternalServerError, err)
-		return
+		return echo.NewHTTPError(http.StatusInternalServerError, err)
 	}
-	responses.JSON(w, http.StatusOK, customSchemaReceived)
+	return c.JSON(http.StatusOK, customSchemaReceived)
 }
 
-func (server *Server) UpdateCustomSchema(w http.ResponseWriter, r *http.Request) {
-
-	vars := mux.Vars(r)
-
-	// Check if the customSchema id is valid
-	pid, ok := vars["id"]
-	if !ok {
-		responses.ERROR(w, http.StatusBadRequest, errors.New("Invalid ID"))
-		return
+func (server *Server) UpdateCustomSchema(c echo.Context) error {
+	pid := c.Param("id")
+	if pid == "" {
+		return echo.NewHTTPError(http.StatusBadRequest, errors.New("Invalid ID"))
 	}
 
-	//CHeck if the auth token is valid and  get the user id from it
-	uid, err := auth.ExtractTokenID(r)
+	uid, err := auth.ExtractTokenID(c.Request())
 	if err != nil {
-		responses.ERROR(w, http.StatusUnauthorized, errors.New("Unauthorized"))
-		return
+		return echo.NewHTTPError(http.StatusUnauthorized, errors.New("Unauthorized"))
 	}
 
-	// Check if the customSchema exist
 	customSchema := models.CustomSchema{}
 	err = server.DB.Debug().Model(models.CustomSchema{}).Where("id = ?", pid).Take(&customSchema).Error
 	if err != nil {
-		responses.ERROR(w, http.StatusNotFound, errors.New("customSchema not found"))
-		return
+		return echo.NewHTTPError(http.StatusNotFound, errors.New("customSchema not found"))
 	}
 
-	// If a user attempt to update a customSchema not belonging to him
 	if uid != customSchema.UserID {
-		responses.ERROR(w, http.StatusUnauthorized, errors.New("Unauthorized"))
-		return
-	}
-	// Read the data customSchemaed
-	body, err := ioutil.ReadAll(r.Body)
-	if err != nil {
-		responses.ERROR(w, http.StatusUnprocessableEntity, err)
-		return
+		return echo.NewHTTPError(http.StatusUnauthorized, errors.New("Unauthorized"))
 	}
 
-	// Start processing the request data
 	customSchemaUpdate := models.CustomSchema{}
-	err = json.Unmarshal(body, &customSchemaUpdate)
-	if err != nil {
-		responses.ERROR(w, http.StatusUnprocessableEntity, err)
-		return
+	if err := c.Bind(&customSchemaUpdate); err != nil {
+		return echo.NewHTTPError(http.StatusUnprocessableEntity, err)
 	}
 
-	//Also check if the request user id is equal to the one gotten from token
 	if uid != customSchemaUpdate.UserID {
-		responses.ERROR(w, http.StatusUnauthorized, errors.New("Unauthorized"))
-		return
+		return echo.NewHTTPError(http.StatusUnauthorized, errors.New("Unauthorized"))
 	}
 
 	customSchemaUpdate.Prepare()
 	err = customSchemaUpdate.Validate()
 	if err != nil {
-		responses.ERROR(w, http.StatusUnprocessableEntity, err)
-		return
+		return echo.NewHTTPError(http.StatusUnprocessableEntity, err)
 	}
 
-	customSchemaUpdate.ID = customSchema.ID //this is important to tell the model the customSchema id to update, the other update field are set above
+	customSchemaUpdate.ID = customSchema.ID
 
 	customSchemaUpdated, err := customSchemaUpdate.UpdateACustomSchema(server.DB)
 
 	if err != nil {
 		formattedError := formaterror.FormatError(err.Error())
-		responses.ERROR(w, http.StatusInternalServerError, formattedError)
-		return
+		return echo.NewHTTPError(http.StatusInternalServerError, formattedError)
 	}
-	responses.JSON(w, http.StatusOK, customSchemaUpdated)
+	return c.JSON(http.StatusOK, customSchemaUpdated)
 }
 
-func (server *Server) DeleteCustomSchema(w http.ResponseWriter, r *http.Request) {
-
-	vars := mux.Vars(r)
-
-	// Is a valid customSchema id given to us?
-	pid, ok := vars["id"]
-	if !ok {
-		responses.ERROR(w, http.StatusBadRequest, errors.New("Invalid ID"))
-		return
+func (server *Server) DeleteCustomSchema(c echo.Context) error {
+	pid := c.Param("id")
+	if pid == "" {
+		return echo.NewHTTPError(http.StatusBadRequest, errors.New("Invalid ID"))
 	}
 
-
-	// Is this user authenticated?
-	uid, err := auth.ExtractTokenID(r)
+	uid, err := auth.ExtractTokenID(c.Request())
 	if err != nil {
-		responses.ERROR(w, http.StatusUnauthorized, errors.New("Unauthorized"))
-		return
+		return echo.NewHTTPError(http.StatusUnauthorized, errors.New("Unauthorized"))
 	}
 
-	// Check if the customSchema exist
 	customSchema := models.CustomSchema{}
 	err = server.DB.Debug().Model(models.CustomSchema{}).Where("id = ?", pid).Take(&customSchema).Error
 	if err != nil {
-		responses.ERROR(w, http.StatusNotFound, errors.New("Unauthorized"))
-		return
+		return echo.NewHTTPError(http.StatusNotFound, errors.New("Unauthorized"))
 	}
 
-	// Is the authenticated user, the owner of this customSchema?
 	if uid != customSchema.UserID {
-		responses.ERROR(w, http.StatusUnauthorized, errors.New("Unauthorized"))
-		return
+		return echo.NewHTTPError(http.StatusUnauthorized, errors.New("Unauthorized"))
 	}
 	_, err = customSchema.DeleteACustomSchema(server.DB, pid, uid)
 	if err != nil {
-		responses.ERROR(w, http.StatusBadRequest, err)
-		return
+		return echo.NewHTTPError(http.StatusBadRequest, err)
 	}
-	w.Header().Set("Entity", fmt.Sprintf("%d", pid))
-	responses.JSON(w, http.StatusNoContent, "")
+	c.Response().Header().Set("Entity", fmt.Sprintf("%d", pid))
+	return c.NoContent(http.StatusNoContent)
 }

@@ -1,30 +1,47 @@
 package controllers
 
-import "github.com/KnockOutEZ/rest-api-portfolio/api/middlewares"
+import (
+	"os"
+
+	"github.com/KnockOutEZ/rest-api-portfolio/api/middlewares"
+	"github.com/KnockOutEZ/rest-api-portfolio/api/ui"
+	"github.com/labstack/echo/v4/middleware"
+	"github.com/labstack/echo/v4"
+)
 
 func (s *Server) initializeRoutes() {
+	e := s.Echo
+
+	prod := os.Getenv("PRODUCTION")
+
+	if prod == "true" {
+		e.Use(middleware.StaticWithConfig(middleware.StaticConfig{
+			Filesystem: frontend.BuildHTTPFS(),
+			HTML5:      true,
+		}))
+	}
 
 	// Login Route
-	s.Router.HandleFunc("/api/login", middlewares.SetMiddlewareJSON(s.Login)).Methods("POST", "OPTIONS")
+	e.Add(echo.POST, "/api/login", s.Login, middlewares.SetMiddlewareJSON)
 
 	//Users routes
-	s.Router.HandleFunc("/api/users", middlewares.SetMiddlewareJSON(s.CreateUser)).Methods("POST", "OPTIONS")
-	s.Router.HandleFunc("/api/users/{id}", middlewares.SetMiddlewareJSON(s.GetUser)).Methods("GET", "OPTIONS")
-	s.Router.HandleFunc("/api/users/{id}", middlewares.SetMiddlewareJSON(s.UpdateUser)).Methods("PUT", "OPTIONS")
-	s.Router.HandleFunc("/api/users/{id}", middlewares.SetMiddlewareJSON(s.DeleteUser)).Methods("DELETE", "OPTIONS")
+	e.Add(echo.POST, "/api/users", s.CreateUser, middlewares.SetMiddlewareJSON)
+	e.Add(echo.GET, "/api/users/:id", s.GetUser, middlewares.SetMiddlewareJSON)
+	e.Add(echo.PUT, "/api/users/:id", s.UpdateUser, middlewares.SetMiddlewareJSON)
+	e.Add(echo.DELETE, "/api/users/:id", s.DeleteUser, middlewares.SetMiddlewareJSON)
 
 	//CustomSchemas routes
-	s.Router.HandleFunc("/api/customschemas", middlewares.SetMiddlewareJSON(s.CreateCustomSchema)).Methods("POST", "OPTIONS")
-	s.Router.HandleFunc("/api/mycustomschemas", middlewares.SetMiddlewareJSON(middlewares.SetMiddlewareJSON(s.GetMyCustomSchemas))).Methods("GET", "OPTIONS")
-	s.Router.HandleFunc("/api/customschemas/{id}", middlewares.SetMiddlewareJSON(s.GetCustomSchema)).Methods("GET", "OPTIONS")
+	e.Add(echo.POST, "/api/customschemas", s.CreateCustomSchema, middlewares.SetMiddlewareJSON)
+	e.Add(echo.GET, "/api/mycustomschemas", s.GetMyCustomSchemas, middlewares.SetMiddlewareJSON)
+	e.Add(echo.GET, "/api/customschemas/:id", s.GetCustomSchema, middlewares.SetMiddlewareJSON)
 	//public route start
-	s.Router.HandleFunc("/api/{key}/mycustomschemas", middlewares.SetMiddlewareJSON(s.GoGetAllCustomSchemas)).Methods("GET", "OPTIONS")
-	s.Router.HandleFunc("/api/{key}/mycustomschemas/{id}", middlewares.SetMiddlewareJSON(s.GoGetOneCustomSchemas)).Methods("GET", "OPTIONS")
+	e.Add(echo.GET, "/api/:key/mycustomschemas", s.GoGetAllCustomSchemas, middlewares.SetMiddlewareJSON)
+	e.Add(echo.GET, "/api/:key/mycustomschemas/:id", s.GoGetOneCustomSchemas, middlewares.SetMiddlewareJSON)
 	//public route end
-	s.Router.HandleFunc("/api/customschemas/{id}", middlewares.SetMiddlewareJSON(middlewares.SetMiddlewareJSON(s.UpdateCustomSchema))).Methods("PUT", "OPTIONS")
-	s.Router.HandleFunc("/api/customschemas/{id}", middlewares.SetMiddlewareJSON(s.DeleteCustomSchema)).Methods("DELETE", "OPTIONS")
+	e.Add(echo.PUT, "/api/customschemas/:id", s.UpdateCustomSchema, middlewares.SetMiddlewareJSON)
+	e.Add(echo.DELETE, "/api/customschemas/:id", s.DeleteCustomSchema, middlewares.SetMiddlewareJSON)
 
 	//routes for admin
-	s.Router.HandleFunc("/api/users", middlewares.SetMiddlewareJSON(s.GetUsers)).Methods("GET", "OPTIONS")
-	s.Router.HandleFunc("/api/customschemas", middlewares.SetMiddlewareJSON(s.GetCustomSchema)).Methods("GET", "OPTIONS")
+	e.Add(echo.GET, "/api/users", s.GetUsers, middlewares.SetMiddlewareJSON)
+	e.Add(echo.GET, "/api/customschemas", s.GetCustomSchema, middlewares.SetMiddlewareJSON)
 }
