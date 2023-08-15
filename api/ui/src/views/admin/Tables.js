@@ -8,7 +8,7 @@ import AddProfessionalExperienceCardTable from "components/Sections/Professional
 import ProjectsCardTable from "components/Sections/Projects/ProjectsCardTable";
 import SkillsAreaCardTable from "components/Sections/SkillAreas/SkillsAreaCardTable";
 import SocialsCardTable from "components/Sections/SocialLinks/SocialLinksCardTable";
-const API_URL = "https://genesisrestapi.herokuapp.com/";
+const API_URL = "/api/";
 // components
 
 

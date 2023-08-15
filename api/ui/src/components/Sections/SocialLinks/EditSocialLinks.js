@@ -4,7 +4,7 @@ import axios from 'axios';
 import authHeader from "../../services/auth-header";
 import { useHistory,useParams } from "react-router-dom";
 import { useAlert } from 'react-alert'
-const API_URL = "https://genesisrestapi.herokuapp.com/";
+const API_URL = "/api/";
 
 
 const EditSocialLinks = () =>{

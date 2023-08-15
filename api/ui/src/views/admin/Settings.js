@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useAlert } from 'react-alert'
 import authHeader from '../../components/services/auth-header';
 import AuthService from '../../components/services/auth.services';
-const API_URL = "https://genesisrestapi.herokuapp.com/";
+const API_URL = "/api/";
 
 const Settings = () => {
   const [userData, setUserData] = useState({});

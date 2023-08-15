@@ -5,7 +5,7 @@ import { data } from "autoprefixer";
 import React,{useState, useEffect } from "react";
 import axios from 'axios';
 import { useAlert } from 'react-alert'
-const API_URL = "https://genesisrestapi.herokuapp.com/";
+const API_URL = "/api/";
 
 const UserDropdown = () => {
   // dropdown props

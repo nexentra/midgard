@@ -1,5 +1,5 @@
 import axios from "axios";
-const API_URL = "https://genesisrestapi.herokuapp.com/"
+const API_URL = "/api/"
 class AuthService {
   login(email, password) {
     return axios

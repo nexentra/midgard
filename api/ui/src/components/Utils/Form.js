@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useHistory } from "react-router-dom";
 import authHeader from '../../components/services/auth-header';
 import { useAlert } from 'react-alert'
-const API_URL = "https://genesisrestapi.herokuapp.com/";
+const API_URL = "/api/";
 // components
 
 export default function Form(props) {
