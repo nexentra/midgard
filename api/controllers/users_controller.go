@@ -49,11 +49,6 @@ func (server *Server) CreateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	type logindetails struct {
-		Token  string `json:"token"`
-		UserId uint32 `json:"id"`
-	}
-
 	loginDet := logindetails{token, userCreated.ID}
 
 	w.Header().Set("Location", fmt.Sprintf("%s%s/%d", r.Host, r.RequestURI, userCreated.ID))

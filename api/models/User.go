@@ -8,13 +8,14 @@ import (
 	"time"
 
 	"github.com/badoux/checkmail"
+	"github.com/google/uuid"
 	"github.com/jinzhu/gorm"
 	"golang.org/x/crypto/bcrypt"
 )
 
 type User struct {
-	ID          uint32    `gorm:"primary_key;auto_increment" json:"id"`
-	Name    string    `gorm:"size:255;not null" json:"name"`
+	ID          uuid.UUID `gorm:"primary_key; type:uuid;default:uuid_generate_v4()" json:"id"`
+	Name        string    `gorm:"size:255;not null" json:"name"`
 	Age         string    `gorm:"size:255;" json:"age"`
 	Moto        string    `gorm:"size:255;" json:"moto"`
 	AboutYou    string    `gorm:"size:255;" json:"about_you"`
@@ -46,7 +47,7 @@ func (u *User) BeforeSave() error {
 }
 
 func (u *User) Prepare() {
-	u.ID = 0
+	u.ID = uuid.New()
 	u.Name = html.EscapeString(strings.TrimSpace(u.Name))
 	u.Age = html.EscapeString(strings.TrimSpace(u.Age))
 	u.Moto = html.EscapeString(strings.TrimSpace(u.Moto))
@@ -148,7 +149,7 @@ func (u *User) UpdateAUser(db *gorm.DB, uid uint32) (*User, error) {
 	db = db.Debug().Model(&User{}).Where("id = ?", uid).Take(&User{}).UpdateColumns(
 		map[string]interface{}{
 			"password":       u.Password,
-			"name":       u.Name,
+			"name":           u.Name,
 			"email":          u.Email,
 			"age":            u.Age,
 			"moto":           u.Moto,

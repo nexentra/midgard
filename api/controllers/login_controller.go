@@ -10,8 +10,14 @@ import (
 	"github.com/KnockOutEZ/rest-api-portfolio/api/models"
 	"github.com/KnockOutEZ/rest-api-portfolio/api/responses"
 	"github.com/KnockOutEZ/rest-api-portfolio/api/utils/formaterror"
+	"github.com/google/uuid"
 	"golang.org/x/crypto/bcrypt"
 )
+
+type logindetails struct {
+	Token  string    `json:"token"`
+	UserId uuid.UUID `json:"id"`
+}
 
 func (server *Server) Login(w http.ResponseWriter, r *http.Request) {
 	body, err := ioutil.ReadAll(r.Body)
@@ -39,16 +45,12 @@ func (server *Server) Login(w http.ResponseWriter, r *http.Request) {
 		responses.ERROR(w, http.StatusUnprocessableEntity, formattedError)
 		return
 	}
-	type logindetails struct {
-		Token  string `json:"token"`
-		UserId uint32 `json:"id"`
-	}
 
 	loginDet := logindetails{tokenstring, userID}
 	responses.JSON(w, http.StatusOK, loginDet)
 }
 
-func (server *Server) SignIn(email, password string) (string, uint32, error) {
+func (server *Server) SignIn(email, password string) (string, uuid.UUID, error) {
 
 	var err error
 
@@ -56,11 +58,11 @@ func (server *Server) SignIn(email, password string) (string, uint32, error) {
 
 	err = server.DB.Debug().Model(models.User{}).Where("email = ?", email).Take(&user).Error
 	if err != nil {
-		return "", 0, err
+		return "", uuid.Nil, err
 	}
 	err = models.VerifyPassword(user.Password, password)
 	if err != nil && err == bcrypt.ErrMismatchedHashAndPassword {
-		return "", 0, err
+		return "", uuid.Nil, err
 	}
 
 	log.Println(user)

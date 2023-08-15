@@ -10,9 +10,10 @@ import (
 	"strings"
 
 	jwt "github.com/dgrijalva/jwt-go"
+	"github.com/google/uuid"
 )
 
-func CreateToken(user_id uint32) (string, error) {
+func CreateToken(user_id uuid.UUID) (string, error) {
 	claims := jwt.MapClaims{}
 	claims["authorized"] = true
 	claims["user_id"] = user_id
