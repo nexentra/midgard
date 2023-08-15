@@ -81,6 +81,7 @@ func (server *Server) UpdateUser(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusUnprocessableEntity, err)
 	}
 	updatedUser, err := user.UpdateAUser(server.DB, uid)
+	fmt.Println(updatedUser, err)
 	if err != nil {
 		formattedError := formaterror.FormatError(err.Error())
 		return echo.NewHTTPError(http.StatusInternalServerError, formattedError)

@@ -166,7 +166,7 @@ func (u *User) UpdateAUser(db *gorm.DB, uid uuid.UUID) (*User, error) {
 	}
 
 	// This is the display the updated user
-	err = db.Debug().Model(&User{}).Where("id = ?", uid).Take(&u).Error
+	err = db.Debug().Model(&User{}).Where("id = ?", uid).Take(&User{}).Error
 	if err != nil {
 		return &User{}, err
 	}
