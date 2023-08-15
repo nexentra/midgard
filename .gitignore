@@ -1,1 +1,9 @@
-*.env
+client_secret.json
+dev_client.json
+.env
+/tmp
+/api/ui/.next
+/api/ui/dist
+/api/ui/build
+/api/ui/node_modules
+*.exe

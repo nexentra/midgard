@@ -30,7 +30,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm run build:tailwind && npm start",
+    "export": "rm -rf build && yarn build",
+    "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && yarn install && yarn run build:tailwind && yarn start",
     "build:tailwind": "tailwind build src/assets/styles/index.css -o src/assets/styles/tailwind.css"
   },
   "eslintConfig": {

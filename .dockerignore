@@ -1,0 +1,37 @@
+tmp
+api/ui/.next
+api/ui/dist
+api/ui/node_modules
+**/*.exe
+
+# dependencies
+api/ui/node_modules
+api/ui/.pnp
+api/ui/**/.pnp.js
+
+# testing
+api/ui/coverage
+
+# next.js
+api/ui/.next
+api/ui/out
+
+# production
+api/ui/build
+
+# misc
+api/ui/**/.DS_Store
+api/ui/**/*.pem
+
+# debug
+api/ui/**/npm-debug.log*
+api/ui/**/yarn-debug.log*
+api/ui/**/yarn-error.log*
+
+# vercel
+api/ui/**/.vercel
+
+# typescript
+api/ui/**/*.tsbuildinfo
+api/ui/**/next-env.d.ts
+fly.toml

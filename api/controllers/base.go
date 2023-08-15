@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/gorilla/mux"
 	"github.com/jinzhu/gorm"
@@ -13,6 +14,7 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/postgres" //postgres database driver
 
 	"github.com/KnockOutEZ/rest-api-portfolio/api/models"
+	"github.com/KnockOutEZ/rest-api-portfolio/api/ui"
 )
 
 type Server struct {
@@ -49,7 +51,14 @@ func (server *Server) Initialize(Dbdriver, DbUser, DbPassword, DbPort, DbHost, D
 
 	server.Router = mux.NewRouter()
 	server.Router.Use(mux.CORSMethodMiddleware(server.Router))
-	server.initializeRoutes()
+	// use fileserver for production
+	prod := os.Getenv("PRODUCTION")
+
+	if prod == "true" {
+		server.Router.PathPrefix("/").Handler(http.FileServer(frontend.BuildHTTPFS()))
+	} else {
+		server.initializeRoutes()
+	}
 }
 
 func (server *Server) Run(addr string) {
