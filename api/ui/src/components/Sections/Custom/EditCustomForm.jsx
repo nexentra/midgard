@@ -1,20 +1,19 @@
 
-const AddProjectsForm = (props) => {
+const EditCustomForm = (props) => {
   let formData = {}
   const handleSubmit = (event) => {
     event.preventDefault()
     let data = formData
-    data.project_name = event.target.elements.project_name.value
-    data.project_title = event.target.elements.project_title.value
-    data.project_description = event.target.elements.project_description.value
-    data.project_icon = event.target.elements.project_icon.value
-    data.project_imgs = event.target.elements.project_imgs.value
-    data.project_links = event.target.elements.project_links.value
-    data.project_skill_area = event.target.elements.project_skill_area.value
-    data.project_skills = event.target.elements.project_skills.value
-    data.project__time_from = event.target.elements.project__time_from.value
-    data.project_time_to = event.target.elements.project_time_to.value
-    data.project__client = event.target.elements.project__client.value
+    data.institution_name = event.target.elements.institution_name.value
+    data.institution_title = event.target.elements.institution_title.value
+    data.institution_progress = event.target.elements.institution_progress.value
+    data.institution_description = event.target.elements.institution_description.value
+    data.institution_links = event.target.elements.institution_links.value
+    data.education_level = event.target.elements.education_level.value
+    data.education_period_from = event.target.elements.education_period_from.value
+    data.education_period_to = event.target.elements.education_period_to.value
+    data.study_motivation = event.target.elements.study_motivation.value
+    data.institution_icon = event.target.elements.institution_icon.value
     data.user_id = JSON.parse(localStorage.getItem('userid'))
     console.log(data)
     props.handleSubmit(data)
@@ -31,7 +30,7 @@ const AddProjectsForm = (props) => {
                 </h6>
                 <div>
                   <button
-                    form="project-add-form"
+                    form="education-edit-form"
                     className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                     type="submit"
                   >
@@ -48,7 +47,7 @@ const AddProjectsForm = (props) => {
               </div>
             </div>
             <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
-              <form id="project-add-form" onSubmit={handleSubmit}>
+              <form id="education-edit-form" onSubmit={handleSubmit}>
                 <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
                   {props.formTitle}
                 </h6>
@@ -59,15 +58,15 @@ const AddProjectsForm = (props) => {
                         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                         htmlFor="grid-password"
                       >
-                        Project Name
+                        Institution Name
                       </label>
                       <input
                         type="text"
                         className={
                           "border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                         }
-                        name="project_name"
-                        // defaultValue={props.formElements.project_name}
+                        name="institution_name"
+                        defaultValue={props.formElements.institution_name}
                       />
                     </div>
                   </div>
@@ -77,51 +76,15 @@ const AddProjectsForm = (props) => {
                         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                         htmlFor="grid-password"
                       >
-                        Project Title
+                        Institution Title
                       </label>
                       <input
                         type="text"
                         className={
                           "border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                         }
-                        name="project_title"
-                        // defaultValue={props.formElements.project_title}
-                      />
-                    </div>
-                  </div>
-                  <div className={`w-full lg:w-` + "6/12" + ` px-4`}>
-                    <div className="relative w-full mb-3">
-                      <label
-                        className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                        htmlFor="grid-password"
-                      >
-                        Project Icon
-                      </label>
-                      <input
-                        type="text"
-                        className={
-                          "border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                        }
-                        name="project_icon"
-                        // defaultValue={props.formElements.project_icon}
-                      />
-                    </div>
-                  </div>
-                  <div className={`w-full lg:w-` + "6/12" + ` px-4`}>
-                    <div className="relative w-full mb-3">
-                      <label
-                        className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                        htmlFor="grid-password"
-                      >
-                        Project Time From
-                      </label>
-                      <input
-                        type="text"
-                        className={
-                          "border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                        }
-                        name="project__time_from"
-                        // defaultValue={props.formElements.project__time_from}
+                        name="institution_title"
+                        defaultValue={props.formElements.institution_title}
                       />
                     </div>
                   </div>
@@ -132,53 +95,15 @@ const AddProjectsForm = (props) => {
                         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                         htmlFor="grid-password"
                       >
-                        Project Time To
+                        Progress
                       </label>
                       <input
                         type="text"
                         className={
                           "border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                         }
-                        name="project_time_to"
-                        // defaultValue={props.formElements.project_time_to}
-                      />
-                    </div>
-                  </div>
-
-                  <div className={`w-full lg:w-` + "6/12" + ` px-4`}>
-                    <div className="relative w-full mb-3">
-                      <label
-                        className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                        htmlFor="grid-password"
-                      >
-                        Project Client
-                      </label>
-                      <input
-                        type="text"
-                        className={
-                          "border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                        }
-                        name="project__client"
-                        // defaultValue={props.formElements.project__client}
-                      />
-                    </div>
-                  </div>
-
-                  <div className={`w-full lg:w-` + "6/12" + ` px-4`}>
-                    <div className="relative w-full mb-3">
-                      <label
-                        className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                        htmlFor="grid-password"
-                      >
-                        Project Images (Link)
-                      </label>
-                      <input
-                        type="text"
-                        className={
-                          "border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                        }
-                        name="project_imgs"
-                        // defaultValue={props.formElements.project_imgs}
+                        name="institution_progress"
+                        defaultValue={props.formElements.institution_progress}
                       />
                     </div>
                   </div>
@@ -188,51 +113,15 @@ const AddProjectsForm = (props) => {
                         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                         htmlFor="grid-password"
                       >
-                        Project Links
+                        Institution Link
                       </label>
                       <input
                         type="text"
                         className={
                           "border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                         }
-                        name="project_links"
-                        // defaultValue={props.formElements.project_links}
-                      />
-                    </div>
-                  </div>
-                  <div className={`w-full lg:w-` + "6/12" + ` px-4`}>
-                    <div className="relative w-full mb-3">
-                      <label
-                        className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                        htmlFor="grid-password"
-                      >
-                        Project Skill Area
-                      </label>
-                      <input
-                        type="text"
-                        className={
-                          "border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                        }
-                        name="project_skill_area"
-                        // defaultValue={props.formElements.project_skill_area}
-                      />
-                    </div>
-                  </div>
-                  <div className={`w-full lg:w-` + "6/12" + ` px-4`}>
-                    <div className="relative w-full mb-3">
-                      <label
-                        className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                        htmlFor="grid-password"
-                      >
-                        Project Skills
-                      </label>
-                      <input
-                        type="text"
-                        className={
-                          "border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                        }
-                        name="project_skills"
-                        // defaultValue={props.formElements.project_skills}
+                        name="institution_links"
+                        defaultValue={props.formElements.institution_links}
                       />
                     </div>
                   </div>
@@ -242,13 +131,104 @@ const AddProjectsForm = (props) => {
                         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                         htmlFor="grid-password"
                       >
-                        Project Description
+                        Institution Icon/Image (Link)
+                      </label>
+                      <input
+                        type="text"
+                        className={
+                          "border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                        }
+                        name="institution_icon"
+                        defaultValue={props.formElements.institution_icon}
+                      />
+                    </div>
+                  </div>
+
+                  <div className={`w-full lg:w-` + "6/12" + ` px-4`}>
+                    <div className="relative w-full mb-3">
+                      <label
+                        className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                        htmlFor="grid-password"
+                      >
+                        Custom Level
+                      </label>
+                      <input
+                        type="text"
+                        className={
+                          "border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                        }
+                        name="education_level"
+                        defaultValue={props.formElements.education_level}
+                      />
+                    </div>
+                  </div>
+                  <div className={`w-full lg:w-` + "6/12" + ` px-4`}>
+                    <div className="relative w-full mb-3">
+                      <label
+                        className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                        htmlFor="grid-password"
+                      >
+                        Custom Period From
+                      </label>
+                      <input
+                        type="text"
+                        className={
+                          "border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                        }
+                        name="education_period_from"
+                        defaultValue={props.formElements.education_period_from}
+                      />
+                    </div>
+                  </div>
+                  <div className={`w-full lg:w-` + "6/12" + ` px-4`}>
+                    <div className="relative w-full mb-3">
+                      <label
+                        className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                        htmlFor="grid-password"
+                      >
+                        Custom Period To
+                      </label>
+                      <input
+                        type="text"
+                        className={
+                          "border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                        }
+                        name="education_period_to"
+                        defaultValue={props.formElements.education_period_to}
+                      />
+                    </div>
+                  </div>
+                  <div className={`w-full lg:w-` + "6/12" + ` px-4`}>
+                    <div className="relative w-full mb-3">
+                      <label
+                        className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                        htmlFor="grid-password"
+                      >
+                        Study Motivation
+                      </label>
+                      <input
+                        type="text"
+                        className={
+                          "border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                        }
+                        name="study_motivation"
+                        defaultValue={props.formElements.study_motivation}
+                      />
+                    </div>
+                  </div>
+                  <div className={`w-full lg:w-` + "12/12" + ` px-4`}>
+                    <div className="relative w-full mb-3">
+                      <label
+                        className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                        htmlFor="grid-password"
+                      >
+                        Institution Description
                       </label>
                       <textarea
                         type="text"
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                        name="project_description"
-                        // defaultValue={props.formElements.project_description}
+                        name="institution_description"
+                        defaultValue={props.formElements.institution_description}
                         rows="4"
                       />
                     </div>
@@ -262,4 +242,4 @@ const AddProjectsForm = (props) => {
   );
 };
 
-export default AddProjectsForm;
+export default EditCustomForm;

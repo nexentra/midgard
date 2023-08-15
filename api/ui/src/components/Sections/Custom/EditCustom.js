@@ -1,22 +1,22 @@
 import {useState,useEffect} from "react";
-import EditEducationForm from "./EditEducationForm.jsx";
+import EditCustomForm from "./EditCustomForm.jsx/index.js";
 import axios from 'axios';
-import authHeader from "../../services/auth-header";
+import authHeader from "../../services/auth-header.js";
 import { useHistory,useParams } from "react-router-dom";
 import { useAlert } from 'react-alert'
 const API_URL = "/api/";
 
 
-const AddEducation = () =>{
+const AddCustom = () =>{
   const alert = useAlert()
   let history = useHistory()	
   const { id } = useParams();
-    const [myEducation, setmyEducationData] = useState({});
+    const [myCustom, setmyCustomData] = useState({});
     const [error, seterrorData] = useState();
   useEffect(() => {
     axios.get(API_URL + 'education/'+ id, { headers: authHeader() })
       .then((response) => {
-        setmyEducationData(response.data)
+        setmyCustomData(response.data)
         console.log(response.data)
       })
       .catch((error) => {
@@ -24,7 +24,7 @@ const AddEducation = () =>{
       });
   }, []);
 
-  function EditAndEducation(arg){
+  function EditAndCustom(arg){
     console.log(arg)
     axios.put(API_URL + 'education/' + id,arg, { headers: authHeader() })
       .then((response) => {
@@ -38,9 +38,9 @@ const AddEducation = () =>{
 
     return(
         <div>
-        <EditEducationForm formWidth={"12/12"} formName={"Edit Educational Detail"} formElements= {myEducation} formTitle={"Education Infos"} handleSubmit={EditAndEducation}/>
+        <EditCustomForm formWidth={"12/12"} formName={"Edit Custom Detail"} formElements= {myCustom} formTitle={"Custom Infos"} handleSubmit={EditAndCustom}/>
         </div>
     )
 }
 
-export default AddEducation;
+export default AddCustom;
