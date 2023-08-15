@@ -10,7 +10,7 @@ class AuthService {
       .then(response => {
         if (response.data.token) {
           localStorage.setItem("user", response.data.token);
-          localStorage.setItem("userid", JSON.stringify(response.data.id));
+          localStorage.setItem("userid", response.data.id);
         }
         return response.data;
       });
@@ -25,10 +25,17 @@ class AuthService {
       name,
       email,
       password
+    })
+    .then(response => {
+      if (response.data.token) {
+        localStorage.setItem("user", response.data.token);
+        localStorage.setItem("userid", response.data.id);
+      }
+      return response.data;
     });
   }
   getCurrentUser() {
-    return (JSON.parse(localStorage.getItem('user')),JSON.parse(localStorage.getItem('userid')));
+    return (localStorage.getItem('user'),localStorage.getItem('userid'));
   }
 }
 export default new AuthService();

@@ -13,14 +13,14 @@ import (
 )
 
 type CustomSchema struct {
-	ID          uuid.UUID      `gorm:"primary_key; type:uuid;default:uuid_generate_v4()" json:"id"`
+	ID          uuid.UUID      `gorm:"primary_key;type:uuid;default:uuid_generate_v4()" json:"id"`
 	Name        string         `gorm:"size:255;UNIQUE_INDEX:customSchemaindex;not null" json:"name"`
 	Title       string         `gorm:"size:255;" json:"title"`
 	Description string         `gorm:"size:255;" json:"description"`
 	FieldNames  pq.StringArray `gorm:"type:text[];not null" json:"field_names"`
 	Data        pgtype.JSONB   `gorm:"type:jsonb;default:'[]';not null" json:"data"`
 	User        User           `json:"-"`
-	UserID      uint32         `gorm:"UNIQUE_INDEX:customSchemaindex;not null" json:"user_id"`
+	UserID      uuid.UUID      `gorm:"UNIQUE_INDEX:customSchemaindex;not null;type:uuid;default:uuid_generate_v4()" json:"user_id"`
 	CreatedAt   time.Time      `gorm:"default:CURRENT_TIMESTAMP" json:"created_at"`
 	UpdatedAt   time.Time      `gorm:"default:CURRENT_TIMESTAMP" json:"updated_at"`
 }
@@ -36,7 +36,7 @@ func (p *CustomSchema) Prepare() {
 }
 
 func (p *CustomSchema) Validate() error {
-	if p.UserID < 1 {
+	if p.UserID == uuid.Nil {
 		return errors.New("Required User")
 	}
 	return nil
@@ -75,7 +75,7 @@ func (p *CustomSchema) FindAllCustomSchemas(db *gorm.DB) (*[]CustomSchema, error
 	return &customSchemas, nil
 }
 
-func (p *CustomSchema) GoFindAllMyCustomSchemas(db *gorm.DB, uid uint64) (*[]CustomSchema, error) {
+func (p *CustomSchema) GoFindAllMyCustomSchemas(db *gorm.DB, uid uuid.UUID) (*[]CustomSchema, error) {
 	var err error
 	customSchemas := []CustomSchema{}
 	err = db.Debug().Model(&CustomSchema{}).Where("user_id = ?", uid).Limit(100).Find(&customSchemas).Error
@@ -94,7 +94,7 @@ func (p *CustomSchema) GoFindAllMyCustomSchemas(db *gorm.DB, uid uint64) (*[]Cus
 	return &customSchemas, nil
 }
 
-func (p *CustomSchema) GoFindCustomSchemaByID(db *gorm.DB, pid uint64, uid uint64) (*CustomSchema, error) {
+func (p *CustomSchema) GoFindCustomSchemaByID(db *gorm.DB, pid uuid.UUID, uid uuid.UUID) (*CustomSchema, error) {
 	var err error
 	err = db.Debug().Model(&CustomSchema{}).Where("id = ?", pid).Where("user_id = ?", uid).Take(&p).Error
 	if err != nil {
@@ -109,7 +109,7 @@ func (p *CustomSchema) GoFindCustomSchemaByID(db *gorm.DB, pid uint64, uid uint6
 	return p, nil
 }
 
-func (p *CustomSchema) FindAllMyCustomSchemas(db *gorm.DB, uid uint32) (*[]CustomSchema, error) {
+func (p *CustomSchema) FindAllMyCustomSchemas(db *gorm.DB, uid uuid.UUID) (*[]CustomSchema, error) {
 	var err error
 	customSchemas := []CustomSchema{}
 	err = db.Debug().Model(&CustomSchema{}).Where("user_id = ?", uid).Limit(100).Find(&customSchemas).Error
@@ -128,7 +128,7 @@ func (p *CustomSchema) FindAllMyCustomSchemas(db *gorm.DB, uid uint32) (*[]Custo
 	return &customSchemas, nil
 }
 
-func (p *CustomSchema) FindCustomSchemaByID(db *gorm.DB, pid string) (*CustomSchema, error) {
+func (p *CustomSchema) FindCustomSchemaByID(db *gorm.DB, pid uuid.UUID) (*CustomSchema, error) {
 	var err error
 	err = db.Debug().Model(&CustomSchema{}).Where("id = ?", pid).Take(&p).Error
 	if err != nil {
@@ -160,7 +160,7 @@ func (p *CustomSchema) UpdateACustomSchema(db *gorm.DB) (*CustomSchema, error) {
 	return p, nil
 }
 
-func (p *CustomSchema) DeleteACustomSchema(db *gorm.DB, pid string, uid uint32) (int64, error) {
+func (p *CustomSchema) DeleteACustomSchema(db *gorm.DB, pid uuid.UUID, uid uuid.UUID) (int64, error) {
 
 	db = db.Debug().Model(&CustomSchema{}).Where("id = ? and user_id = ?", pid, uid).Take(&CustomSchema{}).Delete(&CustomSchema{})
 

@@ -1,22 +1,22 @@
 import Navbar from "components/Navbars/AuthNavbar.js";
 import Footer from "components/Footers/Footer.js";
-import React,{useState, useEffect } from "react";
-import axios from 'axios';
-import { useAlert } from 'react-alert'
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useAlert } from "react-alert";
 const API_URL = "/api/";
 
 export default function Profile() {
   const [userdata, setUserData] = useState({});
-  const alert = useAlert()
+  const alert = useAlert();
   useEffect(() => {
-    axios.get(API_URL + 'users/'+localStorage.getItem('userid'))
+    axios
+      .get(API_URL + "users/" + localStorage.getItem("userid"))
       .then((response) => {
         // alert.success("Lets goooo!!")
         setUserData(response.data);
-        
       })
       .catch((error) => {
-        alert.error(error.response.data.error)
+        alert.error(error.response.data.error);
       });
   }, []);
   return (
@@ -66,16 +66,15 @@ export default function Profile() {
                       <img
                         alt="..."
                         src={userdata.profile_icon}
-              onError={({ currentTarget }) => {
-                currentTarget.onerror = null; // prevents looping
-                currentTarget.src="/main.png"
-              }}
+                        onError={({ currentTarget }) => {
+                          currentTarget.onerror = null; // prevents looping
+                          currentTarget.src = "/api/ui/public/main.png";
+                        }}
                         className="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px"
                       />
                     </div>
                   </div>
-                  <div className="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center">
-                  </div>
+                  <div className="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center"></div>
                   <div className="w-full lg:w-4/12 px-4 lg:order-1">
                     <div className="flex justify-center py-4 lg:pt-4 pt-8">
                       {/* <div className="mr-4 p-3 text-center">
@@ -107,11 +106,13 @@ export default function Profile() {
                 </div>
                 <div className="text-center mt-12">
                   <h3 className="text-4xl font-semibold leading-normal mb-2 text-blueGray-700 mb-2">
-                    {userdata.name ? userdata.name : "Jenna Stones"}
+                    {userdata.name ? userdata.name : "John Doe"}
                   </h3>
                   <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
                     <i className="fas fa-laptop mr-2 text-lg text-blueGray-400"></i>{" "}
-                    {userdata.what_do_you_do ? userdata.what_do_you_do : "Web Developer"}
+                    {userdata.what_do_you_do
+                      ? userdata.what_do_you_do
+                      : "Web Developer"}
                   </div>
                   <div className="mb-2 text-blueGray-600 mt-10">
                     <i className="fas fa-envelope mr-2 text-lg text-blueGray-400"></i>
@@ -119,15 +120,18 @@ export default function Profile() {
                   </div>
                   <div className="mb-2 text-blueGray-600">
                     <i className="fas fa-phone mr-2 text-lg text-blueGray-400"></i>
-                    {userdata.phone_number ? userdata.phone_number : "01XXXXXXXXX"}
+                    {userdata.phone_number
+                      ? userdata.phone_number
+                      : "01XXXXXXXXX"}
                   </div>
                 </div>
                 <div className="py-10 text-center">
-                <div className="flex flex-wrap justify-center">
+                  <div className="flex flex-wrap justify-center">
                     <div className="w-full lg:w-9/12 px-4">
                       <p className="mb-4 text-lg leading-relaxed text-blueGray-700">
-                      {userdata.moto ? userdata.moto : "An artist of considerable range, Jenna the name taken by Melbourne-raised, Brooklyn-based Nick Murphy writes, performs and records all of his own music, giving it a warm, intimate feel with a solid groove structure. An artist of considerable range."}
-                        
+                        {userdata.moto
+                          ? userdata.moto
+                          : "An artist of considerable range, Jenna the name taken by Melbourne-raised, Brooklyn-based Nick Murphy writes, performs and records all of his own music, giving it a warm, intimate feel with a solid groove structure. An artist of considerable range."}
                       </p>
                       {/* <a
                         href=""
@@ -143,7 +147,9 @@ export default function Profile() {
                   <div className="flex flex-wrap justify-center">
                     <div className="w-full lg:w-9/12 px-4">
                       <p className="mb-4 text-lg leading-relaxed text-blueGray-700">
-                      {userdata.about_you ? userdata.about_you : "An artist of considerable range, Jenna the name taken by Melbourne-raised, Brooklyn-based Nick Murphy writes, performs and records all of his own music, giving it a warm, intimate feel with a solid groove structure. An artist of considerable range."}
+                        {userdata.about_you
+                          ? userdata.about_you
+                          : "An artist of considerable range, Jenna the name taken by Melbourne-raised, Brooklyn-based Nick Murphy writes, performs and records all of his own music, giving it a warm, intimate feel with a solid groove structure. An artist of considerable range."}
                       </p>
                       {/* <a
                         href=""

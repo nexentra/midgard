@@ -6,7 +6,6 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"strconv"
 	"strings"
 
 	jwt "github.com/dgrijalva/jwt-go"
@@ -53,7 +52,7 @@ func ExtractToken(r *http.Request) string {
 	return bearerToken
 }
 
-func ExtractTokenID(r *http.Request) (uint32, error) {
+func ExtractTokenID(r *http.Request) (uuid.UUID, error) {
 
 	tokenString := ExtractToken(r)
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
@@ -63,17 +62,14 @@ func ExtractTokenID(r *http.Request) (uint32, error) {
 		return []byte(os.Getenv("API_SECRET")), nil
 	})
 	if err != nil {
-		return 0, err
+		return uuid.UUID{}, err
 	}
 	claims, ok := token.Claims.(jwt.MapClaims)
 	if ok && token.Valid {
-		uid, err := strconv.ParseUint(fmt.Sprintf("%.0f", claims["user_id"]), 10, 32)
-		if err != nil {
-			return 0, err
-		}
-		return uint32(uid), nil
+		uid := fmt.Sprintf("%.0f", claims["user_id"])
+		return  uuid.MustParse(uid), nil
 	}
-	return 0, nil
+	return uuid.UUID{}, nil
 }
 
 //Pretty display the claims nicely in the terminal

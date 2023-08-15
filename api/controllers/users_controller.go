@@ -4,12 +4,13 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
-	"strconv"
 
 	"github.com/KnockOutEZ/rest-api-portfolio/api/auth"
 	"github.com/KnockOutEZ/rest-api-portfolio/api/models"
 	"github.com/KnockOutEZ/rest-api-portfolio/api/utils/formaterror"
 	"github.com/labstack/echo/v4"
+	"github.com/google/uuid"
+
 )
 
 func (server *Server) CreateUser(c echo.Context) error {
@@ -52,12 +53,9 @@ func (server *Server) GetUsers(c echo.Context) error {
 }
 
 func (server *Server) GetUser(c echo.Context) error {
-	uid, err := strconv.ParseUint(c.Param("id"), 10, 32)
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, err)
-	}
+	uid := uuid.MustParse(c.Param("id"))
 	user := models.User{}
-	userGotten, err := user.FindUserByID(server.DB, uint32(uid))
+	userGotten, err := user.FindUserByID(server.DB, uid)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err)
 	}
@@ -65,10 +63,7 @@ func (server *Server) GetUser(c echo.Context) error {
 }
 
 func (server *Server) UpdateUser(c echo.Context) error {
-	uid, err := strconv.ParseUint(c.Param("id"), 10, 32)
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, err)
-	}
+	uid := uuid.MustParse(c.Param("id"))
 	user := models.User{}
 	if err := c.Bind(&user); err != nil {
 		return echo.NewHTTPError(http.StatusUnprocessableEntity, err)
@@ -77,7 +72,7 @@ func (server *Server) UpdateUser(c echo.Context) error {
 	if err != nil {
 		return echo.NewHTTPError(http.StatusUnauthorized, errors.New("Unauthorized"))
 	}
-	if tokenID != uint32(uid) {
+	if tokenID != uid {
 		return echo.NewHTTPError(http.StatusUnauthorized, errors.New(http.StatusText(http.StatusUnauthorized)))
 	}
 	user.Prepare()
@@ -85,7 +80,7 @@ func (server *Server) UpdateUser(c echo.Context) error {
 	if err != nil {
 		return echo.NewHTTPError(http.StatusUnprocessableEntity, err)
 	}
-	updatedUser, err := user.UpdateAUser(server.DB, uint32(uid))
+	updatedUser, err := user.UpdateAUser(server.DB, uid)
 	if err != nil {
 		formattedError := formaterror.FormatError(err.Error())
 		return echo.NewHTTPError(http.StatusInternalServerError, formattedError)
@@ -94,19 +89,16 @@ func (server *Server) UpdateUser(c echo.Context) error {
 }
 
 func (server *Server) DeleteUser(c echo.Context) error {
-	uid, err := strconv.ParseUint(c.Param("id"), 10, 32)
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, err)
-	}
+	uid := uuid.MustParse(c.Param("id"))
 	tokenID, err := auth.ExtractTokenID(c.Request())
 	if err != nil {
 		return echo.NewHTTPError(http.StatusUnauthorized, errors.New("Unauthorized"))
 	}
-	if tokenID != 0 && tokenID != uint32(uid) {
+	if tokenID != uid {
 		return echo.NewHTTPError(http.StatusUnauthorized, errors.New(http.StatusText(http.StatusUnauthorized)))
 	}
 	user := models.User{}
-	_, err = user.DeleteAUser(server.DB, uint32(uid))
+	_, err = user.DeleteAUser(server.DB, uid)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err)
 	}

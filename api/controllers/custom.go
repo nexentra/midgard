@@ -4,11 +4,11 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
-	"strconv"
 
 	"github.com/KnockOutEZ/rest-api-portfolio/api/auth"
 	"github.com/KnockOutEZ/rest-api-portfolio/api/models"
 	"github.com/KnockOutEZ/rest-api-portfolio/api/utils/formaterror"
+	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
 )
 
@@ -41,7 +41,7 @@ func (server *Server) CreateCustomSchema(c echo.Context) error {
 }
 
 func (server *Server) GoGetAllCustomSchemas(c echo.Context) error {
-	uid, err := strconv.ParseUint(c.Param("key"), 10, 64)
+	uid := uuid.MustParse(c.Param("key"))
 	customSchema := models.CustomSchema{}
 	customSchemas, err := customSchema.GoFindAllMyCustomSchemas(server.DB, uid)
 	if err != nil {
@@ -51,11 +51,8 @@ func (server *Server) GoGetAllCustomSchemas(c echo.Context) error {
 }
 
 func (server *Server) GoGetOneCustomSchemas(c echo.Context) error {
-	uid, err := strconv.ParseUint(c.Param("key"), 10, 64)
-	pid, err := strconv.ParseUint(c.Param("id"), 10, 64)
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, err)
-	}
+	uid := uuid.MustParse(c.Param("key"))
+	pid := uuid.MustParse(c.Param("id"))
 	customSchema := models.CustomSchema{}
 
 	customSchemaReceived, err := customSchema.GoFindCustomSchemaByID(server.DB, pid, uid)
@@ -88,10 +85,7 @@ func (server *Server) GetMyCustomSchemas(c echo.Context) error {
 
 
 func (server *Server) GetCustomSchema(c echo.Context) error {
-	pid := c.Param("id")
-	if pid == "" {
-		return echo.NewHTTPError(http.StatusBadRequest, errors.New("Invalid ID"))
-	}
+	pid := uuid.MustParse(c.Param("id"))
 	customSchema := models.CustomSchema{}
 
 	customSchemaReceived, err := customSchema.FindCustomSchemaByID(server.DB, pid)
@@ -102,10 +96,7 @@ func (server *Server) GetCustomSchema(c echo.Context) error {
 }
 
 func (server *Server) UpdateCustomSchema(c echo.Context) error {
-	pid := c.Param("id")
-	if pid == "" {
-		return echo.NewHTTPError(http.StatusBadRequest, errors.New("Invalid ID"))
-	}
+	pid := uuid.MustParse(c.Param("id"))
 
 	uid, err := auth.ExtractTokenID(c.Request())
 	if err != nil {
@@ -149,10 +140,7 @@ func (server *Server) UpdateCustomSchema(c echo.Context) error {
 }
 
 func (server *Server) DeleteCustomSchema(c echo.Context) error {
-	pid := c.Param("id")
-	if pid == "" {
-		return echo.NewHTTPError(http.StatusBadRequest, errors.New("Invalid ID"))
-	}
+	pid := uuid.MustParse(c.Param("id"))
 
 	uid, err := auth.ExtractTokenID(c.Request())
 	if err != nil {

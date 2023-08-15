@@ -14,7 +14,7 @@ import (
 )
 
 type User struct {
-	ID          uuid.UUID `gorm:"primary_key; type:uuid;default:uuid_generate_v4()" json:"id"`
+	ID          uuid.UUID `gorm:"primary_key;type:uuid;default:uuid_generate_v4()" json:"id"`
 	Name        string    `gorm:"size:255;not null" json:"name"`
 	Age         string    `gorm:"size:255;" json:"age"`
 	Moto        string    `gorm:"size:255;" json:"moto"`
@@ -127,7 +127,7 @@ func (u *User) FindAllUsers(db *gorm.DB) (*[]User, error) {
 	return &users, err
 }
 
-func (u *User) FindUserByID(db *gorm.DB, uid uint32) (*User, error) {
+func (u *User) FindUserByID(db *gorm.DB, uid uuid.UUID) (*User, error) {
 	var err error
 	err = db.Debug().Model(User{}).Where("id = ?", uid).Take(&u).Error
 	if err != nil {
@@ -139,7 +139,7 @@ func (u *User) FindUserByID(db *gorm.DB, uid uint32) (*User, error) {
 	return u, err
 }
 
-func (u *User) UpdateAUser(db *gorm.DB, uid uint32) (*User, error) {
+func (u *User) UpdateAUser(db *gorm.DB, uid uuid.UUID) (*User, error) {
 
 	// To hash the password
 	err := u.BeforeSave()
@@ -173,7 +173,7 @@ func (u *User) UpdateAUser(db *gorm.DB, uid uint32) (*User, error) {
 	return u, nil
 }
 
-func (u *User) DeleteAUser(db *gorm.DB, uid uint32) (int64, error) {
+func (u *User) DeleteAUser(db *gorm.DB, uid uuid.UUID) (int64, error) {
 
 	db = db.Debug().Model(&User{}).Where("id = ?", uid).Take(&User{}).Delete(&User{})
 
