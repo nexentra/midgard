@@ -1,0 +1,54 @@
+{
+  "name": "genesis-dashboard",
+  "version": "1.1.0",
+  "description": "genesisDashboard - A free portfolio updating website.",
+  "repository": "https://github.com/KnockOutEZ/genesisDashboard",
+  "license": "MIT",
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "5.15.3",
+    "@popperjs/core": "2.9.1",
+    "@tailwindcss/forms": "0.2.1",
+    "autoprefixer": "10.2.5",
+    "axios": "^0.26.1",
+    "chart.js": "2.9.4",
+    "gulp": "4.0.2",
+    "gulp-append-prepend": "1.0.8",
+    "postcss": "8.2.8",
+    "react": "17.0.1",
+    "react-alert": "^7.0.3",
+    "react-alert-template-basic": "^1.0.2",
+    "react-dom": "17.0.1",
+    "react-router": "5.2.0",
+    "react-router-dom": "5.2.0",
+    "react-scripts": "4.0.3",
+    "react-validation": "^3.0.7",
+    "tailwindcss": "2.0.4",
+    "validator": "^13.7.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm run build:tailwind && npm start",
+    "build:tailwind": "tailwind build src/assets/styles/index.css -o src/assets/styles/tailwind.css"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "optionalDependencies": {
+    "typescript": "4.2.3"
+  }
+}
