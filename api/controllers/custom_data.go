@@ -24,26 +24,12 @@ func contains(s []string, e string) bool {
 }
 
 func (server *Server) CreateCustomData(c echo.Context) error {
-	// get schema
 	pid := uuid.MustParse(c.Param("id"))
 	uid, err := auth.ExtractTokenID(c.Request())
 	if err != nil {
 		return echo.NewHTTPError(http.StatusUnauthorized, errors.New("Unauthorized"))
 	}
 
-	// customSchema := models.CustomSchema{}
-	// if err := c.Bind(&customSchema); err != nil {
-	// 	return echo.NewHTTPError(http.StatusUnprocessableEntity, err)
-	// }
-
-	// customSchemaReceived, err := customSchema.FindCustomSchemaByID(server.DB, pid)
-	// if err != nil {
-	// 	return echo.NewHTTPError(http.StatusInternalServerError, err)
-	// }
-
-	//modify it here
-
-	// push the new changes to the db
 	customSchema := models.CustomSchema{}
 	err = server.DB.Debug().Model(models.CustomSchema{}).Where("id = ?", pid).Take(&customSchema).Error
 	if err != nil {
@@ -61,10 +47,7 @@ func (server *Server) CreateCustomData(c echo.Context) error {
 	if err != nil {
 		return err
 	} else {
-		//json_map has the JSON Payload decoded into a map
-		fmt.Println("json_map", json_map)
 		for k, v := range json_map {
-			fmt.Println("k:", k, "v:", v)
 			if contains(customSchemaUpdate.FieldNames, k) {
 				result[k] = v
 			} else {
@@ -73,7 +56,7 @@ func (server *Server) CreateCustomData(c echo.Context) error {
 		}
 	}
 
-	var data []any
+	var data []map[string]interface{}
 
 	err = customSchemaUpdate.Data.AssignTo(&data)
 	if err != nil {
@@ -109,4 +92,39 @@ func (server *Server) CreateCustomData(c echo.Context) error {
 	}
 
 	return c.JSON(http.StatusOK, customSchemaUpdated)
+}
+
+
+func (server *Server) GetCustomData(c echo.Context) error {
+	cid := uuid.MustParse(c.Param("id"))
+	did := uuid.MustParse(c.Param("key"))
+	uid, err := auth.ExtractTokenID(c.Request())
+	if err != nil {
+		return echo.NewHTTPError(http.StatusUnauthorized, errors.New("Unauthorized"))
+	}
+
+	customSchema := models.CustomSchema{}
+	err = server.DB.Debug().Model(models.CustomSchema{}).Where("id = ?", cid).Take(&customSchema).Error
+	if err != nil {
+		return echo.NewHTTPError(http.StatusNotFound, errors.New("customSchema not found"))
+	}
+
+	if uid != customSchema.UserID {
+		return echo.NewHTTPError(http.StatusUnauthorized, errors.New("Unauthorized"))
+	}
+
+	var data []map[string]interface{}
+
+	err = customSchema.Data.AssignTo(&data)
+	if err != nil {
+		return err
+	}
+
+	for _, v := range data {
+		if v["id"] == did.String() {
+			return c.JSON(http.StatusOK, v)
+		}
+	}
+
+	return echo.NewHTTPError(http.StatusNotFound, errors.New("customData not found"))
 }
