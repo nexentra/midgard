@@ -152,8 +152,6 @@ func (p *CustomSchema) UpdateACustomSchema(db *gorm.DB) (*CustomSchema, error) {
 
 	var err error
 
-	fmt.Println("UpdateACustomSchema", p)
-
 	err = db.Debug().Model(&CustomSchema{}).Where("id = ?", p.ID).Updates(CustomSchema{
 		Name:        p.Name,
 		Title:       p.Title,
