@@ -44,6 +44,7 @@ func (s *Server) initializeRoutes() {
 	//CustomDatas routes
 	e.Add(echo.POST, "/api/customdatas/:id", s.CreateCustomData, middlewares.SetMiddlewareJSON)
 	e.Add(echo.GET, "/api/customdatas/:id/:key", s.GetCustomData, middlewares.SetMiddlewareJSON)
+	e.Add(echo.PUT, "/api/customdatas/:id/:key", s.UpdateCustomData, middlewares.SetMiddlewareJSON)
 
 	//routes for admin
 	e.Add(echo.GET, "/api/users", s.GetUsers, middlewares.SetMiddlewareJSON)
