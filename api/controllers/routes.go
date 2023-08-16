@@ -41,6 +41,9 @@ func (s *Server) initializeRoutes() {
 	e.Add(echo.PUT, "/api/customschemas/:id", s.UpdateCustomSchema, middlewares.SetMiddlewareJSON)
 	e.Add(echo.DELETE, "/api/customschemas/:id", s.DeleteCustomSchema, middlewares.SetMiddlewareJSON)
 
+	//CustomDatas routes
+	e.Add(echo.POST, "/api/customschemas/:id", s.CreateCustomData, middlewares.SetMiddlewareJSON)
+
 	//routes for admin
 	e.Add(echo.GET, "/api/users", s.GetUsers, middlewares.SetMiddlewareJSON)
 	e.Add(echo.GET, "/api/customschemas", s.GetCustomSchema, middlewares.SetMiddlewareJSON)

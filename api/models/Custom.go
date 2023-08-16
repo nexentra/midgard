@@ -6,6 +6,7 @@ import (
 	"strings"
 	"time"
 
+	"fmt"
 	"github.com/google/uuid"
 	"github.com/jackc/pgtype"
 	"github.com/jinzhu/gorm"
@@ -14,13 +15,13 @@ import (
 
 type CustomSchema struct {
 	ID          uuid.UUID      `gorm:"primary_key;type:uuid;default:uuid_generate_v4()" json:"id"`
-	Name        string         `gorm:"size:255;UNIQUE_INDEX:customSchemaindex;not null" json:"name"`
+	Name        string         `gorm:"size:255;not null" json:"name"`
 	Title       string         `gorm:"size:255;" json:"title"`
 	Description string         `gorm:"size:255;" json:"description"`
 	FieldNames  pq.StringArray `gorm:"type:text[];not null" json:"field_names"`
 	Data        pgtype.JSONB   `gorm:"type:jsonb;default:'[]';not null" json:"data"`
 	User        User           `json:"-"`
-	UserID      uuid.UUID      `gorm:"UNIQUE_INDEX:customSchemaindex;not null;type:uuid;default:uuid_generate_v4()" json:"user_id"`
+	UserID      uuid.UUID      `gorm:"not null;type:uuid;" json:"user_id"`
 	CreatedAt   time.Time      `gorm:"default:CURRENT_TIMESTAMP" json:"created_at"`
 	UpdatedAt   time.Time      `gorm:"default:CURRENT_TIMESTAMP" json:"updated_at"`
 }
@@ -31,6 +32,9 @@ func (p *CustomSchema) Prepare() {
 	p.Title = html.EscapeString(strings.TrimSpace(p.Title))
 	p.Description = html.EscapeString(strings.TrimSpace(p.Description))
 	p.User = User{}
+	p.UserID = uuid.MustParse(
+		p.UserID.String(),
+	)
 	p.CreatedAt = time.Now()
 	p.UpdatedAt = time.Now()
 }
@@ -43,6 +47,7 @@ func (p *CustomSchema) Validate() error {
 }
 
 func (p *CustomSchema) SaveCustomSchema(db *gorm.DB) (*CustomSchema, error) {
+	fmt.Println("SaveCustomSchema", p)
 	err := db.Debug().Model(&CustomSchema{}).Create(&p).Error
 	if err != nil {
 		return &CustomSchema{}, err
@@ -146,6 +151,8 @@ func (p *CustomSchema) FindCustomSchemaByID(db *gorm.DB, pid uuid.UUID) (*Custom
 func (p *CustomSchema) UpdateACustomSchema(db *gorm.DB) (*CustomSchema, error) {
 
 	var err error
+
+	fmt.Println("UpdateACustomSchema", p)
 
 	err = db.Debug().Model(&CustomSchema{}).Where("id = ?", p.ID).Updates(CustomSchema{
 		Name:        p.Name,

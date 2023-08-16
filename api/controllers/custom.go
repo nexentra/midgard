@@ -18,6 +18,8 @@ func (server *Server) CreateCustomSchema(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusUnprocessableEntity, err)
 	}
 
+	fmt.Println(customSchema.UserID, "customSchema")
+
 	customSchema.Prepare()
 	err := customSchema.Validate()
 	if err != nil {
