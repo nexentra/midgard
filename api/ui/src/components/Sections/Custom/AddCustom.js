@@ -12,20 +12,10 @@ const AddCustom = () =>{
   let history = useHistory()	
     const [myCustom, setmyCustomData] = useState({});
     const [error, seterrorData] = useState();
-  // useEffect(() => {
-  //   axios.get(API_URL + 'skills', { headers: authHeader() })
-  //     .then((response) => {
-  //       setmyCustomData(response.data)
-  //       console.log(response.data)
-  //     })
-  //     .catch((error) => {
-  //       console.log("Error is: " + error);
-  //     });
-  // }, []);
 
   function AddCustom(arg){
     console.log(arg)
-    axios.post(API_URL + 'education',arg, { headers: authHeader() })
+    axios.post(API_URL + 'customschemas',arg, { headers: authHeader() })
       .then((response) => {
         alert.success("Lets goooo!!")
         history.push("/admin/tables")
@@ -37,7 +27,7 @@ const AddCustom = () =>{
 
     return(
         <div>
-        <AddCustomForm formWidth={"12/12"} formName={"Create New Custom Detail"} formTitle={"Custom Infos"} handleSubmit={AddCustom}/>
+        <AddCustomForm formWidth={"12/12"} formName={"Create New Custom Table"} formTitle={"Custom Table Form"} handleSubmit={AddCustom}/>
         </div>
     )
 }

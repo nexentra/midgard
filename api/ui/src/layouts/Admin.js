@@ -13,20 +13,8 @@ import FooterAdmin from "components/Footers/FooterAdmin.js";
 import Dashboard from "views/admin/Dashboard.js";
 import Settings from "views/admin/Settings.js";
 import Tables from "views/admin/Tables.js";
-import AddSkills from "components/Sections/Skills/AddSkills";
-import EditSkills from "components/Sections/Skills/EditSkills";
-import AddSkillsArea from "components/Sections/SkillAreas/AddSkillsArea";
-import EditSkillsArea from "components/Sections/SkillAreas/EditSkillsArea";
-import AddHobbies from "components/Sections/Hobbies/AddHobbies";
-import EditHobbies from "components/Sections/Hobbies/EditHobbies";
-import AddEducation from "components/Sections/Education/AddEducation";
-import EditEducation from "components/Sections/Education/EditEducation";
-import AddProfessionalExperience from "components/Sections/ProfessionalExperience/AddProfessionalExperience";
-import EditProfessionalExperience from "components/Sections/ProfessionalExperience/EditProfessionalExperience";
-import AddProjects from "components/Sections/Projects/AddProjects";
-import EditProjects from "components/Sections/Projects/EditProjects";
-import AddSocialLinks from "components/Sections/SocialLinks/AddSocialLinks";
-import EditSocialLinks from "components/Sections/SocialLinks/EditSocialLinks";
+import AddCustom from "components/Sections/Custom/AddCustom";
+import EditCustom from "components/Sections/Custom/EditCustom";
 
 export default function Admin() {
   return (
@@ -42,22 +30,8 @@ export default function Admin() {
             {/* <Route path="/admin/maps" exact component={Maps} /> */}
             <Route path="/admin/settings" exact component={Settings} />
             <Route path="/admin/tables" exact component={Tables} />
-            <Route path="/admin/skills/add" exact component={AddSkills} />
-            <Route path="/admin/skills/edit/:id" exact component={EditSkills} />
-            <Route path="/admin/education/add" exact component={AddEducation} />
-            <Route path="/admin/education/edit/:id" exact component={EditEducation} />
-            <Route path="/admin/hobbies/add" exact component={AddHobbies} />
-            <Route path="/admin/hobbies/edit/:id" exact component={EditHobbies} />
-            <Route path="/admin/professionalexperience/add" exact component={AddProfessionalExperience} />
-            <Route path="/admin/professionalexperience/edit/:id" exact component={EditProfessionalExperience} />
-            <Route path="/admin/projects/add" exact component={AddProjects} />
-            <Route path="/admin/projects/edit/:id" exact component={EditProjects} />
-            <Route path="/admin/skillsarea/add" exact component={AddSkillsArea} />
-            <Route path="/admin/skillsarea/edit/:id" exact component={EditSkillsArea} />
-            <Route path="/admin/sociallinks/add" exact component={AddSocialLinks} />
-            <Route path="/admin/sociallinks/edit/:id" exact component={EditSocialLinks} />
-            
-            
+            <Route path="/admin/custom/add" exact component={AddCustom} />
+            <Route path="/admin/custom/edit/:id" exact component={EditCustom} />
             <Redirect from="/admin" to="/admin/dashboard" />
           </Switch>
           <FooterAdmin />

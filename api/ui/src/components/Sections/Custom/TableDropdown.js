@@ -37,7 +37,7 @@ const NotificationDropdown = (props) => {
         }
       >
         <Link
-          to={"/admin/education/edit/" + props.id}
+          to={"/admin/custom/edit/" + props.id}
           className={
             "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
           }
@@ -49,7 +49,7 @@ const NotificationDropdown = (props) => {
           className={
             "text-sm py-2 px-4 font-normal cursor-pointer block w-full whitespace-nowrap bg-transparent text-blueGray-700"
           }
-          onClick={() =>{props.deleteFunc(props.id)}}
+          onClick={() =>{props.deleteFunc(props.schema_id,props.id)}}
         >
           Delete
         </div>

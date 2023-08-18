@@ -1,5 +1,5 @@
 import {useState,useEffect} from "react";
-import EditCustomForm from "./EditCustomForm.jsx/index.js";
+import EditCustomForm from "./EditCustomForm.jsx";
 import axios from 'axios';
 import authHeader from "../../services/auth-header.js";
 import { useHistory,useParams } from "react-router-dom";
@@ -7,7 +7,7 @@ import { useAlert } from 'react-alert'
 const API_URL = "/api/";
 
 
-const AddCustom = () =>{
+const EditCustom = () =>{
   const alert = useAlert()
   let history = useHistory()	
   const { id } = useParams();
@@ -26,7 +26,7 @@ const AddCustom = () =>{
 
   function EditAndCustom(arg){
     console.log(arg)
-    axios.put(API_URL + 'education/' + id,arg, { headers: authHeader() })
+    axios.put(API_URL + 'custom/' + id,arg, { headers: authHeader() })
       .then((response) => {
         alert.success("Lets goooo!!")
         history.push("/admin/tables")
@@ -43,4 +43,4 @@ const AddCustom = () =>{
     )
 }
 
-export default AddCustom;
+export default EditCustom;

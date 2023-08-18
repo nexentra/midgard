@@ -17,10 +17,13 @@
     "react": "17.0.1",
     "react-alert": "^7.0.3",
     "react-alert-template-basic": "^1.0.2",
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "17.0.1",
     "react-router": "5.2.0",
     "react-router-dom": "5.2.0",
     "react-scripts": "4.0.3",
+    "react-tag-input": "^6.8.1",
     "react-validation": "^3.0.7",
     "tailwindcss": "2.0.4",
     "validator": "^13.7.0"

@@ -10,3 +10,8 @@ tasks:
         desc: Run the app
         cmds:
         - GOFLAGS=-mod=mod go run main.go
+
+    deploy: 
+        desc: Deploy the app
+        cmds:
+        - flyctl deploy
