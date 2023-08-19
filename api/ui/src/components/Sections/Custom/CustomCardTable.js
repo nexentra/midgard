@@ -28,22 +28,22 @@ export default function CustomCardTable(props) {
               </h3>
             </div>
             <div className="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
-              <Link
+              <div className="flex flex-row space-x-4 justify-end">
+            <Link
                 className="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                to="/admin/education/add"
+                to={"/admin/customdata/add/"+ props.schema_id}
               >
                 Add Data
               </Link>
-            </div>
-            <div className="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
               <Link
                 className="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                 onClick={() => {
                   props.deleteMyCustom(props.schema_id);
                 }}
               >
-                Delete
+                Delete Table
               </Link>
+              </div>
             </div>
           </div>
         </div>
@@ -83,7 +83,9 @@ export default function CustomCardTable(props) {
               <tr>
                 {Object.entries(data).map(([key, value]) => (
                   <>
-                    <td key={key}>{value}</td>
+                    {
+                      key !== "id" && <td key={key}>{value}</td>
+                    }
                   </>
                 ))}
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-wrap p-4 text-right">

@@ -14,7 +14,8 @@ import Dashboard from "views/admin/Dashboard.js";
 import Settings from "views/admin/Settings.js";
 import Tables from "views/admin/Tables.js";
 import AddCustom from "components/Sections/Custom/AddCustom";
-import EditCustom from "components/Sections/Custom/EditCustom";
+import EditCustomData from "components/Sections/Custom/EditCustomData";
+import AddCustomData from "components/Sections/Custom/AddCustomData";
 
 export default function Admin() {
   return (
@@ -30,8 +31,10 @@ export default function Admin() {
             {/* <Route path="/admin/maps" exact component={Maps} /> */}
             <Route path="/admin/settings" exact component={Settings} />
             <Route path="/admin/tables" exact component={Tables} />
-            <Route path="/admin/custom/add" exact component={AddCustom} />
-            <Route path="/admin/custom/edit/:id" exact component={EditCustom} />
+            <Route path="/admin/custom/add/" exact component={AddCustom} />
+            <Route path="/admin/customdata/add/:id" exact component={AddCustomData} />
+            <Route path="/admin/customdata/edit/:schema_id/:id" exact component={EditCustomData} />
+            {/* <Route path="/admin/custom/edit/:id" exact component={EditCustom} /> */}
             <Redirect from="/admin" to="/admin/dashboard" />
           </Switch>
           <FooterAdmin />
