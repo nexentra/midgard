@@ -5,7 +5,7 @@ import { data } from "autoprefixer";
 import React,{useState, useEffect } from "react";
 import axios from 'axios';
 import { useAlert } from 'react-alert'
-const API_URL = "/api/";
+const API_URL = process.env.NODE_ENV === "PRODUCTION" ? "/api/" : "http://localhost:8080/api/";
 
 const UserDropdown = () => {
   // dropdown props

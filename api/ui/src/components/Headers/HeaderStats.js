@@ -5,7 +5,7 @@ import CardStats from "components/Cards/CardStats.js";
 import React,{useState, useEffect } from "react";
 import axios from 'axios';
 import { useAlert } from 'react-alert'
-const API_URL = "/api/";
+const API_URL = process.env.NODE_ENV === "PRODUCTION" ? "/api/" : "http://localhost:8080/api/";
 
 export default function HeaderStats() {
   const [userdata, setUserData] = useState();

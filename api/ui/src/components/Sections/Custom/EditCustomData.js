@@ -4,7 +4,7 @@ import axios from 'axios';
 import authHeader from "../../services/auth-header.js";
 import { useHistory,useParams } from "react-router-dom";
 import { useAlert } from 'react-alert'
-const API_URL = "/api/";
+const API_URL = process.env.NODE_ENV === "PRODUCTION" ? "/api/" : "http://localhost:8080/api/";
 
 
 const EditCustomData = () =>{

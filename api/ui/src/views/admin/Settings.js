@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useAlert } from 'react-alert'
 import authHeader from '../../components/services/auth-header';
 import AuthService from '../../components/services/auth.services';
-const API_URL = "/api/";
+const API_URL = process.env.NODE_ENV === "PRODUCTION" ? "/api/" : "http://localhost:8080/api/";
 
 const Settings = () => {
   const [userData, setUserData] = useState({});

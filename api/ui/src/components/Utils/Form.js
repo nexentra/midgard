@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useHistory } from "react-router-dom";
 import authHeader from '../../components/services/auth-header';
 import { useAlert } from 'react-alert'
-const API_URL = "/api/";
+const API_URL = process.env.NODE_ENV === "PRODUCTION" ? "/api/" : "http://localhost:8080/api/";
 // components
 
 export default function Form(props) {
