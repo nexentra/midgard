@@ -3,6 +3,9 @@ import PropTypes from "prop-types";
 import TableDropdown from "./TableDropdown";
 import { Link } from "react-router-dom";
 export default function CustomCardTable(props) {
+  const truncate = (str) => {
+    return str.length > 35 ? str.substring(0, 35) + "..." : str;
+  };
   return (
     <>
       <div
@@ -77,7 +80,7 @@ export default function CustomCardTable(props) {
             {props.getData.data.map((data) => (
               <tr>
                 {props?.getData?.field_names?.map((field) => (
-                  <>{field !== "id" && <td className="px-6 align-middle py-3 text-xs uppercase whitespace-nowrap font-semibold text-left" key={field}>{data[field]}</td>}</>
+                  <>{field !== "id" && <td className="px-6 align-middle py-3 text-xs uppercase whitespace-nowrap font-semibold text-left"  key={field}>{truncate(data[field])}</td>}</>
                 ))}
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-wrap p-4 text-right">
                   <TableDropdown
