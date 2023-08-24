@@ -3,6 +3,8 @@ import React from "react";
 // components
 
 export default function CardPageVisits() {
+  const URL = "https://dashboard.genesis.nexentra.online/api/";
+
   return (
     <>
       <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
@@ -43,140 +45,20 @@ export default function CardPageVisits() {
               </tr>
             </thead>
             <tbody>
-            <tr>
-                
+              <tr>
                 <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-                ALL PROFILE DATA
+                  YOUR PROFILE DATA
                 </th>
                 <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-                  {"https://genesisrestapi.herokuapp.com/users/"+localStorage.getItem("userid")}
+                  {URL + "users/" + localStorage.getItem("userid")}
                 </th>
               </tr>
               <tr>
-                
                 <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-                All SKILLS
+                  All TABLES
                 </th>
                 <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-                  {"https://genesisrestapi.herokuapp.com/"+localStorage.getItem("userid")+"/myskills"}
-                </th>
-              </tr>
-              <tr>
-                
-                <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-                SINGLE SKILL
-                </th>
-                <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-                  {"https://genesisrestapi.herokuapp.com/"+localStorage.getItem("userid")+"/myskills/YOUR SKILL ID"}
-                </th>
-              </tr>
-              
-              <tr>
-                
-                <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-                ALL SKILL AREAS
-                </th>
-                <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-                  {"https://genesisrestapi.herokuapp.com/"+localStorage.getItem("userid")+"/myskillareas"}
-                </th>
-              </tr>
-              <tr>
-                
-                <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-                SINGLE Skill Area
-                </th>
-                <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-                  {"https://genesisrestapi.herokuapp.com/"+localStorage.getItem("userid")+"/myskillareas/Your Skill Area ID"}
-                </th>
-              </tr>
-              <tr>
-                
-                <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-                ALL PROJECTS
-                </th>
-                <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-                  {"https://genesisrestapi.herokuapp.com/"+localStorage.getItem("userid")+"/myprojects"}
-                </th>
-              </tr>
-              <tr>
-                
-                <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-                SINGLE PROJECT
-                </th>
-                <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-                  {"https://genesisrestapi.herokuapp.com/"+localStorage.getItem("userid")+"/myprojects/Your Project ID"}
-                </th>
-              </tr>
-              <tr>
-                
-                <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-                ALL EDUCATION INFOS
-                </th>
-                <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-                  {"https://genesisrestapi.herokuapp.com/"+localStorage.getItem("userid")+"/myeducation"}
-                </th>
-              </tr>
-              <tr>
-                
-                <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-                SINGLE EDUCATION INFO
-                </th>
-                <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-                  {"https://genesisrestapi.herokuapp.com/"+localStorage.getItem("userid")+"/myeducation/YOUR EDUCATION ID"}
-                </th>
-              </tr>
-              <tr>
-                
-                <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-                ALL PROFESSIONAL EXPERIENCES
-                </th>
-                <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-                  {"https://genesisrestapi.herokuapp.com/"+localStorage.getItem("userid")+"/myprofessional"}
-                </th>
-              </tr>
-              <tr>
-                
-                <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-                SINGLE PROFESSIONAL EXPERIENCE
-                </th>
-                <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-                  {"https://genesisrestapi.herokuapp.com/"+localStorage.getItem("userid")+"/myprofessional/YOUR PROFESSIONAL EXP ID"}
-                </th>
-              </tr>
-              <tr>
-                
-                <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-                ALL HOBBIES
-                </th>
-                <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-                  {"https://genesisrestapi.herokuapp.com/"+localStorage.getItem("userid")+"/myhobbies"}
-                </th>
-              </tr>
-              <tr>
-                
-                <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-                SINGLE HOBBY
-                </th>
-                <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-                  {"https://genesisrestapi.herokuapp.com/"+localStorage.getItem("userid")+"/myhobbies/YOUR HOBBY ID"}
-                </th>
-              </tr>
-              <tr>
-                
-                <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-                ALL SOCIAL LINKS
-                </th>
-                <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-                  {"https://genesisrestapi.herokuapp.com/"+localStorage.getItem("userid")+"/mysocials"}
-                </th>
-              </tr>
-              <tr>
-                
-                <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-                SINGLE SOCIAL LINK
-                </th>
-                <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-                  {"https://genesisrestapi.herokuapp.com/"+localStorage.getItem("userid")+"/mysocials/YOUR SOCIAL LINK ID"}
+                  {URL + localStorage.getItem("userid") + "/mycustomschemas"}
                 </th>
               </tr>
             </tbody>
