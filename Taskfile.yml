@@ -9,7 +9,7 @@ tasks:
     run: 
         desc: Run the app
         cmds:
-        - GOFLAGS=-mod=mod go run main.go
+        - ./run.sh
 
     deploy: 
         desc: Deploy the app
