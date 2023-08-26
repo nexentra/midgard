@@ -15,3 +15,13 @@ tasks:
         desc: Deploy the app
         cmds:
         - flyctl deploy
+
+    proxy-db: 
+        desc: Makes fly db server available on localhost:15432
+        cmds:
+        - fly -a genesis-dashboard-db proxy 15432:5433
+
+    cli-db: 
+        desc: Connects you with psql in fly db server
+        cmds:
+        - fly -a genesis-dashboard-db pg connect
