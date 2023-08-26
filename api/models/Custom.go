@@ -14,7 +14,7 @@ import (
 )
 
 type CustomSchema struct {
-	ID          uuid.UUID      `gorm:"primary_key;type:uuid;" json:"id"`
+	Base
 	Name        string         `gorm:"size:255;not null" json:"name"`
 	Title       string         `gorm:"size:255;" json:"title"`
 	Description string         `gorm:"size:255;" json:"description"`
@@ -22,7 +22,6 @@ type CustomSchema struct {
 	Data        pgtype.JSONB   `gorm:"type:jsonb;default:'[]';not null" json:"data"`
 	User        User           `json:"-"`
 	UserID      uuid.UUID      `gorm:"not null;type:uuid;" json:"user_id"`
-	CreatedAt   time.Time      `gorm:"default:CURRENT_TIMESTAMP" json:"created_at"`
 	UpdatedAt   time.Time      `gorm:"default:CURRENT_TIMESTAMP" json:"updated_at"`
 }
 
@@ -37,7 +36,6 @@ type CustomSchemaResponse struct {
 }
 
 func (p *CustomSchema) Prepare() {
-	p.ID = uuid.New()
 	p.Name = html.EscapeString(strings.TrimSpace(p.Name))
 	p.Title = html.EscapeString(strings.TrimSpace(p.Title))
 	p.Description = html.EscapeString(strings.TrimSpace(p.Description))
@@ -45,8 +43,6 @@ func (p *CustomSchema) Prepare() {
 	p.UserID = uuid.MustParse(
 		p.UserID.String(),
 	)
-	p.CreatedAt = time.Now()
-	p.UpdatedAt = time.Now()
 }
 
 func (p *CustomSchema) Validate() error {
@@ -159,7 +155,7 @@ func (p *CustomSchema) UpdateACustomSchema(db *gorm.DB) (*CustomSchema, error) {
 		Description: p.Description,
 		Data:        p.Data,
 		FieldNames:  p.FieldNames,
-		UpdatedAt:   time.Now()}).Error
+		UpdatedAt: time.Now()}).Error
 	if err != nil {
 		return &CustomSchema{}, err
 	}

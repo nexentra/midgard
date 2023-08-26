@@ -14,7 +14,7 @@ import (
 )
 
 type User struct {
-	ID          uuid.UUID `gorm:"primary_key;type:uuid;" json:"id"`
+	Base
 	Name        string    `gorm:"size:255;not null" json:"name"`
 	Age         string    `gorm:"size:255;" json:"age"`
 	Moto        string    `gorm:"size:255;" json:"moto"`
@@ -25,8 +25,7 @@ type User struct {
 	ProfileIcon string    `gorm:"size:255;" json:"profile_icon"`
 	Email       string    `gorm:"size:255;not null;unique" json:"email"`
 	Password    string    `gorm:"size:255;not null;" json:"password"`
-	CreatedAt   time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"created_at"`
-	UpdatedAt   time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"updated_at"`
+	UpdatedAt   time.Time      `gorm:"default:CURRENT_TIMESTAMP" json:"updated_at"`
 }
 
 func Hash(password string) ([]byte, error) {
@@ -47,18 +46,15 @@ func (u *User) BeforeSave() error {
 }
 
 func (u *User) Prepare() {
-	u.ID = uuid.New()
 	u.Name = html.EscapeString(strings.TrimSpace(u.Name))
 	u.Age = html.EscapeString(strings.TrimSpace(u.Age))
 	u.Moto = html.EscapeString(strings.TrimSpace(u.Moto))
 	u.AboutYou = html.EscapeString(strings.TrimSpace(u.AboutYou))
 	u.WhatDoYouDo = html.EscapeString(strings.TrimSpace(u.WhatDoYouDo))
-	// u.PhoneNum = html.EscapeString(strings.TrimSpace(u.PhoneNum))
-	// u.ProfileImage = html.EscapeString(strings.TrimSpace(u.ProfileImage))
-	// u.ProfileIcon = html.EscapeString(strings.TrimSpace(u.ProfileIcon))
+	u.PhoneNumber = html.EscapeString(strings.TrimSpace(u.PhoneNumber))
+	u.ProfileImg = html.EscapeString(strings.TrimSpace(u.ProfileImg))
+	u.ProfileIcon = html.EscapeString(strings.TrimSpace(u.ProfileIcon))
 	u.Email = html.EscapeString(strings.TrimSpace(u.Email))
-	u.CreatedAt = time.Now()
-	u.UpdatedAt = time.Now()
 }
 
 func (u *User) Validate(action string) error {
