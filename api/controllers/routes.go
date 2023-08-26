@@ -3,10 +3,10 @@ package controllers
 import (
 	"os"
 
-	"github.com/KnockOutEZ/rest-api-portfolio/api/middlewares"
-	"github.com/KnockOutEZ/rest-api-portfolio/api/ui"
-	"github.com/labstack/echo/v4/middleware"
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
+	"github.com/nexentra/genesis-dashboard/api/middlewares"
+	"github.com/nexentra/genesis-dashboard/api/ui"
 )
 
 func (s *Server) initializeRoutes() {

@@ -14,7 +14,7 @@ import (
 )
 
 type CustomSchema struct {
-	ID          uuid.UUID      `gorm:"primary_key;type:uuid;default:uuid_generate_v4()" json:"id"`
+	ID          uuid.UUID      `gorm:"primary_key;type:uuid;" json:"id"`
 	Name        string         `gorm:"size:255;not null" json:"name"`
 	Title       string         `gorm:"size:255;" json:"title"`
 	Description string         `gorm:"size:255;" json:"description"`
@@ -27,7 +27,7 @@ type CustomSchema struct {
 }
 
 type CustomSchemaResponse struct {
-	ID          uuid.UUID    `gorm:"primary_key;type:uuid;default:uuid_generate_v4()" json:"id"`
+	ID          uuid.UUID    `gorm:"primary_key;type:uuid;" json:"id"`
 	Name        string       `gorm:"size:255;not null" json:"name"`
 	Title       string       `gorm:"size:255;" json:"title"`
 	Description string       `gorm:"size:255;" json:"description"`

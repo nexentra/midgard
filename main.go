@@ -1,7 +1,7 @@
 package main
 
-import "github.com/KnockOutEZ/rest-api-portfolio/api"
+import "github.com/nexentra/genesis-dashboard/api"
 
-func main(){
+func main() {
 	api.Run()
 }

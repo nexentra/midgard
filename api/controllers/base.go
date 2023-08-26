@@ -4,20 +4,21 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
+	"github.com/jinzhu/gorm"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-	"github.com/jinzhu/gorm"
 
 	_ "github.com/jinzhu/gorm/dialects/mysql"    //mysql database driver
 	_ "github.com/jinzhu/gorm/dialects/postgres" //postgres database driver
 
-	"github.com/KnockOutEZ/rest-api-portfolio/api/models"
+	"github.com/nexentra/genesis-dashboard/api/models"
 )
 
 type Server struct {
-	DB     *gorm.DB
-	Echo   *echo.Echo
+	DB   *gorm.DB
+	Echo *echo.Echo
 }
 
 func (server *Server) Initialize(Dbdriver, DbUser, DbPassword, DbPort, DbHost, DbName string) {
@@ -36,6 +37,9 @@ func (server *Server) Initialize(Dbdriver, DbUser, DbPassword, DbPort, DbHost, D
 	}
 	if Dbdriver == "postgres" {
 		DBURL := fmt.Sprintf("host=%s port=%s user=%s dbname=%s sslmode=disable password=%s", DbHost, DbPort, DbUser, DbName, DbPassword)
+		if os.Getenv("DATABASE_URL") != "" {
+			DBURL = os.Getenv("DATABASE_URL")
+		}
 		server.DB, err = gorm.Open(Dbdriver, DBURL)
 		if err != nil {
 			fmt.Printf("Cannot connect to %s database", Dbdriver)
@@ -55,8 +59,8 @@ func (server *Server) Initialize(Dbdriver, DbUser, DbPassword, DbPort, DbHost, D
 		AllowHeaders:     []string{"Content-Type", "Authorization", "Bearer", "Bearer ", "content-type", "authorization", "Origin", "Accept"},
 	}))
 
-		server.initializeRoutes()
-		
+	server.initializeRoutes()
+
 }
 
 func (server *Server) Run(addr string) {

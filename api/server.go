@@ -5,8 +5,8 @@ import (
 	"log"
 	"os"
 
-	"github.com/KnockOutEZ/rest-api-portfolio/api/controllers"
 	"github.com/joho/godotenv"
+	"github.com/nexentra/genesis-dashboard/api/controllers"
 )
 
 var server = controllers.Server{}

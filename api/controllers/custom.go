@@ -5,11 +5,11 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/KnockOutEZ/rest-api-portfolio/api/auth"
-	"github.com/KnockOutEZ/rest-api-portfolio/api/models"
-	"github.com/KnockOutEZ/rest-api-portfolio/api/utils/formaterror"
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
+	"github.com/nexentra/genesis-dashboard/api/auth"
+	"github.com/nexentra/genesis-dashboard/api/models"
+	"github.com/nexentra/genesis-dashboard/api/utils/formaterror"
 )
 
 func (server *Server) CreateCustomSchema(c echo.Context) error {
@@ -83,8 +83,6 @@ func (server *Server) GetMyCustomSchemas(c echo.Context) error {
 	}
 	return c.JSON(http.StatusOK, customSchemas)
 }
-
-
 
 func (server *Server) GetCustomSchema(c echo.Context) error {
 	pid := uuid.MustParse(c.Param("id"))

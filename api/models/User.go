@@ -14,7 +14,7 @@ import (
 )
 
 type User struct {
-	ID          uuid.UUID `gorm:"primary_key;type:uuid;default:uuid_generate_v4()" json:"id"`
+	ID          uuid.UUID `gorm:"primary_key;type:uuid;" json:"id"`
 	Name        string    `gorm:"size:255;not null" json:"name"`
 	Age         string    `gorm:"size:255;" json:"age"`
 	Moto        string    `gorm:"size:255;" json:"moto"`
