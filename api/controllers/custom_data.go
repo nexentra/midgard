@@ -3,11 +3,12 @@ package controllers
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"net/http"
 
-	"github.com/KnockOutEZ/rest-api-portfolio/api/auth"
-	"github.com/KnockOutEZ/rest-api-portfolio/api/models"
-	"github.com/KnockOutEZ/rest-api-portfolio/api/utils/formaterror"
+	"github.com/nexentra/genesis-dashboard/api/auth"
+	"github.com/nexentra/genesis-dashboard/api/models"
+	"github.com/nexentra/genesis-dashboard/api/utils/formaterror"
 
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
@@ -90,9 +91,13 @@ func (server *Server) CreateCustomData(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusInternalServerError, formattedError)
 	}
 
+	err = server.KVDB.Delete([]byte(uid.String()))
+	if err != nil {
+		fmt.Println("error from kvdb:" + string(err.Error()))
+	}
+
 	return c.JSON(http.StatusOK, customSchemaUpdated)
 }
-
 
 func (server *Server) GetCustomData(c echo.Context) error {
 	cid := uuid.MustParse(c.Param("id"))
@@ -187,7 +192,6 @@ func (server *Server) UpdateCustomData(c echo.Context) error {
 		return err
 	}
 
-
 	customSchema.Prepare()
 	err = customSchema.Validate()
 	if err != nil {
@@ -203,10 +207,13 @@ func (server *Server) UpdateCustomData(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusInternalServerError, formattedError)
 	}
 
+	err = server.KVDB.Delete([]byte(uid.String()))
+	if err != nil {
+		fmt.Println("error from kvdb:" + string(err.Error()))
+	}
+
 	return c.JSON(http.StatusOK, customSchemaUpdated)
 }
-
-
 
 func (server *Server) DeleteCustomData(c echo.Context) error {
 	cid := uuid.MustParse(c.Param("id"))
@@ -265,6 +272,11 @@ func (server *Server) DeleteCustomData(c echo.Context) error {
 	if err != nil {
 		formattedError := formaterror.FormatError(err.Error())
 		return echo.NewHTTPError(http.StatusInternalServerError, formattedError)
+	}
+
+	err = server.KVDB.Delete([]byte(uid.String()))
+	if err != nil {
+		fmt.Println("error from kvdb:" + string(err.Error()))
 	}
 
 	return c.JSON(http.StatusOK, customSchemaUpdated)

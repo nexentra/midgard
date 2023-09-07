@@ -4,20 +4,23 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
+	"github.com/jinzhu/gorm"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-	"github.com/jinzhu/gorm"
+	"github.com/rosedblabs/rosedb/v2"
 
 	_ "github.com/jinzhu/gorm/dialects/mysql"    //mysql database driver
 	_ "github.com/jinzhu/gorm/dialects/postgres" //postgres database driver
 
-	"github.com/KnockOutEZ/rest-api-portfolio/api/models"
+	"github.com/nexentra/genesis-dashboard/api/models"
 )
 
 type Server struct {
-	DB     *gorm.DB
-	Echo   *echo.Echo
+	DB   *gorm.DB
+	KVDB *rosedb.DB
+	Echo *echo.Echo
 }
 
 func (server *Server) Initialize(Dbdriver, DbUser, DbPassword, DbPort, DbHost, DbName string) {
@@ -35,7 +38,10 @@ func (server *Server) Initialize(Dbdriver, DbUser, DbPassword, DbPort, DbHost, D
 		}
 	}
 	if Dbdriver == "postgres" {
-		DBURL := fmt.Sprintf("host=%s port=%s user=%s dbname=%s sslmode=require password=%s", DbHost, DbPort, DbUser, DbName, DbPassword)
+		DBURL := fmt.Sprintf("host=%s port=%s user=%s dbname=%s sslmode=disable password=%s", DbHost, DbPort, DbUser, DbName, DbPassword)
+		if os.Getenv("DATABASE_URL") != "" {
+			DBURL = os.Getenv("DATABASE_URL")
+		}
 		server.DB, err = gorm.Open(Dbdriver, DBURL)
 		if err != nil {
 			fmt.Printf("Cannot connect to %s database", Dbdriver)
@@ -55,8 +61,23 @@ func (server *Server) Initialize(Dbdriver, DbUser, DbPassword, DbPort, DbHost, D
 		AllowHeaders:     []string{"Content-Type", "Authorization", "Bearer", "Bearer ", "content-type", "authorization", "Origin", "Accept"},
 	}))
 
-		server.initializeRoutes()
-		
+	options := rosedb.DefaultOptions
+	options.DirPath = "/tmp/rosedb"
+
+	db, err := rosedb.Open(options)
+	if err != nil {
+		fmt.Println("Cannot connect to rosedb")
+		log.Fatal("This is the error:", err)
+	}
+
+	server.KVDB = db
+
+	server.initializeRoutes()
+
+	// defer func() {
+	// 	_ = db.Close()
+	// }()
+
 }
 
 func (server *Server) Run(addr string) {

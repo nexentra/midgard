@@ -38,7 +38,7 @@ export default function Navbar(props) {
               <li className="flex items-center">
                 <a
                   className="lg:text-white lg:hover:text-blueGray-200 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-                  href="https://www.facebook.com"
+                  href="https://www.facebook.com/towhid.khan.9699"
                   target="_blank"
                 >
                   <i className="lg:text-blueGray-200 text-blueGray-400 fab fa-facebook text-lg leading-lg " />
@@ -49,22 +49,33 @@ export default function Navbar(props) {
               <li className="flex items-center">
                 <a
                   className="lg:text-white lg:hover:text-blueGray-200 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-                  href="https://twitter.com"
+                  href="https://github.com/KnockOutEZ"
                   target="_blank"
                 >
-                  <i className="lg:text-blueGray-200 text-blueGray-400 fab fa-twitter text-lg leading-lg " />
-                  <span className="lg:hidden inline-block ml-2">Twitter</span>
+                  <i className="lg:text-blueGray-200 text-blueGray-400 fab fa-github text-lg leading-lg " />
+                  <span className="lg:hidden inline-block ml-2">Github</span>
                 </a>
               </li>
 
               <li className="flex items-center">
                 <a
                   className="lg:text-white lg:hover:text-blueGray-200 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-                  href="https://github.com"
+                  href="https://www.linkedin.com/in/towhid-khan-b2504b207"
                   target="_blank"
                 >
-                  <i className="lg:text-blueGray-200 text-blueGray-400 fab fa-github text-lg leading-lg " />
-                  <span className="lg:hidden inline-block ml-2">Github</span>
+                  <i className="lg:text-blueGray-200 text-blueGray-400 fab fa-linkedin text-lg leading-lg " />
+                  <span className="lg:hidden inline-block ml-2">LinkedIn</span>
+                </a>
+              </li>
+
+              <li className="flex items-center">
+                <a
+                  className="lg:text-white lg:hover:text-blueGray-200 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
+                  href="https://www.buymeacoffee.com/knockoutez"
+                  target="_blank"
+                >
+                  <i className="lg:text-blueGray-200 text-blueGray-400 fas fa-coffee text-lg leading-lg " />
+                  <span className="lg:hidden inline-block ml-2">LinkedIn</span>
                 </a>
               </li>
             </ul>

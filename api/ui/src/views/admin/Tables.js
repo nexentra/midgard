@@ -3,7 +3,7 @@ import axios from "axios";
 import authHeader from "components/services/auth-header";
 import CustomCardTable from "components/Sections/Custom/CustomCardTable";
 import { Link } from "react-router-dom";
-const API_URL = process.env.NODE_ENV === "PRODUCTION" ? "/api/" : "http://localhost:8080/api/";
+const API_URL = process.env.NODE_ENV === "production" ? "/api/" : "http://localhost:8080/api/";
 // components
 
 const Tables = () => {
@@ -68,9 +68,6 @@ const Tables = () => {
             />
           ))}
         </div>
-        {/* <div className="w-full mb-12 px-4">
-          <CardTable color="dark" />
-        </div> */}
       </div>
     </>
   );

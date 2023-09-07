@@ -5,13 +5,13 @@ import CardStats from "components/Cards/CardStats.js";
 import React,{useState, useEffect } from "react";
 import axios from 'axios';
 import { useAlert } from 'react-alert'
-const API_URL = process.env.NODE_ENV === "PRODUCTION" ? "/api/" : "http://localhost:8080/api/";
+const API_URL = process.env.NODE_ENV === "production" ? "/api/" : "http://localhost:8080/api/";
 
 export default function HeaderStats() {
   const [userdata, setUserData] = useState();
-  const [Skills, setSkills] = useState();
-  const [Projects, setProjects] = useState();
-  const [SkillArea, setSkillArea] = useState();
+  const [Skills, setSkills] = useState(0);
+  const [Projects, setProjects] = useState(0);
+  const [SkillArea, setSkillArea] = useState(0);
   const alert = useAlert()
   useEffect(() => {
     axios.get(API_URL + 'users')
@@ -24,35 +24,35 @@ export default function HeaderStats() {
         alert.error(error.response.data.error)
       });
 
-      axios.get(API_URL + 'skills')
-      .then((response) => {
-        // alert.success("Lets goooo!!")
-        setSkills(response.data.length);
+      // axios.get(API_URL + 'skills')
+      // .then((response) => {
+      //   // alert.success("Lets goooo!!")
+      //   setSkills(response.data.length);
         
-      })
-      .catch((error) => {
-        alert.error(error.response.data.error)
-      });
+      // })
+      // .catch((error) => {
+      //   alert.error(error.response.data.error)
+      // });
 
-      axios.get(API_URL + 'projects')
-      .then((response) => {
-        // alert.success("Lets goooo!!")
-        setProjects(response.data.length);
+      // axios.get(API_URL + 'projects')
+      // .then((response) => {
+      //   // alert.success("Lets goooo!!")
+      //   setProjects(response.data.length);
         
-      })
-      .catch((error) => {
-        alert.error(error.response.data.error)
-      });
+      // })
+      // .catch((error) => {
+      //   alert.error(error.response.data.error)
+      // });
 
-      axios.get(API_URL + 'skillareas')
-      .then((response) => {
-        // alert.success("Lets goooo!!")
-        setSkillArea(response.data.length);
+      // axios.get(API_URL + 'skillareas')
+      // .then((response) => {
+      //   // alert.success("Lets goooo!!")
+      //   setSkillArea(response.data.length);
         
-      })
-      .catch((error) => {
-        alert.error(error.response.data.error)
-      });
+      // })
+      // .catch((error) => {
+      //   alert.error(error.response.data.error)
+      // });
   }, []);
   return (
     <>

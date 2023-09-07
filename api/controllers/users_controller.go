@@ -5,12 +5,11 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/KnockOutEZ/rest-api-portfolio/api/auth"
-	"github.com/KnockOutEZ/rest-api-portfolio/api/models"
-	"github.com/KnockOutEZ/rest-api-portfolio/api/utils/formaterror"
-	"github.com/labstack/echo/v4"
 	"github.com/google/uuid"
-
+	"github.com/labstack/echo/v4"
+	"github.com/nexentra/genesis-dashboard/api/auth"
+	"github.com/nexentra/genesis-dashboard/api/models"
+	"github.com/nexentra/genesis-dashboard/api/utils/formaterror"
 )
 
 func (server *Server) CreateUser(c echo.Context) error {

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import authHeader from './auth-header';
-const API_URL = process.env.NODE_ENV === "PRODUCTION" ? "/api/" : "http://localhost:8080/api/";
+const API_URL = process.env.NODE_ENV === "production" ? "/api/" : "http://localhost:8080/api/";
 class SkillsService {
   getAllMySkills() {
     axios.get(API_URL + 'myskills', { headers: authHeader() })

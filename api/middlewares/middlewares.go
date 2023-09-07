@@ -4,8 +4,8 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/KnockOutEZ/rest-api-portfolio/api/auth"
 	"github.com/labstack/echo/v4"
+	"github.com/nexentra/genesis-dashboard/api/auth"
 )
 
 func SetMiddlewareJSON(next echo.HandlerFunc) echo.HandlerFunc {

@@ -4,14 +4,34 @@ tasks:
     build:
         desc: Build the app
         cmds:
-        - GOFLAGS=-mod=mod go build -o bin/rest-api-portfolio main.go 
+        - CGO_ENABLED=0 go build -ldflags "-w" -a -buildvcs=false -o main ./main.go
 
     run: 
         desc: Run the app
         cmds:
-        - GOFLAGS=-mod=mod go run main.go
+        - ./run.sh
+
+    run-frontend: 
+        desc: Run Frontend Only
+        cmds:
+        - ./run.sh frontend
+
+    run-backend: 
+        desc: Run Backend Only
+        cmds:
+        - ./run.sh backend
 
     deploy: 
         desc: Deploy the app
         cmds:
         - flyctl deploy
+
+    proxy-db: 
+        desc: Makes fly db server available on localhost:15432
+        cmds:
+        - fly -a genesis-dashboard-db proxy 15432:5433
+
+    cli-db: 
+        desc: Connects you with psql in fly db server
+        cmds:
+        - fly -a genesis-dashboard-db pg connect
