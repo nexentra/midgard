@@ -1,9 +1,11 @@
 package controllers
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
@@ -38,6 +40,12 @@ func (server *Server) CreateCustomSchema(c echo.Context) error {
 		formattedError := formaterror.FormatError(err.Error())
 		return echo.NewHTTPError(http.StatusInternalServerError, formattedError)
 	}
+
+	err = server.KVDB.Delete([]byte(uid.String()))
+	if err != nil {
+		fmt.Println("error from kvdb:" + string(err.Error()))
+	}
+
 	c.Response().Header().Set("Location", fmt.Sprintf("%s%s/%d", c.Request().Host, c.Request().RequestURI, customSchemaCreated.ID))
 	return c.JSON(http.StatusCreated, customSchemaCreated)
 }
@@ -45,11 +53,37 @@ func (server *Server) CreateCustomSchema(c echo.Context) error {
 func (server *Server) GoGetAllCustomSchemas(c echo.Context) error {
 	uid := uuid.MustParse(c.Param("key"))
 	customSchema := models.CustomSchema{}
-	customSchemas, err := customSchema.GoFindAllMyCustomSchemas(server.DB, uid)
+	var customSchemasResponse *[]models.CustomSchemaResponse
+	fmt.Println(uid, "uid")
+	fmt.Println("----------------------------------")
+
+	val, err := server.KVDB.Get([]byte(uid.String()))
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err)
+		fmt.Println("error from kvdb:" + string(err.Error()))
 	}
-	return c.JSON(http.StatusOK, customSchemas)
+
+	if val == nil {
+		customSchemasResponse, err = customSchema.GoFindAllMyCustomSchemas(server.DB, uid)
+		if err != nil {
+			return echo.NewHTTPError(http.StatusInternalServerError, err)
+		}
+		res, err := json.Marshal(customSchemasResponse)
+		if err != nil {
+			return echo.NewHTTPError(http.StatusInternalServerError, err)
+		}
+		err = server.KVDB.PutWithTTL([]byte(uid.String()), []byte(res), time.Hour*24*3)
+		if err != nil {
+			fmt.Println("error from kvdb:" + string(err.Error()))
+		}
+		fmt.Println("from db")
+	} else {
+		err = json.Unmarshal(val, &customSchemasResponse)
+		if err != nil {
+			return echo.NewHTTPError(http.StatusInternalServerError, err)
+		}
+		fmt.Println("from kvdb")
+	}
+	return c.JSON(http.StatusOK, customSchemasResponse)
 }
 
 func (server *Server) GoGetOneCustomSchemas(c echo.Context) error {
@@ -77,10 +111,41 @@ func (server *Server) GetCustomSchemas(c echo.Context) error {
 func (server *Server) GetMyCustomSchemas(c echo.Context) error {
 	customSchema := models.CustomSchema{}
 	uid, err := auth.ExtractTokenID(c.Request())
-	customSchemas, err := customSchema.FindAllMyCustomSchemas(server.DB, uid)
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err)
+		return echo.NewHTTPError(http.StatusUnauthorized, errors.New("Unauthorized"))
 	}
+
+	fmt.Println(uid, "uid")
+
+	var customSchemas *[]models.CustomSchema
+
+	val, err := server.KVDB.Get([]byte(uid.String()))
+	if err != nil {
+		fmt.Println("error from kvdb:" + string(err.Error()))
+	}
+
+	if val == nil {
+		customSchemas, err = customSchema.FindAllMyCustomSchemas(server.DB, uid)
+		if err != nil {
+			return echo.NewHTTPError(http.StatusInternalServerError, err)
+		}
+		res, err := json.Marshal(customSchemas)
+		if err != nil {
+			return echo.NewHTTPError(http.StatusInternalServerError, err)
+		}
+		err = server.KVDB.PutWithTTL([]byte(uid.String()), []byte(res), time.Hour*24*3)
+		if err != nil {
+			fmt.Println("error from kvdb:" + string(err.Error()))
+		}
+		fmt.Println("from db")
+	} else {
+		err = json.Unmarshal(val, &customSchemas)
+		if err != nil {
+			return echo.NewHTTPError(http.StatusInternalServerError, err)
+		}
+		fmt.Println("from kvdb")
+	}
+
 	return c.JSON(http.StatusOK, customSchemas)
 }
 
@@ -136,6 +201,11 @@ func (server *Server) UpdateCustomSchema(c echo.Context) error {
 		formattedError := formaterror.FormatError(err.Error())
 		return echo.NewHTTPError(http.StatusInternalServerError, formattedError)
 	}
+
+	err = server.KVDB.Delete([]byte(uid.String()))
+	if err != nil {
+		fmt.Println("error from kvdb:" + string(err.Error()))
+	}
 	return c.JSON(http.StatusOK, customSchemaUpdated)
 }
 
@@ -160,6 +230,13 @@ func (server *Server) DeleteCustomSchema(c echo.Context) error {
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err)
 	}
+
+
+	err = server.KVDB.Delete([]byte(uid.String()))
+	if err != nil {
+		fmt.Println("error from kvdb:" + string(err.Error()))
+	}
+
 	c.Response().Header().Set("Entity", fmt.Sprintf("%d", pid))
 	return c.NoContent(http.StatusNoContent)
 }

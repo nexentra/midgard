@@ -3,6 +3,7 @@ package controllers
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"net/http"
 
 	"github.com/nexentra/genesis-dashboard/api/auth"
@@ -88,6 +89,11 @@ func (server *Server) CreateCustomData(c echo.Context) error {
 	if err != nil {
 		formattedError := formaterror.FormatError(err.Error())
 		return echo.NewHTTPError(http.StatusInternalServerError, formattedError)
+	}
+
+	err = server.KVDB.Delete([]byte(uid.String()))
+	if err != nil {
+		fmt.Println("error from kvdb:" + string(err.Error()))
 	}
 
 	return c.JSON(http.StatusOK, customSchemaUpdated)
@@ -201,6 +207,11 @@ func (server *Server) UpdateCustomData(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusInternalServerError, formattedError)
 	}
 
+	err = server.KVDB.Delete([]byte(uid.String()))
+	if err != nil {
+		fmt.Println("error from kvdb:" + string(err.Error()))
+	}
+
 	return c.JSON(http.StatusOK, customSchemaUpdated)
 }
 
@@ -261,6 +272,11 @@ func (server *Server) DeleteCustomData(c echo.Context) error {
 	if err != nil {
 		formattedError := formaterror.FormatError(err.Error())
 		return echo.NewHTTPError(http.StatusInternalServerError, formattedError)
+	}
+
+	err = server.KVDB.Delete([]byte(uid.String()))
+	if err != nil {
+		fmt.Println("error from kvdb:" + string(err.Error()))
 	}
 
 	return c.JSON(http.StatusOK, customSchemaUpdated)

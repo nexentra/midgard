@@ -9,6 +9,7 @@ import (
 	"github.com/jinzhu/gorm"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	"github.com/rosedblabs/rosedb/v2"
 
 	_ "github.com/jinzhu/gorm/dialects/mysql"    //mysql database driver
 	_ "github.com/jinzhu/gorm/dialects/postgres" //postgres database driver
@@ -18,6 +19,7 @@ import (
 
 type Server struct {
 	DB   *gorm.DB
+	KVDB *rosedb.DB
 	Echo *echo.Echo
 }
 
@@ -59,7 +61,22 @@ func (server *Server) Initialize(Dbdriver, DbUser, DbPassword, DbPort, DbHost, D
 		AllowHeaders:     []string{"Content-Type", "Authorization", "Bearer", "Bearer ", "content-type", "authorization", "Origin", "Accept"},
 	}))
 
+	options := rosedb.DefaultOptions
+	options.DirPath = "/tmp/rosedb"
+
+	db, err := rosedb.Open(options)
+	if err != nil {
+		fmt.Println("Cannot connect to rosedb")
+		log.Fatal("This is the error:", err)
+	}
+
+	server.KVDB = db
+
 	server.initializeRoutes()
+
+	// defer func() {
+	// 	_ = db.Close()
+	// }()
 
 }
 
