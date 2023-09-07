@@ -21,9 +21,9 @@ Genesis-Dashboard - With this powerful tool, users can create their own tables a
 
 Key Features:
 
-1) JWT secured user accounts.
+1) User-friendly Interface: Genesis-Dashboard offers a simple and intuitive interface for easy table management.
 
-2) User-friendly Interface: Genesis-Dashboard offers a simple and intuitive interface for easy table management.
+2) Easy to Deploy: Genesis-Dashboard is easy to deploy as the frontend is embedded with the backend and containerized with Docker.
     
 3) Data Integrity: We ensure data integrity by storing tables in a secure backend.
     
@@ -31,7 +31,7 @@ Key Features:
     
 5) Easy to Use: Genesis-Dashboard is easy to use.
 
-6) Easy to Deploy: Genesis-Dashboard is easy to deploy as the frontend is embedded with the backend and containerized with Docker.
+6) JWT secured user accounts.
 
 7) Fast: Genesis-Dashboard is fast as it is built with latest technologies such as Go, React, Postgresql, RoseDB.
 
