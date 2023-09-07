@@ -40,7 +40,7 @@ Key Features:
 * Backend: `Go + Labstack Echo`
 * Frontend: `React + Tailwind`
 * Containerization and deployment: `Docker + Fly.io`
-* Caching: `RoseDB`
+* Embedded Caching: `RoseDB`
 
 ## Usage
 
