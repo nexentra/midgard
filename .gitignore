@@ -7,3 +7,4 @@ dev_client.json
 /api/ui/build
 /api/ui/node_modules
 *.exe
+/bin

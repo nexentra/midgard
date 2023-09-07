@@ -4,12 +4,22 @@ tasks:
     build:
         desc: Build the app
         cmds:
-        - GOFLAGS=-mod=mod go build -o bin/rest-api-portfolio main.go 
+        - CGO_ENABLED=0 go build -ldflags "-w" -a -buildvcs=false -o main ./main.go
 
     run: 
         desc: Run the app
         cmds:
         - ./run.sh
+
+    run-frontend: 
+        desc: Run Frontend Only
+        cmds:
+        - ./run.sh frontend
+
+    run-backend: 
+        desc: Run Backend Only
+        cmds:
+        - ./run.sh backend
 
     deploy: 
         desc: Deploy the app
