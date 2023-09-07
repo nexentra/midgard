@@ -13,7 +13,7 @@
   </p>
 </p>
 
-![Contributors](https://img.shields.io/github/contributors/nexentra/genesis-dashboard?color=dark-green) ![Forks](https://img.shields.io/github/forks/nexentra/genesis-dashboard?style=social) ![Stargazers](https://img.shields.io/github/stars/nexentra/genesis-dashboard?style=social) ![Issues](https://img.shields.io/github/issues/nexentra/genesis-dashboard) ![License](https://img.shields.io/github/license/nexentra/genesis-dashboard) 
+![Contributors](https://img.shields.io/github/contributors/nexentra/genesis-dashboard?color=dark-green) ![License](https://img.shields.io/github/license/nexentra/genesis-dashboard) 
 
 ## About The Project
 
@@ -44,7 +44,7 @@ Key Features:
 
 ## Usage
 
-First go to [here](https://dashboard.genesis.nexentra.online/auth) and [create your account](https://dashboard.genesis.nexentra.online/auth/login). Then go to the [Tables page](https://dashboard.genesis.nexentra.online/admin/tables). You can create a new table by clicking on the `Create A Table` button. You can also delete a table by clicking on the `Delete` button. You can add data to a table by clicking on the `Add Data` button. You can also edit or delete data by clicking on the `Edit` or `Delete` button respectively.
+First go to [https://dashboard.genesis.nexentra.online](https://dashboard.genesis.nexentra.online/auth) and [create your account](https://dashboard.genesis.nexentra.online/auth/login). Then go to the [Tables page](https://dashboard.genesis.nexentra.online/admin/tables). You can create a new table by clicking on the `Create A Table` button. You can also delete a table by clicking on the `Delete` button. You can add data to a table by clicking on the `Add Data` button. You can also edit or delete data by clicking on the `Edit` or `Delete` button respectively. Then come back to the homepage and make get request to the given endpoints to get the data.
 
 ## Getting Started
 
@@ -68,7 +68,7 @@ To get a local copy up and running follow these simple steps.
     ```sh
     task run
     ```
-4. Go to [http://localhost:3000](http://localhost:3000) to access the frontend.
+4. Go to [http://localhost:3000](http://localhost:3000) to access the frontend. and [http://localhost:8080](http://localhost:8080) to access the backend.
 
 ### Note
 
