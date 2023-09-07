@@ -1,7 +1,7 @@
 <br/>
 <p align="center">
   <a href="https://github.com/nexentra/genesis-dashboard">
-    <img src="https://imageupload.io/ib/GdQnN0T1ZYR8pmO_1694071655.png" alt="Genesis" width="420" height="80">
+    <img src="https://imageupload.io/ib/GdQnN0T1ZYR8pmO_1694071655.png" alt="Genesis" width="300" height="300">
   </a>
 
   <h3 align="center">Genesis-Dashboard</h3>
