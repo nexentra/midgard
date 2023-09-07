@@ -37,10 +37,10 @@ Key Features:
 
 ## Built With
 
-* `Backend:` Go + Labstack Echo
-* `Frontend:` React + Tailwind
-* `Containerization and deployment:` Docker + Fly.io
-* `Caching:` RoseDB
+* Backend: `Go + Labstack Echo`
+* Frontend: `React + Tailwind`
+* Containerization and deployment: `Docker + Fly.io`
+* Caching: `RoseDB`
 
 ## Usage
 
