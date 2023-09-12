@@ -89,7 +89,7 @@ export default function Sidebar() {
                       "fas fa-tv mr-2 text-sm " +
                       (window.location.href.indexOf("/admin/dashboard") !== -1
                         ? "opacity-75"
-                        : "text-blueGray-300 flex-col  items-center rounded-full shadow ")
+                        : "text-blueGray-300 rounded shadow w-8 h-8 items-center justify-center flex")
                     }
                   ></i>{" "}
                   Dashboard
