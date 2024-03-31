@@ -20,7 +20,7 @@ tmux new-session -d bash
 tmux split-window -h bash
 
 if [ "$run_frontend" = true ]; then
-    tmux send -t 0:0.0 "cd ./api/ui && yarn start" C-m
+    tmux send -t 0:0.0 "cd ./client && yarn dev" C-m
 fi
 
 if [ "$run_backend" = true ]; then

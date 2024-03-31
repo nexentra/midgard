@@ -1,18 +1,18 @@
 # Stage 1: Build the static files
-FROM node:16.20.2 AS frontend-builder
-WORKDIR /api/ui
-COPY /api/ui/package.json /api/ui/yarn.lock ./
+FROM node:21.6.2 AS frontend-builder
+WORKDIR /client
+COPY /client/package.json /client/yarn.lock ./
 RUN yarn install
-COPY /api/ui .
+COPY /client .
 RUN yarn export
 
 # Stage 2: Build the binary
-FROM golang:1.20 AS binary-builder
+FROM golang:1.22 AS binary-builder
 WORKDIR /builder
 COPY go.mod go.sum ./
 RUN go mod download
 COPY . .
-COPY --from=frontend-builder /api/ui/build ./api/ui/build
+COPY --from=frontend-builder /client/build ./client/build
 RUN CGO_ENABLED=0 go build -ldflags "-w" -a -buildvcs=false -o main ./main.go
 
 # Stage 3: Run the binary
