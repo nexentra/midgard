@@ -8,3 +8,5 @@ dev_client.json
 /api/ui/node_modules
 *.exe
 /bin
+*/.DS_Store
+.DS_Store

@@ -1,13 +1,13 @@
 openapi: 3.0.3
 info:
-  title: echo-boilerplate
-  description: echo-boilerplate API
+  title: midgard
+  description: midgard API
   version: 1.0.0
   contact:
     url: https://github.com/nexentra/midgard
   license:
     name: MIT
-    url: https://raw.githubusercontent.com/alexferl/echo-boilerplate/master/LICENSE
+    url: https://raw.githubusercontent.com/nexentra/midgard/main/LICENSE
 servers:
   - url: http://localhost:1323
   - url: http://example.com # golang httptest
