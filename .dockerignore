@@ -35,3 +35,22 @@ api/ui/**/.vercel
 api/ui/**/*.tsbuildinfo
 api/ui/**/next-env.d.ts
 fly.toml
+
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, build with `go test -c`
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# GoLand
+.idea
+
+# binary
+server-bin

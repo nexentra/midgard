@@ -1,6 +1,6 @@
 package main
 
-import "github.com/nexentra/genesis-dashboard/api"
+import "github.com/nexentra/midgard/api"
 
 func main() {
 	api.Run()

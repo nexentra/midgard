@@ -1,6 +1,6 @@
 <br/>
 <p align="center">
-  <a href="https://github.com/nexentra/genesis-dashboard">
+  <a href="https://github.com/nexentra/midgard">
     <img src="https://imageupload.io/ib/GdQnN0T1ZYR8pmO_1694071655.png" alt="Genesis" width="300" height="300">
   </a>
 
@@ -76,7 +76,7 @@ You can find more commands in the taskfile. The taskfile should be self explanat
 
 ## License
 
-Distributed under the GPL-3 License. See [LICENSE](https://github.com/nexentra/genesis-dashboard/blob/main/LICENSE.md) for more information.
+Distributed under the GPL-3 License. See [LICENSE](https://github.com/nexentra/midgard/blob/main/LICENSE.md) for more information.
 
 ## Authors
 

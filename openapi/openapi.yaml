@@ -1,0 +1,69 @@
+openapi: 3.0.3
+info:
+  title: echo-boilerplate
+  description: echo-boilerplate API
+  version: 1.0.0
+  contact:
+    url: https://github.com/nexentra/midgard
+  license:
+    name: MIT
+    url: https://raw.githubusercontent.com/alexferl/echo-boilerplate/master/LICENSE
+servers:
+  - url: http://localhost:1323
+  - url: http://example.com # golang httptest
+  - url: https://{environment}.example.com
+    variables:
+      environment:
+        default: api    # Production server
+        enum:
+          - api         # Production server
+          - api.staging # Staging server
+          - api.test    # Test server
+tags:
+  - name: auth
+    description: Authentication operations
+  - name: personal access tokens
+    description: Operations on personal access tokens
+  - name: tasks
+    description: Operations on tasks
+  - name: users
+    description: Operations on users
+paths:
+  /auth/login:
+    $ref: './paths/auth/login.yaml'
+  /auth/logout:
+    $ref: './paths/auth/logout.yaml'
+  /auth/refresh:
+    $ref: './paths/auth/refresh.yaml'
+  /auth/signup:
+    $ref: './paths/auth/signup.yaml'
+  /auth/token:
+    $ref: './paths/auth/token.yaml'
+  /me:
+    $ref: './paths/users/me.yaml'
+  /me/personal_access_tokens:
+    $ref: './paths/personal_access_tokens/personal_access_tokens.yaml'
+  /me/personal_access_tokens/{id}:
+    $ref: './paths/personal_access_tokens/personal_access_tokens_{id}.yaml'
+  /tasks:
+    $ref: './paths/tasks/tasks.yaml'
+  /tasks/{id}:
+    $ref: './paths/tasks/{id}.yaml'
+  /tasks/{id}/transition:
+    $ref: './paths/tasks/{id}_transition.yaml'
+  /users:
+    $ref: './paths/users/users.yaml'
+  /users/{username}:
+    $ref: './paths/users/{username}.yaml'
+  /users/{username}/ban:
+    $ref: './paths/users/{username}_ban.yaml'
+  /users/{username}/lock:
+    $ref: './paths/users/{username}_lock.yaml'
+  /users/{username}/roles/{role}:
+    $ref: './paths/users/{username}_roles_{role}.yaml'
+components:
+  securitySchemes:
+    cookieAuth:
+      $ref: './components/securitySchemes/CookieAuth.yaml'
+    bearerAuth:
+      $ref: './components/securitySchemes/BearerAuth.yaml'

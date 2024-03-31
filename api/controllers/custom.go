@@ -9,9 +9,9 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
-	"github.com/nexentra/genesis-dashboard/api/auth"
-	"github.com/nexentra/genesis-dashboard/api/models"
-	"github.com/nexentra/genesis-dashboard/api/utils/formaterror"
+	"github.com/nexentra/midgard/api/auth"
+	"github.com/nexentra/midgard/api/models"
+	"github.com/nexentra/midgard/api/utils/formaterror"
 )
 
 func (server *Server) CreateCustomSchema(c echo.Context) error {
@@ -230,7 +230,6 @@ func (server *Server) DeleteCustomSchema(c echo.Context) error {
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err)
 	}
-
 
 	err = server.KVDB.Delete([]byte(uid.String()))
 	if err != nil {

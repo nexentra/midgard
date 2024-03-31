@@ -5,8 +5,8 @@ import (
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-	"github.com/nexentra/genesis-dashboard/api/middlewares"
-	"github.com/nexentra/genesis-dashboard/client"
+	"github.com/nexentra/midgard/api/middlewares"
+	frontend "github.com/nexentra/midgard/client"
 )
 
 func (s *Server) initializeRoutes() {

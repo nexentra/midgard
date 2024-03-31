@@ -1,0 +1,26 @@
+type: object
+description: Token response
+additionalProperties: false
+required:
+  - access_token
+  - expires_in
+  - refresh_token
+  - token_type
+properties:
+  access_token:
+    type: string
+    description: Access token
+    example: eyJhbGciOi...
+  expires_in:
+    type: number
+    description: access_token expiry in seconds
+    example: 3600
+  refresh_token:
+    type: string
+    description: Refresh token
+    example: eyJhbGciOi...
+  token_type:
+    type: string
+    description: Type of token
+    enum:
+      - Bearer

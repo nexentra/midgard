@@ -6,7 +6,7 @@ import (
 	"os"
 
 	"github.com/joho/godotenv"
-	"github.com/nexentra/genesis-dashboard/api/controllers"
+	"github.com/nexentra/midgard/api/controllers"
 )
 
 var server = controllers.Server{}

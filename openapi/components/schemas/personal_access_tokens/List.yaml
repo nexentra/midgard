@@ -1,0 +1,9 @@
+type: object
+additionalProperties: false
+required:
+  - personal_access_tokens
+properties:
+  personal_access_tokens:
+    type: array
+    items:
+      $ref: './Token.yaml'

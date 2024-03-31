@@ -1,0 +1,10 @@
+env-name = "local"
+log-level = "DEBUG"
+
+cookies-enabled = true
+csrf-enabled = false
+csrf-secret-key = "changeme"
+
+http-cors-enabled = true
+http-cors-allow-credentials = true
+http-cors-allow-origins = ["*"] # TODO: change to the web app's domain

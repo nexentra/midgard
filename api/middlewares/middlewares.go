@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"github.com/labstack/echo/v4"
-	"github.com/nexentra/genesis-dashboard/api/auth"
+	"github.com/nexentra/midgard/api/auth"
 )
 
 func SetMiddlewareJSON(next echo.HandlerFunc) echo.HandlerFunc {

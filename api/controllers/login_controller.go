@@ -6,9 +6,9 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
-	"github.com/nexentra/genesis-dashboard/api/auth"
-	"github.com/nexentra/genesis-dashboard/api/models"
-	"github.com/nexentra/genesis-dashboard/api/utils/formaterror"
+	"github.com/nexentra/midgard/api/auth"
+	"github.com/nexentra/midgard/api/models"
+	"github.com/nexentra/midgard/api/utils/formaterror"
 	"golang.org/x/crypto/bcrypt"
 )
 
