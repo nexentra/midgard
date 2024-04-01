@@ -13,15 +13,15 @@ import (
 
 //	@Summary		Show a Cat
 //	@Description	get cat by ID
-// @Tags         cats
-// @Accept       json
-// @Produce      json
-// @Param        id   path      string  true  "Cat ID"
-// @Success      200  {object}  models.Cat
-// @Failure      400  {object}  error
-// @Failure      404  {object}  error
-// @Failure      500  {object}  error
-// @Router       /cats/{id} [get]
+//	@Tags			cats
+//	@Accept			json
+//	@Produce		json
+//	@Param			id	path		string	true	"Cat ID"
+//	@Success		200	{object}	models.Cat
+//	@Failure		400	{object}	error
+//	@Failure		404	{object}	error
+//	@Failure		500	{object}	error
+//	@Router			/cats/{id} [get]
 func Get(c echo.Context) error {
 	id := c.Param("id")
 
