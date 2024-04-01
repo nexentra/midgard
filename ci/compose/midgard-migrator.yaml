@@ -1,0 +1,19 @@
+version: "3.7"
+services:
+  midgarde-db-creator:
+    container_name: midgarde-db-creator
+    build:
+      context: ../../
+      dockerfile: ./ci/docker/Dockerfile
+    env_file: ./docker.dev.env
+    command: ["service", "-e", "-d", "db", "create"]
+  midgarde-db-migrator:
+    container_name: midgarde-db-migrator
+    build:
+      context: ../../
+      dockerfile: ./ci/docker/Dockerfile
+    env_file: ./docker.dev.env
+    command: ["service", "-e", "-d", "db", "migrate"]
+    depends_on:
+      midgarde-db-creator:
+        condition: service_completed_successfully

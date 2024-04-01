@@ -1,0 +1,49 @@
+version: '3.7'
+services: 
+
+  midgard-postgres:
+    extends: 
+      file: ./ci/compose/postgres.yaml
+      service: midgard-postgres
+
+  midgard-db-creator:
+    container_name: midgard-db-creator
+    extends:
+      file: ./ci/compose/midgard.yaml
+      service: midgard-service
+    env_file: ./ci/config/boilerplate/midgard-postgres.dev-env
+    command: ["service", "-e", "-d", "db", "create"]
+    depends_on:
+      midgard-postgres:
+        condition: service_healthy
+
+  midgard-db-migrator:
+    container_name: midgard-db-migrator
+    extends:
+      file: ./ci/compose/midgard.yaml
+      service: midgard-service
+    env_file: ./ci/config/boilerplate/midgard-postgres.dev-env
+    command: ["service", "-e", "-d", "db", "migrate"]
+    depends_on:
+      midgard-db-creator:
+        condition: service_completed_successfully
+
+  midgard-db-seeder:
+    container_name: midgard-db-seeder
+    extends:
+      file: ./ci/compose/midgard.yaml
+      service: midgard-service
+    env_file: ./ci/config/boilerplate/midgard-postgres.dev-env
+    command: ["service", "-e", "-d", "db", "seed"]
+    depends_on:
+      midgard-db-migrator:
+        condition: service_completed_successfully
+
+  midgard-service:
+    extends:
+      file: ./ci/compose/midgard.yaml
+      service: midgard-service
+    env_file: ./ci/config/boilerplate/midgard-postgres.dev-env
+    depends_on:
+      midgard-db-seeder:
+        condition: service_completed_successfully

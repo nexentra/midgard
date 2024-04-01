@@ -1,0 +1,30 @@
+version: '3.7'
+services: 
+
+  midgard-db-migrator:
+    container_name: midgard-db-migrator
+    extends:
+      file: ./ci/compose/midgard.yaml
+      service: midgard-service
+    env_file: ./ci/config/boilerplate/midgard.dev-env
+    command: ["service", "-e", "-d", "db", "migrate"]
+
+  midgard-db-seeder:
+    container_name: midgard-db-seeder
+    extends:
+      file: ./ci/compose/midgard.yaml
+      service: midgard-service
+    env_file: ./ci/config/boilerplate/midgard.dev-env
+    command: ["service", "-e", "-d", "db", "seed"]
+    depends_on:
+      midgard-db-migrator:
+        condition: service_completed_successfully
+
+  midgard-service:
+    extends:
+      file: ./ci/compose/midgard.yaml
+      service: midgard-service
+    env_file: ./ci/config/boilerplate/midgard.dev-env
+    depends_on:
+      midgard-db-seeder:
+        condition: service_completed_successfully
