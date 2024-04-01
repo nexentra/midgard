@@ -1,5 +1,0 @@
-description: The request could not be understood by the server due to malformed syntax.
-content:
-  application/json:
-    schema:
-      $ref: '../schemas/Error.yaml'

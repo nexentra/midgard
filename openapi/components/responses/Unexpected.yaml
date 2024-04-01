@@ -1,5 +1,0 @@
-description: There was an unexpected error
-content:
-  application/json:
-    schema:
-      $ref: '../schemas/Error.yaml'

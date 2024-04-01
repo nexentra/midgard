@@ -1,87 +1,87 @@
-.PHONY: dev run test cover fmt mock openapi-lint pre-commit docker-build docker-run
+# Determine if you have docker-compose or docker compose installed locally
+# If this does not work on your system, just set the name of the executable you have installed
+DCO_BIN := $(shell { command -v docker-compose || command -v docker compose; } 2>/dev/null)
 
-.DEFAULT: help
-help:
-	@echo "make dev"
-	@echo "	setup development environment"
-	@echo "make run"
-	@echo "	run app"
-	@echo "make test"
-	@echo "	run go test"
-	@echo "make cover"
-	@echo "	run go test with -cover"
-	@echo "make cover-html"
-	@echo "	run go test with -cover and show HTML"
-	@echo "make tidy"
-	@echo "	run go mod tidy"
-	@echo "make fmt"
-	@echo "	run gofumpt"
-	@echo "make mock"
-	@echo "	run mockery"
-	@echo "make openapi-lint"
-	@echo "	lint openapi spec"
-	@echo "make pre-commit"
-	@echo "	run pre-commit hooks"
-	@echo "make docker-build"
-	@echo "	build docker image"
-	@echo "make docker-run"
-	@echo "	run docker image"
+# Connect to the primary database
+.PHONY: db
+db:
+	docker exec -it midgard_db psql postgresql://admin:admin@localhost:5432/app
 
-check-gofumpt:
-ifeq (, $(shell which gofumpt))
-	$(error "gofumpt not in $(PATH), gofumpt (https://pkg.go.dev/mvdan.cc/gofumpt) is required")
-endif
+# Connect to the test database (you must run tests first before running this)
+.PHONY: db-test
+db-test:
+	docker exec -it midgard_db psql postgresql://admin:admin@localhost:5432/app_test
 
-check-pre-commit:
-ifeq (, $(shell which pre-commit))
-	$(error "pre-commit not in $(PATH), pre-commit (https://pre-commit.com) is required")
-endif
+# Connect to the primary cache
+.PHONY: cache
+cache:
+	docker exec -it midgard_cache redis-cli
 
-check-redocly:
-ifeq (, $(shell which redocly))
-	$(error "redocly not in $(PATH), redocly (https://redocly.com/docs/cli/installation/) is required")
-endif
+# Clear the primary cache
+.PHONY: cache-clear
+cache-clear:
+	docker exec -it midgard_cache redis-cli flushall
 
-dev: check-pre-commit
-ifeq (,$(wildcard ./private-key.pem))
-	@echo "No private key file, generating one..."
-	openssl genrsa -out private-key.pem 4096
-endif
-	pre-commit install
+ # Connect to the test cache
+.PHONY: cache-test
+cache-test:
+	docker exec -it midgard_cache redis-cli -n 1
 
+# Install Ent code-generation module
+.PHONY: ent-install
+ent-install:
+	go get -d entgo.io/ent/cmd/ent
+
+# Generate Ent code
+.PHONY: ent-gen
+ent-gen:
+	go generate ./ent
+
+# Create a new Ent entity
+.PHONY: ent-new
+ent-new:
+	go run entgo.io/ent/cmd/ent new $(name)
+
+# Start the Docker containers
+.PHONY: up
+up:
+	$(DCO_BIN) up -d
+	sleep 3
+
+# Stop the Docker containers
+.PHONY: stop
+stop:
+	$(DCO_BIN) stop
+
+# Drop the Docker containers to wipe all data
+.PHONY: down
+down:
+	$(DCO_BIN) down
+
+# Rebuild Docker containers to wipe all data
+.PHONY: reset
+reset:
+	$(DCO_BIN) down
+	make up
+
+# Run the application
+.PHONY: run
 run:
-	go build -o server-bin ./cmd/server && ./server-bin
+	clear
+	go run cmd/web/main.go
 
-build:
-	go build -o server-bin ./cmd/server
-
+# Run all tests
+.PHONY: test
 test:
-	go test -v ./...
+	go test -count=1 -p 1 ./...
 
-cover:
-	go test -cover -v ./...
+# Run the worker
+.PHONY: worker
+worker:
+	clear
+	go run cmd/worker/main.go
 
-cover-html:
-	go test -v -coverprofile=coverage.out ./...
-	go tool cover -html=coverage.out
-
-tidy:
-	go mod tidy
-
-fmt: check-gofumpt
-	gofumpt -l -w .
-
-mock:
-	mockery
-
-openapi-lint: check-redocly
-	redocly lint openapi/openapi.yaml
-
-pre-commit: check-pre-commit
-	pre-commit
-
-docker-build:
-	docker build -t echo-boilerplate .
-
-docker-run:
-	docker run -p 1323:1323 --rm echo-boilerplate --http-bind-address 0.0.0.0
+# Check for direct dependency updates
+.PHONY: check-updates
+check-updates:
+	go list -u -m -f '{{if not .Indirect}}{{.}}{{end}}' all | grep "\["

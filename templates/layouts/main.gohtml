@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" style="height:100%;">
+    <head>
+        {{template "metatags" .}}
+        {{template "css" .}}
+        {{template "js" .}}
+    </head>
+    <body class="has-background-light" style="min-height:100%;">
+        <nav class="navbar is-dark">
+            <div class="container">
+                <div class="navbar-brand" hx-boost="true">
+                    <a href="{{call .ToURL "home"}}" class="navbar-item">{{.AppName}}</a>
+                </div>
+                <div id="navbarMenu" class="navbar-menu">
+                    <div class="navbar-end">
+                        {{template "search" .}}
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container mt-5">
+            <div class="columns">
+                <div class="column is-2">
+                    <aside class="menu" hx-boost="true">
+                        <p class="menu-label">General</p>
+                        <ul class="menu-list">
+                            <li>{{link (call .ToURL "home") "Dashboard" .Path}}</li>
+                            <li>{{link (call .ToURL "about") "About" .Path}}</li>
+                            <li>{{link (call .ToURL "contact") "Contact" .Path}}</li>
+                        </ul>
+
+                        <p class="menu-label">Account</p>
+                        <ul class="menu-list">
+                            {{- if .IsAuth}}
+                                <li>{{link (call .ToURL "logout") "Logout" .Path}}</li>
+                            {{- else}}
+                                <li>{{link (call .ToURL "login") "Login" .Path}}</li>
+                                <li>{{link (call .ToURL "register") "Register" .Path}}</li>
+                                <li>{{link (call .ToURL "forgot_password") "Forgot password" .Path}}</li>
+                            {{- end}}
+                        </ul>
+                    </aside>
+                </div>
+
+                <div class="column is-10">
+                    <div class="box">
+                        {{- if .Title}}
+                            <h1 class="title">{{.Title}}</h1>
+                        {{- end}}
+
+                        {{template "messages" .}}
+                        {{template "content" .}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{template "footer" .}}
+    </body>
+</html>
+
+{{define "search"}}
+    <div class="search mr-2 mt-1" x-data="{modal:false}">
+        <input class="input" type="search" placeholder="Search..." @click="modal = true; $nextTick(() => $refs.input.focus());"/>
+        <div class="modal" :class="modal ? 'is-active' : ''" x-show="modal == true">
+            <div class="modal-background"></div>
+            <div class="modal-content" @click.away="modal = false;">
+                <div class="box">
+                    <h2 class="subtitle">Search</h2>
+                    <p class="control">
+                        <input
+                            hx-get="{{call .ToURL "search"}}"
+                            hx-trigger="keyup changed delay:500ms"
+                            hx-target="#results"
+                            name="query"
+                            class="input"
+                            type="search"
+                            placeholder="Search..."
+                            x-ref="input"
+                        />
+                    </p>
+                    <div class="block"></div>
+                    <div id="results"></div>
+                </div>
+            </div>
+            <button class="modal-close is-large" aria-label="close"></button>
+        </div>
+    </div>
+{{end}}

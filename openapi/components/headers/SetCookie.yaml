@@ -1,2 +1,0 @@
-type: string
-example: access_token=eyJhbGciOi...; Path=/; Secure; SameSite=Strict; Domain=localhost
