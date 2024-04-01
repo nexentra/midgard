@@ -19,6 +19,8 @@ quick-start-postgres:
 	-@mkdir -p ./ci/data/postgres
 	@docker compose --project-directory ./ -f ./ci/compose/quick-start-postgres.yaml up --force-recreate --remove-orphans
 
-swaggo-gen:
+doc-gen:
 	export PATH=$PATH:$HOME/go/bin 
-	swag init --parseDependency true
+	swag init --generalInfo=./pkg/api/routers/publicApi.go --parseDependency=true
+	cd ./client && orval
+	cd ..

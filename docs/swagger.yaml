@@ -1,3 +1,4 @@
+basePath: /
 definitions:
   models.Cat:
     properties:
@@ -12,17 +13,30 @@ definitions:
       updatedAt:
         type: string
     type: object
+externalDocs:
+  description: OpenAPI
+  url: https://swagger.io/resources/open-api/
+host: localhost:8081
 info:
-  contact: {}
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This a documentation for the Midgard API.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Midgard API Documentation
+  version: 0.0.1
 paths:
   /cats/{id}:
     get:
       consumes:
       - application/json
       description: get cat by ID
-      operationId: get-string-by-string
       parameters:
-      - description: cat ID
+      - description: Cat ID
         in: path
         name: id
         required: true
@@ -34,5 +48,16 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/models.Cat'
-      summary: Show Cat
+        "400":
+          description: Bad Request
+          schema: {}
+        "404":
+          description: Not Found
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+      summary: Show a Cat
+      tags:
+      - cats
 swagger: "2.0"

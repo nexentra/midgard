@@ -39,6 +39,10 @@ func InitPublicAPIRouter() {
 	logger.Debug("Registering public api security middlewares ...")
 	registerPublicApiSecurityMiddlewares()
 
+	// next register swagger docs
+	logger.Debug("Registering public api swagger docs ...")
+	registerPublicApiSwaggerDocs()
+
 	// next register all routes
 	logger.Debug("Registering public api public routes ...")
 	registerPublicAPIRoutes()
@@ -92,8 +96,28 @@ func registerPublicApiHealthCheckHandlers() {
 	health.GET("/ready", healthHandlers.Ready)
 }
 
-func registerPublicAPIRoutes() {
+// @title           Midgard API Documentation
+// @version         0.0.1
+// @description     This a documentation for the Midgard API.
+// @termsOfService  http://swagger.io/terms/
+
+// @contact.name   API Support
+// @contact.url    http://www.swagger.io/support
+// @contact.email  support@swagger.io
+
+// @license.name  Apache 2.0
+// @license.url   http://www.apache.org/licenses/LICENSE-2.0.html
+
+// @host      localhost:8081
+// @BasePath  /
+
+// @externalDocs.description  OpenAPI
+// @externalDocs.url          https://swagger.io/resources/open-api/
+func registerPublicApiSwaggerDocs() {
 	publicApiRouter.Echo.GET("/swagger/*", echoSwagger.WrapHandler)
+}
+
+func registerPublicAPIRoutes() {
 	cats := publicApiRouter.Echo.Group("/cats")
 	cats.GET("", catsHandlers.Index)
 	cats.GET("/:id", catsHandlers.Get)
