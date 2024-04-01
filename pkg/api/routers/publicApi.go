@@ -8,6 +8,8 @@ import (
 	"github.com/nexentra/midgard/pkg/clients/logger"
 	"github.com/nexentra/midgard/pkg/config"
 	"github.com/nexentra/midgard/pkg/utils/constants"
+	"github.com/swaggo/echo-swagger"
+	_ "github.com/nexentra/midgard/docs"
 )
 
 var publicApiRouter *Router
@@ -91,6 +93,7 @@ func registerPublicApiHealthCheckHandlers() {
 }
 
 func registerPublicAPIRoutes() {
+	publicApiRouter.Echo.GET("/swagger/*", echoSwagger.WrapHandler)
 	cats := publicApiRouter.Echo.Group("/cats")
 	cats.GET("", catsHandlers.Index)
 	cats.GET("/:id", catsHandlers.Get)

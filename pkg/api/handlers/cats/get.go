@@ -11,8 +11,15 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+// @Summary Show Cat
+// @Description get cat by ID
+// @ID get-string-by-string
+// @Accept  json
+// @Produce  json
+// @Param id path string true "cat ID"
+// @Success 200 {object} models.Cat
+// @Router /cats/{id} [get]
 func Get(c echo.Context) error {
-
 	id := c.Param("id")
 
 	if id == "" {

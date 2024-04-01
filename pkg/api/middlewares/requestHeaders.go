@@ -2,6 +2,7 @@ package middlewares
 
 import (
 	"net/http"
+	"strings"
 
 	"github.com/nexentra/midgard/pkg/api/handlers"
 	"github.com/nexentra/midgard/pkg/utils/constants"
@@ -12,6 +13,10 @@ import (
 func RequestHeadersMiddleware() echo.MiddlewareFunc {
 	return func(next echo.HandlerFunc) echo.HandlerFunc {
 		return func(c echo.Context) error {
+			if strings.HasPrefix(c.Request().URL.Path, "/swagger/") {
+				return next(c)
+			}
+
 			if (len(c.Request().Header["Accept"]) == 0) || c.Request().Header["Accept"][0] != "application/json" {
 				r := handlers.BuildResponse(
 					constants.STATUS_CODE_NOT_ACCEPTABLE_WITHOUT_ACCEPT_HEADER,
