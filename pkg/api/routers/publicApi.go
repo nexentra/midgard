@@ -1,6 +1,13 @@
 package routers
 
 import (
+	"fmt"
+	"net/http"
+
+	"github.com/clerk/clerk-sdk-go/v2"
+	clerkhttp "github.com/clerk/clerk-sdk-go/v2/http"
+	"github.com/labstack/echo/v4"
+	_ "github.com/nexentra/midgard/docs"
 	catsHandlers "github.com/nexentra/midgard/pkg/api/handlers/cats"
 	"github.com/nexentra/midgard/pkg/api/handlers/errors"
 	healthHandlers "github.com/nexentra/midgard/pkg/api/handlers/healthz"
@@ -9,7 +16,6 @@ import (
 	"github.com/nexentra/midgard/pkg/config"
 	"github.com/nexentra/midgard/pkg/utils/constants"
 	"github.com/swaggo/echo-swagger"
-	_ "github.com/nexentra/midgard/docs"
 )
 
 var publicApiRouter *Router
@@ -111,8 +117,8 @@ func registerPublicApiHealthCheckHandlers() {
 //	@host		localhost:8081
 //	@BasePath	/
 
-//	@externalDocs.description	OpenAPI
-//	@externalDocs.url			https://swagger.io/resources/open-api/
+// @externalDocs.description	OpenAPI
+// @externalDocs.url			https://swagger.io/resources/open-api/
 func registerPublicApiSwaggerDocs() {
 	publicApiRouter.Echo.GET("/swagger/*", echoSwagger.WrapHandler)
 }
@@ -120,9 +126,25 @@ func registerPublicApiSwaggerDocs() {
 func registerPublicAPIRoutes() {
 	cats := publicApiRouter.Echo.Group("/cats")
 	cats.GET("", catsHandlers.Index)
+	clerk.SetKey("")
+
+	protectedHandler := http.HandlerFunc(protectedRoute)
+
+	cats.GET("/protected", echo.WrapHandler(clerkhttp.WithHeaderAuthorization()(protectedHandler)))
 	cats.GET("/:id", catsHandlers.Get)
 	cats.POST("", catsHandlers.Post)
 	cats.PUT("/:id", catsHandlers.Put)
 	cats.DELETE("/:id", catsHandlers.Delete)
 	// add more routes here ...
+}
+
+func protectedRoute(w http.ResponseWriter, r *http.Request) {
+	// check if the user is authenticated
+	claims, ok := clerk.SessionClaimsFromContext(r.Context())
+	if !ok {
+		w.WriteHeader(http.StatusUnauthorized)
+		w.Write([]byte(`{"access": "unauthorized"}`))
+		return
+	}
+	fmt.Fprintf(w, `{"user_id": "%s"}`, claims.Subject)
 }

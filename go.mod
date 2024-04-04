@@ -30,11 +30,14 @@ require (
 	gorm.io/gorm v1.25.5
 )
 
+require github.com/go-jose/go-jose/v3 v3.0.1 // indirect
+
 require (
 	github.com/KyleBanks/depth v1.2.1 // indirect
 	github.com/PuerkitoBio/purell v1.2.1 // indirect
 	github.com/PuerkitoBio/urlesc v0.0.0-20170810143723-de5bf2ad4578 // indirect
 	github.com/bwmarrin/snowflake v0.3.0 // indirect
+	github.com/clerk/clerk-sdk-go/v2 v2.0.0
 	github.com/cpuguy83/go-md2man/v2 v2.0.4 // indirect
 	github.com/fsnotify/fsnotify v1.7.0 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.3 // indirect

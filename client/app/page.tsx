@@ -5,10 +5,27 @@ import { siteConfig } from "@/config/site"
 import { buttonVariants } from "@/components/ui/button"
 import { useUser, SignedIn } from '@clerk/nextjs';
 import { useEffect } from "react";
+import { useAuth } from "@clerk/nextjs";
 
 export default function IndexPage() {
   const { isSignedIn, user, isLoaded } = useUser();
   console.log(user, isSignedIn, isLoaded)
+
+  const { getToken } = useAuth();
+ 
+  const authenticatedFetch = async () => {
+    return fetch('http://127.0.0.1:8081/cats/protected', {
+      headers: { Authorization: `Bearer ${await getToken()}` }
+    }).then(res => res.json());
+  };
+
+
+  useEffect(() => {
+
+    if (isSignedIn) {
+      authenticatedFetch().then(data => console.log(data)).catch(err => console.log(err))
+    }
+  }, [isSignedIn])
  
 
   return (
