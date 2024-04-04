@@ -7,9 +7,9 @@
  */
 
 export interface ModelsCat {
-  createdAt?: string;
-  id?: string;
-  name?: string;
-  type?: string;
-  updatedAt?: string;
+  createdAt?: string
+  id?: string
+  name?: string
+  type?: string
+  updatedAt?: string
 }

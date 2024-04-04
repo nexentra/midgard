@@ -5,114 +5,125 @@
  * This a documentation for the Midgard API.
  * OpenAPI spec version: 0.0.1
  */
-import {
-  useQuery
-} from '@tanstack/react-query'
+import { faker } from "@faker-js/faker"
+import { useQuery } from "@tanstack/react-query"
 import type {
   QueryFunction,
   QueryKey,
   UseQueryOptions,
-  UseQueryResult
-} from '@tanstack/react-query'
-import axios from 'axios'
-import type {
-  AxiosError,
-  AxiosRequestConfig,
-  AxiosResponse
-} from 'axios'
-import {
-  faker
-} from '@faker-js/faker'
-import {
-  HttpResponse,
-  delay,
-  http
-} from 'msw'
-import type {
-  ModelsCat
-} from './model'
+  UseQueryResult,
+} from "@tanstack/react-query"
+import axios from "axios"
+import type { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios"
+import { delay, http, HttpResponse } from "msw"
 
-
-
+import type { ModelsCat } from "./model"
 
 /**
  * get cat by ID
  * @summary Show a Cat
  */
 export const getCatsId = (
-    id: string, options?: AxiosRequestConfig
- ): Promise<AxiosResponse<ModelsCat>> => {
-    
-    return axios.get(
-      `/cats/${id}`,options
-    );
-  }
-
-
-export const getGetCatsIdQueryKey = (id: string,) => {
-    return [`/cats/${id}`] as const;
-    }
-
-    
-export const getGetCatsIdQueryOptions = <TData = Awaited<ReturnType<typeof getCatsId>>, TError = AxiosError<unknown>>(id: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getCatsId>>, TError, TData>, axios?: AxiosRequestConfig}
-) => {
-
-const {query: queryOptions, axios: axiosOptions} = options ?? {};
-
-  const queryKey =  queryOptions?.queryKey ?? getGetCatsIdQueryKey(id);
-
-  
-
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getCatsId>>> = ({ signal }) => getCatsId(id, { signal, ...axiosOptions });
-
-      
-
-      
-
-   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getCatsId>>, TError, TData> & { queryKey: QueryKey }
+  id: string,
+  options?: AxiosRequestConfig
+): Promise<AxiosResponse<ModelsCat>> => {
+  return axios.get(`/cats/${id}`, options)
 }
 
-export type GetCatsIdQueryResult = NonNullable<Awaited<ReturnType<typeof getCatsId>>>
+export const getGetCatsIdQueryKey = (id: string) => {
+  return [`/cats/${id}`] as const
+}
+
+export const getGetCatsIdQueryOptions = <
+  TData = Awaited<ReturnType<typeof getCatsId>>,
+  TError = AxiosError<unknown>,
+>(
+  id: string,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof getCatsId>>,
+      TError,
+      TData
+    >
+    axios?: AxiosRequestConfig
+  }
+) => {
+  const { query: queryOptions, axios: axiosOptions } = options ?? {}
+
+  const queryKey = queryOptions?.queryKey ?? getGetCatsIdQueryKey(id)
+
+  const queryFn: QueryFunction<Awaited<ReturnType<typeof getCatsId>>> = ({
+    signal,
+  }) => getCatsId(id, { signal, ...axiosOptions })
+
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!id,
+    ...queryOptions,
+  } as UseQueryOptions<Awaited<ReturnType<typeof getCatsId>>, TError, TData> & {
+    queryKey: QueryKey
+  }
+}
+
+export type GetCatsIdQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getCatsId>>
+>
 export type GetCatsIdQueryError = AxiosError<unknown>
 
 /**
  * @summary Show a Cat
  */
-export const useGetCatsId = <TData = Awaited<ReturnType<typeof getCatsId>>, TError = AxiosError<unknown>>(
- id: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getCatsId>>, TError, TData>, axios?: AxiosRequestConfig}
+export const useGetCatsId = <
+  TData = Awaited<ReturnType<typeof getCatsId>>,
+  TError = AxiosError<unknown>,
+>(
+  id: string,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof getCatsId>>,
+      TError,
+      TData
+    >
+    axios?: AxiosRequestConfig
+  }
+): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
+  const queryOptions = getGetCatsIdQueryOptions(id, options)
 
-  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey
+  }
 
-  const queryOptions = getGetCatsIdQueryOptions(id,options)
+  query.queryKey = queryOptions.queryKey
 
-  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
-
-  query.queryKey = queryOptions.queryKey ;
-
-  return query;
+  return query
 }
 
-
-
-
-
-
-export const getGetCatsIdResponseMock = (overrideResponse: any = {}): ModelsCat => ({createdAt: faker.helpers.arrayElement([faker.word.sample(), undefined]), id: faker.helpers.arrayElement([faker.word.sample(), undefined]), name: faker.helpers.arrayElement([faker.word.sample(), undefined]), type: faker.helpers.arrayElement([faker.word.sample(), undefined]), updatedAt: faker.helpers.arrayElement([faker.word.sample(), undefined]), ...overrideResponse})
-
+export const getGetCatsIdResponseMock = (
+  overrideResponse: any = {}
+): ModelsCat => ({
+  createdAt: faker.helpers.arrayElement([faker.word.sample(), undefined]),
+  id: faker.helpers.arrayElement([faker.word.sample(), undefined]),
+  name: faker.helpers.arrayElement([faker.word.sample(), undefined]),
+  type: faker.helpers.arrayElement([faker.word.sample(), undefined]),
+  updatedAt: faker.helpers.arrayElement([faker.word.sample(), undefined]),
+  ...overrideResponse,
+})
 
 export const getGetCatsIdMockHandler = (overrideResponse?: ModelsCat) => {
-  return http.get('*/cats/:id', async () => {
-    await delay(1000);
-    return new HttpResponse(JSON.stringify(overrideResponse ? overrideResponse : getGetCatsIdResponseMock()),
+  return http.get("*/cats/:id", async () => {
+    await delay(1000)
+    return new HttpResponse(
+      JSON.stringify(
+        overrideResponse ? overrideResponse : getGetCatsIdResponseMock()
+      ),
       {
         status: 200,
         headers: {
-          'Content-Type': 'application/json',
-        }
+          "Content-Type": "application/json",
+        },
       }
     )
   })
 }
-export const getMidgardAPIDocumentationMock = () => [
-  getGetCatsIdMockHandler()
-]
+export const getMidgardAPIDocumentationMock = () => [getGetCatsIdMockHandler()]
