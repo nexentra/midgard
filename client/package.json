@@ -10,7 +10,6 @@
     "lint:fix": "next lint --fix",
     "preview": "next build && next start",
     "export": "rm -rf build && yarn format:check && yarn typecheck && yarn lint && yarn build",
-    "static": "next build && next export",
     "typecheck": "tsc --noEmit",
     "format:write": "prettier --write \"**/*.{ts,tsx,mdx}\" --cache",
     "format:check": "prettier --check \"**/*.{ts,tsx,mdx}\" --cache"
