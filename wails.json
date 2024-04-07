@@ -5,10 +5,33 @@
   "frontend:dir": "./client",
   "frontend:install": "yarn install",
   "frontend:build": "yarn build",
-  "frontend:dev:watcher": "yarn dev",
+  "frontend:dev:watcher": "yarn start",
   "frontend:dev:serverUrl": "auto",
   "author": {
     "name": "KnockOutEZ",
     "email": "ktowhid20@gmail.com"
+  },
+  "license": "MIT",
+  "info": {
+    "name": "Midgard",
+    "description": "A mini open-source Headless CMS.",
+    "homepage": "https://github.com/nexentra/midgard",
+    "repository": "https://github.com/nexentra/midgard",
+    "bugs": {
+      "url": "https://github.com/nexentra/midgard/issues"
+    },
+    "contributors": [
+      {
+        "name": "Towhid Khan",
+        "email": "ktowhid20@gmail.com",
+        "url": "https://github.com/KnockOutEZ"
+      }
+    ],
+    "license": "MIT",
+    "version": "2.0.0",
+    "wails": {
+      "name": "Midgard"
+    }
+
   }
 }

@@ -37,18 +37,34 @@ var rootCmd = &cobra.Command{
 // Execute adds all child commands to the root command and sets flags appropriately.
 // This is called by main.main(). It only needs to happen once to the rootCmd.
 func Execute() {
-	err := rootCmd.Execute()
-	if err != nil {
+
+	var cmdFound bool
+	cmd := rootCmd.Commands()
+
+	for _, a := range cmd {
+		for _, b := range os.Args[1:] {
+			if a.Name() == b {
+				cmdFound = true
+				break
+			}
+		}
+	}
+	if !cmdFound {
+		args := append([]string{"app"}, os.Args[1:]...)
+		rootCmd.SetArgs(args)
+	}
+	if err := rootCmd.Execute(); err != nil {
 		os.Exit(1)
 	}
 }
 
 func init() {
+
 	// This is auto executed upon start
 	// Initialization processes can go here ...
 
 	// Configure cobra
-	rootCmd.CompletionOptions.DisableDefaultCmd = true
+	// rootCmd.CompletionOptions.DisableDefaultCmd = true
 
 	// Set global flags
 	rootCmd.PersistentFlags().BoolVarP(&config.DevModeFlag, "dev", "d", false, "Run in development mode")
