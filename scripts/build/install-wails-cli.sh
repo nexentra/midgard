@@ -1,7 +1,7 @@
 #! /bin/bash
 
 echo -e "Start running the script..."
-cd ../
+cd ../../
 
 echo -e "Current Go version: \c"
 go version

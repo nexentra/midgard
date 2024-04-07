@@ -6,7 +6,7 @@
   "frontend:install": "yarn install",
   "frontend:build": "yarn build",
   "frontend:dev:watcher": "yarn start",
-  "frontend:dev:serverUrl": "auto",
+  "frontend:dev:serverUrl": "http://localhost:3000",
   "author": {
     "name": "KnockOutEZ",
     "email": "ktowhid20@gmail.com"

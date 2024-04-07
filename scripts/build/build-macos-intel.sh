@@ -1,9 +1,9 @@
 #! /bin/bash
 
 echo -e "Start running the script..."
-cd ../
+cd ../../
 
 echo -e "Start building the app for macos platform..."
-wails build --clean --platform darwin/arm64
+wails build --clean --platform darwin
 
 echo -e "End running the script!"

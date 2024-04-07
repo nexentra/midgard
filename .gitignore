@@ -11,3 +11,4 @@ dev_client.json
 */.DS_Store
 .DS_Store
 defaultdb
+/build/bin/*
