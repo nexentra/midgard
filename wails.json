@@ -1,0 +1,14 @@
+{
+  "$schema": "https://wails.io/schemas/config.v2.json",
+  "name": "midgard",
+  "outputfilename": "midgard",
+  "frontend:dir": "./client",
+  "frontend:install": "yarn install",
+  "frontend:build": "yarn build",
+  "frontend:dev:watcher": "yarn dev",
+  "frontend:dev:serverUrl": "auto",
+  "author": {
+    "name": "KnockOutEZ",
+    "email": "ktowhid20@gmail.com"
+  }
+}
