@@ -12,9 +12,6 @@ builds:
     ldflags: 
       - "-s -w -X main.VERSION=$(git describe --tags)"
 
-    targets:
-      - darwin_arm64
-
     # goos:
     #   - linux
     #   - darwin
