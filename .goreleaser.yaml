@@ -1,41 +1,41 @@
-before:
-  hooks:
-    - go mod tidy
-    - go mod download
+# before:
+#   hooks:
+#     - go mod tidy
+#     - go mod download
 
-builds:
-  - main: ./
-    # env:
-      # - CGO_ENABLED=0
-    binary: dist/bin/midgard
-    # skip: true
-    ldflags: 
-      - "-s -w -X main.VERSION=$(git describe --tags)"
+# builds:
+#   - main: ./
+#     # env:
+#       # - CGO_ENABLED=0
+#     binary: dist/bin/midgard
+#     # skip: true
+#     ldflags: 
+#       - "-s -w -X main.VERSION=$(git describe --tags)"
 
-    # goos:
-    #   - linux
-    #   - darwin
-    #   - windows
+#     # goos:
+#     #   - linux
+#     #   - darwin
+#     #   - windows
 
-  # - main: ./cmd/aesir-api
-  #   id: "aesir-api"
-  #   binary: aesir-api
-  #   goos:
-  #     - linux
-  #     - darwin
-  #     - windows
+#   # - main: ./cmd/aesir-api
+#   #   id: "aesir-api"
+#   #   binary: aesir-api
+#   #   goos:
+#   #     - linux
+#   #     - darwin
+#   #     - windows
 
-  # - main: ./cmd/aesir-docs-desktop
-  #   id: "aesir-docs-desktop"
-  #   binary: aesir-docs-desktop
-  #   goos:
-  #     - linux
-  #     - darwin
-  #     - windows
+#   # - main: ./cmd/aesir-docs-desktop
+#   #   id: "aesir-docs-desktop"
+#   #   binary: aesir-docs-desktop
+#   #   goos:
+#   #     - linux
+#   #     - darwin
+#   #     - windows
 
-upx:
-  - enabled: true
-  - compress: best
+# upx:
+#   - enabled: true
+#   - compress: best
 
 # archives:
 #   - format: tar.gz
