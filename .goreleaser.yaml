@@ -1,17 +1,19 @@
 before:
   hooks:
-    - make build
+    - go mod tidy
+    - go mod download
 
 builds:
   - main: ./
-    # env:
-    #   - CGO_ENABLED=0
+    env:
+      - CGO_ENABLED=0
     # binary: dist/bin/aesir
     # skip: true
-    goos:
-      - linux
-      - darwin
-      - windows
+    ldflags: "-s -w -X main.VERSION=$(git describe --tags)"
+    # goos:
+    #   - linux
+    #   - darwin
+    #   - windows
 
   # - main: ./cmd/aesir-api
   #   id: "aesir-api"

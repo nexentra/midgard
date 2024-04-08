@@ -30,5 +30,5 @@ docker-run:
 	docker run --rm -it -p 8081:8081 -p 8080:8080 -p 8079:8079  $$(docker build -q -f ./ci/docker/Dockerfile . --build-arg API_VERSION=1.0.0)
 
 release:
-	git tag -a v$(v) -m "Release v$(v)-prerelease+buildmeta"
-	git push origin v$(v)
+	git tag -a v$(version) -m "Release v$(version)-prerelease+buildmeta"
+	git push origin v$(version)
