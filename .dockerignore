@@ -1,39 +1,39 @@
 tmp
-api/ui/.next
-api/ui/dist
-api/ui/node_modules
+client/.next
+client/dist
+client/node_modules
 **/*.exe
 
 # dependencies
-api/ui/node_modules
-api/ui/.pnp
-api/ui/**/.pnp.js
+client/node_modules
+client/.pnp
+client/**/.pnp.js
 
 # testing
-api/ui/coverage
+client/coverage
 
 # next.js
-api/ui/.next
-api/ui/out
+client/.next
+client/out
 
 # production
-api/ui/build
+client/build
 
 # misc
-api/ui/**/.DS_Store
-api/ui/**/*.pem
+client/**/.DS_Store
+client/**/*.pem
 
 # debug
-api/ui/**/npm-debug.log*
-api/ui/**/yarn-debug.log*
-api/ui/**/yarn-error.log*
+client/**/npm-debug.log*
+client/**/yarn-debug.log*
+client/**/yarn-error.log*
 
 # vercel
-api/ui/**/.vercel
+client/**/.vercel
 
 # typescript
-api/ui/**/*.tsbuildinfo
-api/ui/**/next-env.d.ts
+client/**/*.tsbuildinfo
+client/**/next-env.d.ts
 fly.toml
 
 # Binaries for programs and plugins
@@ -54,3 +54,5 @@ fly.toml
 
 # binary
 server-bin
+
+defaultdb
