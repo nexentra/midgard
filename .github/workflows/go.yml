@@ -16,6 +16,22 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '21'
+
+    - name: Install client dependencies
+      run: |
+        cd client
+        yarn install
+
+    - name: Build client
+      run: |
+        cd client
+        yarn build
+        cd ..
+
     - name: Set up Go
       uses: actions/setup-go@v4
       with:
