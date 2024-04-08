@@ -13,7 +13,7 @@ builds:
       - "-s -w -X main.VERSION=$(git describe --tags)"
 
     targets:
-      - darwin_amd64_v1
+      - darwin_arm64
 
     # goos:
     #   - linux
