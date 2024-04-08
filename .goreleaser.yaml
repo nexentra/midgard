@@ -5,11 +5,12 @@ before:
 
 builds:
   - main: ./
-    env:
-      - CGO_ENABLED=0
+    # env:
+      # - CGO_ENABLED=0
     # binary: dist/bin/aesir
     # skip: true
-    ldflags: "-s -w -X main.VERSION=$(git describe --tags)"
+    ldflags: 
+      - "-s -w -X main.VERSION=$(git describe --tags)"
     # goos:
     #   - linux
     #   - darwin
