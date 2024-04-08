@@ -22,7 +22,7 @@ jobs:
         go-version: '1.22'
 
     - name: Build
-      run: go build -o ./out/service -ldflags="-w -s -extldflags '-static'" .
+      run: make builder version=$(git rev-parse --short HEAD)
 
     - name: Test
       run: go test -v ./...
