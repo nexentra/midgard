@@ -11,7 +11,9 @@ coverage
 # next.js
 .next/
 out/
-build
+# ignore everything in build directory except mock.md file
+build/*
+!build/mock.md
 
 # misc
 .DS_Store
