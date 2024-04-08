@@ -11,6 +11,10 @@ builds:
     # skip: true
     ldflags: 
       - "-s -w -X main.VERSION=$(git describe --tags)"
+
+    targets:
+      - darwin_amd64_v1
+
     # goos:
     #   - linux
     #   - darwin
