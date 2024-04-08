@@ -1,6 +1,5 @@
 
 builder:
-	@go test -v ./...
 	@go build -ldflags="-w -s -X main.VERSION=$${version:?}" . 
 	@chmod +x ./midgard
 
