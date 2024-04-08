@@ -12,3 +12,4 @@ dev_client.json
 .DS_Store
 defaultdb
 /build/bin/*
+midgard

@@ -1,6 +1,8 @@
 package routers
 
 import (
+	"github.com/labstack/echo/v4/middleware"
+	"github.com/nexentra/midgard/client"
 	catsHandlers "github.com/nexentra/midgard/pkg/api/handlers/cats"
 	"github.com/nexentra/midgard/pkg/api/handlers/errors"
 	healthHandlers "github.com/nexentra/midgard/pkg/api/handlers/healthz"
@@ -61,6 +63,11 @@ func registerProtectedAPIMiddlewares() {
 	protectedApiRouter.RegisterMiddleware(middlewares.TimeoutMiddleware())
 	protectedApiRouter.RegisterMiddleware(middlewares.RequestHeadersMiddleware())
 	protectedApiRouter.RegisterMiddleware(middlewares.ResponseHeadersMiddleware())
+
+	protectedApiRouter.Echo.Use(middleware.StaticWithConfig(middleware.StaticConfig{
+		Filesystem: frontend.BuildHTTPFS(),
+		HTML5:      true,
+	}))
 
 	if config.Feature(constants.FEATURE_GZIP).IsEnabled() {
 		protectedApiRouter.RegisterMiddleware(middlewares.GzipMiddleware())

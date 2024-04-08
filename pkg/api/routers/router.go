@@ -11,7 +11,6 @@ import (
 	"github.com/nexentra/midgard/pkg/clients/logger"
 	"github.com/nexentra/midgard/pkg/utils/constants"
 
-	// "github.com/labstack/echo/v4/middleware"
 	"github.com/labstack/echo/v4"
 )
 

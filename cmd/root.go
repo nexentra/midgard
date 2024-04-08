@@ -37,8 +37,14 @@ var rootCmd = &cobra.Command{
 // Execute adds all child commands to the root command and sets flags appropriately.
 // This is called by main.main(). It only needs to happen once to the rootCmd.
 func Execute() {
-
 	var cmdFound bool
+	var cmdDefault *string = new(string)
+	*cmdDefault = "app"
+
+	if Version != "" {
+		*cmdDefault = "start"
+	}
+
 	cmd := rootCmd.Commands()
 
 	for _, a := range cmd {
@@ -50,7 +56,7 @@ func Execute() {
 		}
 	}
 	if !cmdFound {
-		args := append([]string{"app"}, os.Args[1:]...)
+		args := append([]string{*cmdDefault}, os.Args[1:]...)
 		rootCmd.SetArgs(args)
 	}
 	if err := rootCmd.Execute(); err != nil {

@@ -4,9 +4,9 @@ import (
 	"github.com/nexentra/midgard/cmd"
 )
 
-var VERSION string = "0.0.1"
+var VERSION string
 
 func main() {
 	cmd.Version = VERSION
-		cmd.Execute()
+	cmd.Execute()
 }

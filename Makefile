@@ -1,6 +1,6 @@
 
-build:
-	@go build -ldflags="-w -s -extldflags '-static' -X main.VERSION=$${version:?}" . 
+builder:
+	@go build -ldflags="-w -s -X main.VERSION=$${version:?}" . 
 	@chmod +x ./midgard
 
 start-dev:
