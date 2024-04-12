@@ -8,6 +8,10 @@ on:
   pull_request:
     branches: [ "main", "dev" ]
 
+
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -66,6 +70,7 @@ jobs:
           args: release --config .goreleaser-for-linux.yaml
         env:
           GITHUB_TOKEN: ${{ secrets.GO_RELEASER_GITHUB_TOKEN }}
+          
   release-darwin-binary:
     runs-on: macos-latest
     if: startsWith(github.ref, 'refs/tags/')
@@ -85,5 +90,3 @@ jobs:
           args: release --config .goreleaser-for-darwin.yaml
         env:
           GITHUB_TOKEN: ${{ secrets.GO_RELEASER_GITHUB_TOKEN }}
-permissions:
-  contents: write
