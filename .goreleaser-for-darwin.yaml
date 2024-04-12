@@ -10,10 +10,8 @@ builds:
     binary: midgard
     ldflags: 
       - -w -s -X main.VERSION={{.Version}}
-
     goos:
       - darwin
-
     goarch:
       - amd64
       - arm64

@@ -15,7 +15,6 @@ builds:
       - windows
     goarch:
       - amd64
-    no_unique_dist_dir: true
 
 checksum:
   disable: true

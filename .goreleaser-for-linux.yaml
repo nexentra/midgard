@@ -14,11 +14,9 @@ builds:
       - release
     goos:
       - linux
-
     goarch:
       - amd64
       - arm64
-    
     overrides:
       - goos: linux
         goarch: arm64
