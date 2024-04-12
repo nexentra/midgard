@@ -7,6 +7,7 @@ builds:
   - main: ./
     env:
       - CGO_ENABLED=1
+      - CC=arm-linux-gnueabihf-gcc
     binary: dist/bin/midgard
     # skip: true
     ldflags: 
