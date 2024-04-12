@@ -20,6 +20,9 @@ builds:
       - amd64
       - arm64
 
+checksum:
+  disable: true
+
 upx:
   - enabled: true
   - compress: best
