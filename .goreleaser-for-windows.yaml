@@ -9,25 +9,13 @@ builds:
       - CGO_ENABLED=1
     binary: midgard
     ldflags: 
-      - -w -s -X main.VERSION={{.Version}}
-    tags:
-      - release
+      - -buildmode=exe
+      - -w -s -X main.build={{.Version}}
     goos:
-      - linux
-
+      - windows
     goarch:
       - amd64
-      - arm64
-    
-    overrides:
-      - goos: linux
-        goarch: arm64
-        env:
-          - CC=aarch64-linux-gnu-gcc
-      - goos: linux
-        goarch: amd64
-        env:
-          - CC=gcc
+    no_unique_dist_dir: true
 
 checksum:
   disable: true
