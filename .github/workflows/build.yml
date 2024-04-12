@@ -65,7 +65,7 @@ jobs:
           distribution: goreleaser
           version: latest
           workdir: .
-          args: release --config .goreleaser-for-darwin.yaml
+          args: release --config ci/config/goreleaser/.goreleaser-for-darwin.yaml
         env:
           GITHUB_TOKEN: ${{ secrets.GO_RELEASER_GITHUB_TOKEN }}
 
@@ -87,7 +87,7 @@ jobs:
           distribution: goreleaser
           version: latest
           workdir: .
-          args: release --config .goreleaser-for-linux.yaml
+          args: release --config ci/config/goreleaser/.goreleaser-for-linux.yaml
         env:
           GITHUB_TOKEN: ${{ secrets.GO_RELEASER_GITHUB_TOKEN }}
 
@@ -107,6 +107,6 @@ jobs:
           distribution: goreleaser
           version: latest
           workdir: .
-          args: release --config .goreleaser-for-windows.yaml
+          args: release --config ci/config/goreleaser/.goreleaser-for-windows.yaml
         env:
           GITHUB_TOKEN: ${{ secrets.GO_RELEASER_GITHUB_TOKEN }}
