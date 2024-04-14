@@ -13,3 +13,4 @@ dev_client.json
 defaultdb
 /build/bin/*
 midgard
+midgard.pem
