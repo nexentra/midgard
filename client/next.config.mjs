@@ -4,6 +4,9 @@ const nextConfig = {
   reactStrictMode: true,
   distDir: 'build',
   swcMinify: true,
+  images: {
+    unoptimized: true,
+  },
 }
 
 export default nextConfig

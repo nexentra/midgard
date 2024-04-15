@@ -5,7 +5,7 @@ COPY /client/package.json /client/yarn.lock ./
 RUN yarn install
 COPY /client .
 COPY /client/.env.local /client/.env.local
-RUN yarn build
+RUN yarn export
 
 # Stage 2: Build the binary
 FROM golang:1.22 AS binary-builder

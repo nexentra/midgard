@@ -4,7 +4,7 @@
   "outputfilename": "midgard",
   "frontend:dir": "./client",
   "frontend:install": "yarn install",
-  "frontend:build": "yarn build",
+  "frontend:build": "yarn export",
   "frontend:dev:watcher": "yarn start",
   "frontend:dev:serverUrl": "http://localhost:3000",
   "author": {

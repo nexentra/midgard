@@ -38,7 +38,7 @@ jobs:
     - name: Build client
       run: |
         cd client
-        yarn build
+        yarn export
         cd ..
 
     - name: Set up Go
