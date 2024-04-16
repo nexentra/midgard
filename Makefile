@@ -27,7 +27,7 @@ doc-gen:
 	cd ..
 
 docker-run:
-	docker run -d --rm -it -p 8081:8081 -p 8080:8080 -p 8079:8079  $$(docker build -q -f ./ci/docker/Dockerfile . --build-arg APP_VERSION=PRODUCTION)
+	docker run -d --rm -it -p 8000:8000 -p 8081:8081 -p 8080:8080 -p 8079:8079  $$(docker build -q -f ./ci/docker/Dockerfile . --build-arg APP_VERSION=PRODUCTION)
 
 release:
 	git tag -a v$(version) -m "Release v$(version)"

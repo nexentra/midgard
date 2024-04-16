@@ -40,6 +40,7 @@ func init() {
 	// Set global flags
 	startCmd.PersistentFlags().BoolVar(&config.StartWatcherFlag, "watcher", false, "Start watcher daemon in background")
 	startCmd.PersistentFlags().StringVarP(&config.HostFlag, "host", "H", "", "Service host")
+	startCmd.PersistentFlags().StringVar(&config.PrimaryPortFlag, "primary-api-port", "", "Primary API Service port")
 	startCmd.PersistentFlags().StringVar(&config.ProtectedPortFlag, "protected-api-port", "", "Protected API Service port")
 	startCmd.PersistentFlags().StringVar(&config.PublicPortFlag, "public-api-port", "", "Public API Service port")
 	startCmd.PersistentFlags().StringVar(&config.HiddenPortFlag, "hidden-api-port", "", "Hidden API Service port")
@@ -75,5 +76,6 @@ func execStartCmd(cmd *cobra.Command, args []string) {
 	cmd.Flags().Set("watcher", "false")
 	go start.HiddenApiCmd.Run(cmd, args)
 	go start.PublicApiCmd.Run(cmd, args)
-	start.ProtectedApiCmd.Run(cmd, args)
+	go start.ProtectedApiCmd.Run(cmd, args)
+	start.PrimaryApiCmd.Run(cmd, args)
 }

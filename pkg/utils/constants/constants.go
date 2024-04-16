@@ -7,6 +7,7 @@ import (
 const (
 	// defaults
 	DEFAULT_PROTECTED_API_PORT       string = "8080"
+	DEFAULT_PRIMARY_API_PORT         string = "8000"
 	DEFAULT_PUBLIC_API_PORT          string = "8081"
 	DEFAULT_HIDDEN_API_PORT          string = "8079"
 	DEFAULT_HOST                     string = "0.0.0.0"

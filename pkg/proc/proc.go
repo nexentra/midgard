@@ -115,6 +115,16 @@ func PrintProtectedRoutesTable() {
 	fmt.Println(t.Render())
 }
 
+func PrintPrimaryRoutesTable() {
+	routers.InitPrimaryAPIRouter()
+	routes := routers.PrimaryAPIRouter().Echo.Routes()
+
+	t := utils.PrepareRoutesTable(routes, "Primary API Routes")
+	utils.SetTableBorderStyle(t, config.NoBorderFlag)
+
+	fmt.Println(t.Render())
+}
+
 func PrintPublicRoutesTable() {
 	routers.InitPublicAPIRouter()
 	routes := routers.PublicAPIRouter().Echo.Routes()

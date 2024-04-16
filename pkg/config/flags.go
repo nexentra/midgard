@@ -25,6 +25,11 @@ var HostFlag string
 // description: Set the protected api port for the server. Overrides env var PORT
 var ProtectedPortFlag string
 
+// Flag: 				PrimaryPortFlag (string)
+// default: 		""
+// description: Set the primary api port for the server. Overrides env var PORT
+var PrimaryPortFlag string
+
 // Flag: 				PublicPortFlag (string)
 // default: 		""
 // description: Set the public api port for the server. Overrides env var PORT

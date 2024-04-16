@@ -27,6 +27,7 @@ func init() {
 	infoCmd.AddCommand(info.HiddenApiRoutesCmd)
 	infoCmd.AddCommand(info.ProtectedApiRoutesCmd)
 	infoCmd.AddCommand(info.PublicApiRoutesCmd)
+	infoCmd.AddCommand(info.PrimaryApiRoutesCmd)
 	infoCmd.AddCommand(versionCmd)
 
 	infoCmd.PersistentPreRun = func(cmd *cobra.Command, args []string) {

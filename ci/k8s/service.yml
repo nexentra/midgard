@@ -8,7 +8,10 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-    - name: puclic-api
+    - name: primary-api
+      port: 8000
+      targetPort: 8000
+    - name: public-api
       port: 8081
       targetPort: 8081
     - name: protected-api

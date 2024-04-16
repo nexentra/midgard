@@ -75,6 +75,7 @@ func (c *EnvVars) registerFieldsMapstructure(vOfConfig reflect.Value) {
 func (c *EnvVars) setDefaults() {
 	logger.Info("Configuring default settings ...")
 	viper.SetDefault("HOST", constants.DEFAULT_HOST)
+	viper.SetDefault("PRIMARY_API_PORT", constants.DEFAULT_PRIMARY_API_PORT)
 	viper.SetDefault("PROTECTED_API_PORT", constants.DEFAULT_PROTECTED_API_PORT)
 	viper.SetDefault("PUBLIC_API_PORT", constants.DEFAULT_PUBLIC_API_PORT)
 	viper.SetDefault("HIDDEN_API_PORT", constants.DEFAULT_HIDDEN_API_PORT)
@@ -95,6 +96,9 @@ func (c *EnvVars) setDefaults() {
 func (c *EnvVars) OverrideUsingFlags() {
 	if HostFlag != "" {
 		c.Service.Host = HostFlag
+	}
+	if PrimaryPortFlag != "" {
+		c.Service.PrimaryApiPort = PrimaryPortFlag
 	}
 	if ProtectedPortFlag != "" {
 		c.Service.ProtectedApiPort = ProtectedPortFlag

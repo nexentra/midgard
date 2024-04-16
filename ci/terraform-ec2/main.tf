@@ -5,6 +5,13 @@ provider "aws" {
 resource "aws_security_group" "midgard" {
   name_prefix = "midgard"
 
+ ingress {
+    from_port   = 8000
+    to_port     = 8000
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   ingress {
     from_port   = 8081
     to_port     = 8081

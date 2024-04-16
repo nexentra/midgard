@@ -6,6 +6,7 @@ import (
 
 type ServiceConfig struct {
 	Host                   string `mapstructure:"HOST"`
+	PrimaryApiPort         string `mapstructure:"PRIMARY_API_PORT"`
 	ProtectedApiPort       string `mapstructure:"PROTECTED_API_PORT"`
 	PublicApiPort          string `mapstructure:"PUBLIC_API_PORT"`
 	HiddenApiPort          string `mapstructure:"HIDDEN_API_PORT"`
@@ -23,6 +24,7 @@ var service = &Feature{
 	ready:      false,
 	requirements: []string{
 		"Host",
+		"PrimaryApiPort",
 		"ProtectedApiPort",
 		"PublicApiPort",
 		"HiddenApiPort",

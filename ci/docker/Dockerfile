@@ -19,6 +19,7 @@ COPY .env .
 # RUN go run . db migrate && go run . db seed 
 RUN go get -d -v \
 && CGO_ENABLED=1 GOOS=linux go build -o ./midgard -ldflags="-w -s -X main.VERSION=$APP_VERSION" .
+EXPOSE 8000
 EXPOSE 8081
 EXPOSE 8080
 EXPOSE 8079
