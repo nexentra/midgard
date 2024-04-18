@@ -1,6 +1,7 @@
 package routers
 
 import (
+	"github.com/clerk/clerk-sdk-go/v2"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/nexentra/midgard/client"
 	catsHandlers "github.com/nexentra/midgard/pkg/api/handlers/cats"
@@ -8,6 +9,7 @@ import (
 	healthHandlers "github.com/nexentra/midgard/pkg/api/handlers/healthz"
 	usersHandlers "github.com/nexentra/midgard/pkg/api/handlers/users"
 	"github.com/nexentra/midgard/pkg/api/middlewares"
+	clerkClient "github.com/nexentra/midgard/pkg/clients/clerk"
 	"github.com/nexentra/midgard/pkg/clients/logger"
 	"github.com/nexentra/midgard/pkg/config"
 	"github.com/nexentra/midgard/pkg/utils/constants"
@@ -80,6 +82,12 @@ func registerPrimaryApiDevModeMiddleware() {
 
 func registerPrimaryApiSecurityMiddlewares() {
 	primaryApiRouter.RegisterMiddleware(middlewares.XSSCheckMiddleware())
+
+	if config.Feature(constants.FEATURE_CLERK).IsEnabled() {
+		clerkCli := clerkClient.GetClient()
+		clerkConfig := clerkCli.GetConfig()
+		clerk.SetKey(clerkConfig.SecretKey)
+	}
 
 	if config.Feature(constants.FEATURE_CORS).IsEnabled() {
 		primaryApiRouter.RegisterMiddleware(middlewares.CORSMiddleware())

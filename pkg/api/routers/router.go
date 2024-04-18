@@ -8,10 +8,10 @@ import (
 	"os/signal"
 	"time"
 
+	"github.com/labstack/echo/v4"
+	// "github.com/labstack/echo/v4/middleware"
 	"github.com/nexentra/midgard/pkg/clients/logger"
 	"github.com/nexentra/midgard/pkg/utils/constants"
-
-	"github.com/labstack/echo/v4"
 )
 
 type Router struct {

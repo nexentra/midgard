@@ -14,7 +14,7 @@ export default function IndexPage() {
   const { getToken } = useAuth()
 
   const authenticatedFetch = async () => {
-    return fetch("http://127.0.0.1:8081/cats/protected", {
+    return fetch("http://127.0.0.1:8080/cats", {
       headers: { Authorization: `Bearer ${await getToken()}` },
     }).then((res) => res.json())
   }
@@ -43,6 +43,12 @@ export default function IndexPage() {
         </p>
       </div>
       <div className="flex gap-4">
+      <Link
+          href={'sign-up'}
+          className={buttonVariants()}
+        >
+          Sign Up
+        </Link>
         <Link
           href={siteConfig.links.docs}
           target="_blank"

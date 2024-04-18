@@ -27,6 +27,7 @@ const (
 	// features
 	FEATURE_SERVICE    string = "service"
 	FEATURE_ORY_KRATOS string = "ory_kratos"
+	FEATURE_CLERK      string = "clerk"
 	FEATURE_ORY_KETO   string = "ory_keto"
 	FEATURE_DATABASE   string = "database"
 	FEATURE_CORS       string = "cors"
@@ -42,6 +43,7 @@ const (
 	// names, specific to this application
 	NAME_HEALTH_PATH       string = "/alive"
 	NAME_HEALTH_READY_PATH string = "/ready"
+	NAME_SWAGGER_PATH      string = "/swagger"
 	NAME_CORS_CONFIG       string = "CORSAllowOrigins"
 	NAME_TIMEOUT_DURATION  string = "RequestTimeoutDuration"
 	NAME_CMD_DB_MIGRATE    string = "migrate"

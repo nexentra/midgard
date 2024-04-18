@@ -18,7 +18,7 @@ func init() {
 		ServiceName: "midgard",
 		Features:    &features.Features,
 		EnvVars:     &EnvVars{},
-		Version:     "0.0.1",
+		Version:     "dev",
 	}
 }
 

@@ -20,6 +20,7 @@ type EnvVars struct {
 	Service         features.ServiceConfig  `mapstructure:",squash"`
 	Database        features.DatabaseConfig `mapstructure:",squash"`
 	Kratos          features.KratosConfig   `mapstructure:",squash"`
+	Clerk           features.ClerkConfig    `mapstructure:",squash"`
 	Keto            features.KetoConfig     `mapstructure:",squash"`
 	Redis           features.RedisConfig    `mapstructure:",squash"`
 	Cors            features.CorsConfig     `mapstructure:",squash"`

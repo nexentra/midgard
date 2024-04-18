@@ -53,7 +53,7 @@ require (
 require (
 	github.com/KyleBanks/depth v1.2.1 // indirect
 	github.com/bwmarrin/snowflake v0.3.0 // indirect
-	github.com/clerk/clerk-sdk-go/v2 v2.0.0
+	github.com/clerk/clerk-sdk-go/v2 v2.0.3
 	github.com/fsnotify/fsnotify v1.7.0 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.3 // indirect
 	github.com/ghodss/yaml v1.0.0 // indirect
