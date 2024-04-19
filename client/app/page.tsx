@@ -14,7 +14,7 @@ export default function IndexPage() {
   const { getToken } = useAuth()
 
   const authenticatedFetch = async () => {
-    return fetch("http://127.0.0.1:8080/cats", {
+    return fetch("http://127.0.0.1:8000/api/private/cats", {
       headers: { Authorization: `Bearer ${await getToken()}` },
     }).then((res) => res.json())
   }

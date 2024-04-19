@@ -9,7 +9,6 @@ import (
 	"time"
 
 	"github.com/labstack/echo/v4"
-	// "github.com/labstack/echo/v4/middleware"
 	"github.com/nexentra/midgard/pkg/clients/logger"
 	"github.com/nexentra/midgard/pkg/utils/constants"
 )
@@ -23,12 +22,6 @@ func (r *Router) Init() {
 	r.Echo = echo.New()
 	r.Echo.HideBanner = true
 	r.Echo.Logger = logger.GetLogger()
-	// r.Echo.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-	// 	AllowCredentials: true,
-	// 	AllowMethods:     []string{http.MethodGet, http.MethodPost, http.MethodOptions, http.MethodPut, http.MethodDelete},
-	// 	AllowOrigins:     []string{"*", "localhost:3000"},
-	// 	AllowHeaders:     []string{"Content-Type", "Authorization", "Bearer", "Bearer ", "content-type", "authorization", "Origin", "Accept"},
-	// }))
 }
 
 func (r *Router) RegisterPreMiddleware(middleware echo.MiddlewareFunc) {
