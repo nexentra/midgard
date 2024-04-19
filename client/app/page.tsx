@@ -43,10 +43,7 @@ export default function IndexPage() {
         </p>
       </div>
       <div className="flex gap-4">
-      <Link
-          href={'sign-up'}
-          className={buttonVariants()}
-        >
+        <Link href={"sign-up"} className={buttonVariants()}>
           Sign Up
         </Link>
         <Link

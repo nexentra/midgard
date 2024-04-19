@@ -1,17 +1,17 @@
 import Image from "next/image"
 
 async function getData() {
-    const res = await fetch('https://dog.ceo/api/breeds/image/random')
-   
-    if (!res.ok) {
-      throw new Error('Failed to fetch data')
-    }
-   
-    return res.json()
+  const res = await fetch("https://dog.ceo/api/breeds/image/random")
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch data")
   }
 
+  return res.json()
+}
+
 export default async function Page() {
-    const data = await getData()
+  const data = await getData()
 
   return (
     <div>
@@ -19,4 +19,3 @@ export default async function Page() {
     </div>
   )
 }
-  
