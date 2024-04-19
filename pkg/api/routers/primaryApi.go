@@ -109,14 +109,13 @@ func registerPrimaryApiErrorHandlers() {
 }
 
 func registerPrimaryApiHealthCheckHandlers() {
-	health := primaryApiRouter.Echo.Group("/primary-health")
+	health := primaryApiRouter.Echo.Group("/health")
 	health.GET("/alive", healthHandlers.Index)
 	health.GET("/ready", healthHandlers.Ready)
 }
 
 func registerPrimaryAPIRoutes() {
-	primaryApiRouter.Echo.Group("/primary")
-	cats := primaryApiRouter.Echo.Group("/primary-cats")
+	cats := primaryApiRouter.Echo.Group("/cats")
 	cats.GET("", catsHandlers.Index)
 	cats.GET("/:id", catsHandlers.Get)
 	cats.POST("", catsHandlers.Post)
