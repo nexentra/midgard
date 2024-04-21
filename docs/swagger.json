@@ -15,7 +15,7 @@
         },
         "version": "0.0.1"
     },
-    "host": "localhost:8081",
+    "host": "localhost:8000",
     "basePath": "/",
     "paths": {
         "/cats/{id}": {

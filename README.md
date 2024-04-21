@@ -93,6 +93,8 @@ make docs-gen
 
 This command will generate the Swagger and Orval API types, documentations and client.
 
+View the Swagger UI at `http://localhost:8000/api/swagger/index.html`.
+
 ### Deployment
 
 #### Binary Distribution

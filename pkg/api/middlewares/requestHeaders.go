@@ -13,7 +13,7 @@ import (
 func RequestHeadersMiddleware() echo.MiddlewareFunc {
 	return func(next echo.HandlerFunc) echo.HandlerFunc {
 		return func(c echo.Context) error {
-			if strings.HasPrefix(c.Request().URL.Path, "/swagger/") {
+			if strings.HasPrefix(c.Request().URL.Path, "/api/swagger/") {
 				return next(c)
 			}
 

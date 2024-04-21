@@ -40,10 +40,8 @@ export const getGetCatsIdQueryOptions = <
 >(
   id: string,
   options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof getCatsId>>,
-      TError,
-      TData
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof getCatsId>>, TError, TData>
     >
     axios?: AxiosRequestConfig
   }
@@ -80,10 +78,8 @@ export const useGetCatsId = <
 >(
   id: string,
   options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof getCatsId>>,
-      TError,
-      TData
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof getCatsId>>, TError, TData>
     >
     axios?: AxiosRequestConfig
   }

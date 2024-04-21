@@ -1,7 +1,6 @@
 package routers
 
 import (
-	_ "github.com/nexentra/midgard/docs"
 	catsHandlers "github.com/nexentra/midgard/pkg/api/handlers/cats"
 	"github.com/nexentra/midgard/pkg/api/handlers/errors"
 	healthHandlers "github.com/nexentra/midgard/pkg/api/handlers/healthz"
@@ -9,7 +8,6 @@ import (
 	"github.com/nexentra/midgard/pkg/clients/logger"
 	"github.com/nexentra/midgard/pkg/config"
 	"github.com/nexentra/midgard/pkg/utils/constants"
-	"github.com/swaggo/echo-swagger"
 )
 
 var publicApiRouter *Router
@@ -38,10 +36,6 @@ func InitPublicAPIRouter() {
 	// next register security related middleware
 	logger.Debug("Registering public api security middlewares ...")
 	registerPublicApiSecurityMiddlewares()
-
-	// next register swagger docs
-	logger.Debug("Registering public api swagger docs ...")
-	registerPublicApiSwaggerDocs()
 
 	// next register all routes
 	logger.Debug("Registering public api public routes ...")
@@ -94,27 +88,6 @@ func registerPublicApiHealthCheckHandlers() {
 	health := publicApiRouter.Echo.Group("/health")
 	health.GET("/alive", healthHandlers.Index)
 	health.GET("/ready", healthHandlers.Ready)
-}
-
-//	@title			Midgard API Documentation
-//	@version		0.0.1
-//	@description	This a documentation for the Midgard API.
-//	@termsOfService	http://swagger.io/terms/
-
-//	@contact.name	API Support
-//	@contact.url	http://www.swagger.io/support
-//	@contact.email	support@swagger.io
-
-//	@license.name	Apache 2.0
-//	@license.url	http://www.apache.org/licenses/LICENSE-2.0.html
-
-//	@host		localhost:8081
-//	@BasePath	/
-
-// @externalDocs.description	OpenAPI
-// @externalDocs.url			https://swagger.io/resources/open-api/
-func registerPublicApiSwaggerDocs() {
-	publicApiRouter.Echo.GET("/swagger/*", echoSwagger.WrapHandler)
 }
 
 func registerPublicAPIRoutes() {
