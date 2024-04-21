@@ -4,14 +4,16 @@ This is a comprehensive boilerplate project that combines a Go backend with a Ty
 
 ## Technologies and Features
 
-- **Backend**:
+#### Backend:
+
 - Go language
 - Labstack Echo framework
 - Gorm ORM (supports SQLite, PostgreSQL, MySQL)
 - Swagger for API documentation
 - Automated GitHub releases with GoReleaser
 
-- **Frontend**:
+#### Frontend:
+
 - TypeScript/JavaScript
 - Next.js 14
 - Shadcn UI + Tailwind CSS for UI
@@ -20,13 +22,15 @@ This is a comprehensive boilerplate project that combines a Go backend with a Ty
 - Wails for macOS, Windows, and Linux native app export
 - Orval for generating types and API clients from Swagger specs
 
-- **CI/CD**:
+#### CI/CD:
+
 - GitHub Actions for testing, code build checks, automated releases
 - Codacy for code quality analysis
 - CodeQL for security scans
 - Fully dockerized builds with Dockerfiles and Docker Compose
 
-- **Infrastructure**:
+#### Infrastructure:
+
 - Terraform for automated EC2 instance creation and deployment
 
 ## Getting Started
