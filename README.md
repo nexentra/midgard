@@ -27,10 +27,10 @@ This is a comprehensive boilerplate project that combines a Go backend with a Ty
 - GitHub Actions for testing, code build checks, automated releases
 - Codacy for code quality analysis
 - CodeQL for security scans
-- Fully dockerized builds with Dockerfiles and Docker Compose
 
 #### Infrastructure:
 
+- Fully dockerized builds with Dockerfiles and Docker Compose
 - Terraform for automated EC2 instance creation and deployment
 
 ## Getting Started
