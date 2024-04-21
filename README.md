@@ -2,7 +2,7 @@
 
 This is a comprehensive boilerplate project that combines a Go backend with a TypeScript/JavaScript frontend, featuring a wide range of technologies and features for building robust and scalable applications.
 
-## Features
+## Technologies and Features
 
 - **Backend**:
 - Go language
