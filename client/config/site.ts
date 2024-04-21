@@ -2,7 +2,8 @@ export type SiteConfig = typeof siteConfig
 
 export const siteConfig = {
   name: "Midgard",
-  description: "A free Headless CMS",
+  description:
+    "A boilerplate for building Go + Typescript/Javascript applications",
   mainNav: [
     {
       title: "Home",
@@ -10,8 +11,8 @@ export const siteConfig = {
     },
   ],
   links: {
-    twitter: "https://twitter.com/shadcn",
-    github: "https://github.com/shadcn/ui",
-    docs: "https://ui.shadcn.com",
+    facebook: "https://www.facebook.com/towhid.khan.9699",
+    github: "https://github.com/KnockOutEZ",
+    docs: "https://github.com/nexentra/midgard",
   },
 }

@@ -11,7 +11,7 @@ import (
 //go:embed all:build
 var BuildFs embed.FS
 
-//go:embed build/favicon.ico
+//go:embed public/favicon.ico
 var Icon []byte
 
 // Get the subtree of the embedded files with `build` directory as a root.

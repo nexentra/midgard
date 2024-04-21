@@ -1,3 +1,16 @@
+setup:
+	@cp .env.sample .env && cp client/.env.example client/.env.local
+	@go mod download
+	@cd client && yarn install && cd ..
+
+run:
+	@sh ./scripts/run.sh
+
+run-client:
+	@sh ./scripts/run.sh
+
+run-server:
+	@sh ./scripts/run.sh
 
 builder:
 	@go build -ldflags="-w -s -X main.VERSION=$${version:?}" . 

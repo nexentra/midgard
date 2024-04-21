@@ -15,8 +15,8 @@
     "Javascript",
     "Go"
   ],
-  "author": "Lea Anthony <lea.anthony@gmail.com>",
-  "license": "MIT",
+  "author": "Towhid Khan <ktowhid20@gmail.com>",
+  "license": "BSD",
   "bugs": {
     "url": "https://github.com/wailsapp/wails/issues"
   },

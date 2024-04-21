@@ -47,6 +47,15 @@ func Execute() {
 
 	cmd := rootCmd.Commands()
 
+	if len(os.Args) > 1 && os.Args[1] == "help" {
+        // If it is, execute rootCmd directly
+        if err := rootCmd.Execute(); err != nil {
+            os.Exit(1)
+        }
+        return
+    }
+
+
 	for _, a := range cmd {
 		for _, b := range os.Args[1:] {
 			if a.Name() == b {

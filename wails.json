@@ -11,10 +11,10 @@
     "name": "KnockOutEZ",
     "email": "ktowhid20@gmail.com"
   },
-  "license": "MIT",
+  "license": "BSD",
   "info": {
     "name": "Midgard",
-    "description": "A mini open-source Headless CMS.",
+    "description": "A boilerplate for building Go + Typescript/Javascript applications",
     "homepage": "https://github.com/nexentra/midgard",
     "repository": "https://github.com/nexentra/midgard",
     "bugs": {
@@ -27,7 +27,7 @@
         "url": "https://github.com/KnockOutEZ"
       }
     ],
-    "license": "MIT",
+    "license": "BSD",
     "version": "2.0.0",
     "wails": {
       "name": "Midgard"

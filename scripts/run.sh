@@ -24,7 +24,7 @@ if [ "$run_frontend" = true ]; then
 fi
 
 if [ "$run_backend" = true ]; then
-    tmux send -t 0:0.1 "GOFLAGS=-mod=mod go run ./" C-m
+    tmux send -t 0:0.1 "GOFLAGS=-mod=mod go run ./ start" C-m
 fi
 
 tmux -2 attach-session -d
