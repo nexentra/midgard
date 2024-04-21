@@ -43,11 +43,9 @@ This is a comprehensive boilerplate project that combines a Go backend with a Ty
 
 ### Local Development
 
-1. Clone the repository:
+0. Create a new repository from the [template](https://github.com/nexentra/midgard.git).
 
-```bash
-git clone https://github.com/nexentra/midgard.git
-```
+1. Clone the repository.
 
 2. Run the setup script:
 
