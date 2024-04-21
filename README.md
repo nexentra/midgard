@@ -145,6 +145,47 @@ terraform apply
 terraform destroy
 ```
 
+#### IOS and Android Native App Export
+
+Before exporting the iOS and Android native apps, make sure you have installed XCode (for IOS) and Android Studio (for Android).
+
+To export the IOS and Android native apps, follow these steps:
+
+```bash
+# change directory to the client directory
+cd client
+
+# Add the native platforms
+npx cap add ios
+npx cap add android
+
+# build the web app
+yarn export
+
+# sync the capacitor
+npx cap sync
+
+# open the native apps in xcode and android to build
+npx cap open ios
+npx cap open android
+```
+
+#### macOS, Linux, and Windows Native App Export
+
+Before exporting the macOS, Linux, and Windows native apps, make sure you have installed the [Wails](https://wails.io) and it's required dependencies based on your platform. Also you need XCode for the MacOS native app.
+
+To export the macOS, Linux, and Windows native apps, follow these steps:
+
+```bash
+# change directory to the scripts/build-wails directory
+cd scripts/build-wails
+
+# You need to Run the sh scripts based your platform and release types
+# For example if you want to build the universal macOS native app, you need to run:
+sudo sh ./scripts/build-wails/build-macos.sh
+```
+
+
 ### CI/CD
 
 #### Configure GitHub Actions for CI/CD
