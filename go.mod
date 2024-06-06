@@ -1,8 +1,8 @@
 module github.com/nexentra/midgard
 
-go 1.22.0
+go 1.22.1
 
-toolchain go1.22.1
+toolchain go1.22.2
 
 require (
 	github.com/go-gormigrate/gormigrate/v2 v2.1.1
@@ -25,6 +25,8 @@ require (
 
 require (
 	github.com/bep/debounce v1.2.1 // indirect
+	github.com/cespare/xxhash v1.1.0 // indirect
+	github.com/creativecreature/sturdyc v0.4.4 // indirect
 	github.com/go-jose/go-jose/v3 v3.0.1 // indirect
 	github.com/go-ole/go-ole v1.2.6 // indirect
 	github.com/godbus/dbus/v5 v5.1.0 // indirect

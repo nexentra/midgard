@@ -2,32 +2,38 @@ package constants
 
 import (
 	"errors"
+	"time"
 )
 
 const (
 	// defaults
-	DEFAULT_PROTECTED_API_PORT       string = "8080"
-	DEFAULT_PRIMARY_API_PORT         string = "8000"
-	DEFAULT_PUBLIC_API_PORT          string = "8081"
-	DEFAULT_HIDDEN_API_PORT          string = "8079"
-	DEFAULT_HOST                     string = "0.0.0.0"
-	DEFAULT_DEV_HOST                 string = "127.0.0.1"
-	DEFAULT_LOG_LEVEL                string = "warn"
-	DEFAULT_DEV_LOG_LEVEL            string = "debug"
-	DEFAULT_CORS_ALLOW_ORIGINS       string = "*"
-	DEFAULT_DB_PLATFORM              string = DB_PLATFORM_SQLITE
-	DEFAULT_DB_TIMEZONE              string = DB_TIMEZONE_UTC
-	DEFAULT_DB_SSL_MODE              string = DB_SSL_MODE_DISABLED
-	DEFAULT_SQLITE_DB_NAME           string = "sqlite.db"
-	DEFAULT_LOGGER_TIMESTAMP_FORMAT  string = "2006-01-02 15:04:05.00000"
-	DEFAULT_REQUEST_TIMEOUT_DURATION int    = 60   // seconds
-	DEFAULT_WATCHER_SLEEP_INTERVAL   int    = 5000 // milliseconds
-	DEFAULT_GZIP_LEVEL               int    = 5
+	DEFAULT_PROTECTED_API_PORT          string        = "8080"
+	DEFAULT_PRIMARY_API_PORT            string        = "8000"
+	DEFAULT_PUBLIC_API_PORT             string        = "8081"
+	DEFAULT_HIDDEN_API_PORT             string        = "8079"
+	DEFAULT_HOST                        string        = "0.0.0.0"
+	DEFAULT_DEV_HOST                    string        = "127.0.0.1"
+	DEFAULT_LOG_LEVEL                   string        = "warn"
+	DEFAULT_DEV_LOG_LEVEL               string        = "debug"
+	DEFAULT_CORS_ALLOW_ORIGINS          string        = "*"
+	DEFAULT_DB_PLATFORM                 string        = DB_PLATFORM_SQLITE
+	DEFAULT_DB_TIMEZONE                 string        = DB_TIMEZONE_UTC
+	DEFAULT_DB_SSL_MODE                 string        = DB_SSL_MODE_DISABLED
+	DEFAULT_SQLITE_DB_NAME              string        = "sqlite.db"
+	DEFAULT_LOGGER_TIMESTAMP_FORMAT     string        = "2006-01-02 15:04:05.00000"
+	DEFAULT_REQUEST_TIMEOUT_DURATION    int           = 60   // seconds
+	DEFAULT_WATCHER_SLEEP_INTERVAL      int           = 5000 // milliseconds
+	DEFAULT_GZIP_LEVEL                  int           = 5
+	DEFAULT_STURDYC_CAPACITY            int           = 10000
+	DEFAULT_STURDYC_SHARD_NUMBERS       int           = 10
+	DEFAULT_STURDYC_EVICTION_PERCENTAGE int           = 10
+	DEFAULT_STURDYC_TTL                 time.Duration = 2 * time.Hour
 
 	// features
 	FEATURE_SERVICE    string = "service"
 	FEATURE_ORY_KRATOS string = "ory_kratos"
 	FEATURE_CLERK      string = "clerk"
+	FEATURE_STURDYC    string = "sturdyc"
 	FEATURE_ORY_KETO   string = "ory_keto"
 	FEATURE_DATABASE   string = "database"
 	FEATURE_CORS       string = "cors"

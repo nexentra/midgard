@@ -62,6 +62,7 @@ func execStartPersistentPreRun() {
 	proc.ConfigureClients()
 	proc.InitDbConnection()
 	proc.InitModels()
+	proc.InitSturdycIntClient()
 	// You can initialize other features here ...
 	// this will run before any command, make sure to put only global initializations here
 	// to avoid running into nil pointers or undefined variables

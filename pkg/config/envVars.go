@@ -21,6 +21,7 @@ type EnvVars struct {
 	Database        features.DatabaseConfig `mapstructure:",squash"`
 	Kratos          features.KratosConfig   `mapstructure:",squash"`
 	Clerk           features.ClerkConfig    `mapstructure:",squash"`
+	Sturdyc         features.SturdycConfig  `mapstructure:",squash"`
 	Keto            features.KetoConfig     `mapstructure:",squash"`
 	Redis           features.RedisConfig    `mapstructure:",squash"`
 	Cors            features.CorsConfig     `mapstructure:",squash"`
@@ -88,6 +89,11 @@ func (c *EnvVars) setDefaults() {
 	viper.SetDefault("DB_NAME", constants.DEFAULT_SQLITE_DB_NAME)
 	viper.SetDefault("DB_SSL_MODE", constants.DEFAULT_DB_SSL_MODE)
 	viper.SetDefault("DB_TIMEZONE", constants.DEFAULT_DB_TIMEZONE)
+
+	viper.SetDefault("STURDYC_CAPACITY", constants.DEFAULT_STURDYC_CAPACITY)
+	viper.SetDefault("STURDYC_SHARD_NUMBERS", constants.DEFAULT_STURDYC_SHARD_NUMBERS)
+	viper.SetDefault("STURDYC_EVICTION_PERCENTAGE", constants.DEFAULT_STURDYC_EVICTION_PERCENTAGE)
+	viper.SetDefault("STURDYC_TTL", constants.DEFAULT_STURDYC_TTL)
 
 	viper.SetDefault("CORS_ALLOW_ORIGINS", constants.DEFAULT_CORS_ALLOW_ORIGINS)
 

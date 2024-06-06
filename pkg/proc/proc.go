@@ -6,6 +6,7 @@ import (
 	"github.com/nexentra/midgard/pkg/api/routers"
 	clientsPkg "github.com/nexentra/midgard/pkg/clients"
 	"github.com/nexentra/midgard/pkg/clients/clerk"
+	"github.com/nexentra/midgard/pkg/clients/sturdyc"
 	"github.com/nexentra/midgard/pkg/clients/cors"
 	"github.com/nexentra/midgard/pkg/clients/dbc"
 	"github.com/nexentra/midgard/pkg/clients/gzip"
@@ -36,6 +37,7 @@ func InitClients() {
 	InitDbClient()
 	InitOryKratosClient()
 	InitClerkClient()
+	InitSturdycClient()
 	// ...
 }
 
@@ -91,6 +93,17 @@ func InitClerkClient() {
 	client := clerk.GetClient()
 	logger.Debug("Activating %s client ...", client.Name())
 	addClient(client)
+}
+
+func InitSturdycClient() {
+	client := sturdyc.GetClient()
+	logger.Debug("Activating %s client ...", client.Name())
+	addClient(client)
+}
+
+func InitSturdycIntClient() {
+	logger.Debug("Initializing sturdyc int connection ...")
+	sturdyc.GetClient().CreateIntClient()
 }
 
 func InitDbConnection() {
